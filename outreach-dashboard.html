@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outreach Command Centre | Purposeful Profits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0f1c;--bg2:#111827;--bg3:#1a2236;--bg4:#232d44;
+  --teal:#00e5a0;--coral:#ff6b6b;--gold:#ffd700;--blue:#3b82f6;
+  --purple:#a78bfa;--white:#f0f4f8;--muted:#7a8ba7;
+  --font:'Space Grotesk',sans-serif;--body:'DM Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:100vh;
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);
+  background-size:32px 32px;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+
+/* LAYOUT */
+.container{max-width:1440px;margin:0 auto;padding:1.5rem 2rem}
+
+/* TOP BAR */
+.top-bar{display:flex;justify-content:space-between;align-items:center;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+.top-bar h1{font-size:1.6rem;font-weight:700;letter-spacing:-0.5px}
+.top-bar h1 span{color:var(--teal)}
+.top-bar-date{color:var(--muted);font-size:.85rem;font-family:var(--mono)}
+
+/* QUICK STATS */
+.quick-stats{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.qs-item{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.75rem 1.25rem;flex:1;min-width:160px;text-align:center;transition:border-color .2s}
+.qs-item:hover{border-color:rgba(0,229,160,.25)}
+.qs-label{font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;font-weight:500}
+.qs-value{font-size:1.4rem;font-weight:700;font-family:var(--mono)}
+.qs-value.teal{color:var(--teal)}.qs-value.coral{color:var(--coral)}.qs-value.gold{color:var(--gold)}.qs-value.purple{color:var(--purple)}
+
+/* SECTION TITLES */
+.section-title{font-size:.85rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:2.5rem 0 1.25rem;padding-bottom:.65rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:.6rem}
+.section-title .icon{font-size:1rem}
+
+/* FUNNEL */
+.funnel-wrap{display:flex;align-items:stretch;gap:0;margin-bottom:.5rem;overflow-x:auto;padding-bottom:.5rem}
+.funnel-stage{flex:1;min-width:120px;position:relative;text-align:center;padding:1.25rem .75rem;border:1px solid rgba(255,255,255,.04);cursor:pointer;transition:all .25s}
+.funnel-stage:first-child{border-radius:12px 0 0 12px}
+.funnel-stage:last-child{border-radius:0 12px 12px 0}
+.funnel-stage:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.12)}
+.funnel-stage .f-count{font-size:1.5rem;font-weight:700;font-family:var(--mono);margin-bottom:.25rem}
+.funnel-stage .f-label{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:.4rem;font-weight:500}
+.funnel-stage .f-conv{font-size:.65rem;color:var(--muted);font-family:var(--mono)}
+.funnel-arrow{position:absolute;right:-8px;top:50%;transform:translateY(-50%);z-index:2;color:var(--muted);font-size:.7rem;opacity:.5}
+/* Funnel tooltip */
+.funnel-tooltip{display:none;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:var(--bg4);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:.75rem 1rem;font-size:.75rem;white-space:nowrap;z-index:20;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.funnel-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--bg4)}
+.funnel-stage:hover .funnel-tooltip{display:block}
+
+/* TWO COLUMN */
+.two-col{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+/* INBOX */
+.inbox{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden}
+.inbox-header{padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center}
+.inbox-header h3{font-size:.9rem;font-weight:600}
+.inbox-filters{display:flex;gap:.4rem}
+.inbox-filter{padding:.3rem .7rem;border-radius:6px;font-size:.65rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,.08);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;font-family:var(--font)}
+.inbox-filter:hover,.inbox-filter.active{border-color:var(--teal);color:var(--teal);background:rgba(0,229,160,.06)}
+.inbox-list{max-height:520px;overflow-y:auto}
+.inbox-item{padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s}
+.inbox-item:hover{background:rgba(255,255,255,.02)}
+.inbox-item:last-child{border-bottom:none}
+.inbox-item-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;flex-wrap:wrap;gap:.4rem}
+.inbox-sender{font-weight:600;font-size:.9rem}
+.inbox-company{color:var(--muted);font-weight:400;font-size:.85rem}
+
+/* Sentiment Badges */
+.badge{display:inline-block;padding:.15rem .55rem;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.badge-hot{background:rgba(255,107,107,.15);color:var(--coral);border:1px solid rgba(255,107,107,.3)}
+.badge-warm{background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3)}
+.badge-objection{background:rgba(167,139,250,.12);color:var(--purple);border:1px solid rgba(167,139,250,.3)}
+.badge-not-interested{background:rgba(122,139,167,.12);color:var(--muted);border:1px solid rgba(122,139,167,.3)}
+.badge-ooo{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+
+.inbox-preview{font-size:.85rem;color:rgba(240,244,248,.7);line-height:1.5;margin-bottom:.5rem;font-family:var(--body);font-style:italic}
+.inbox-meta{font-size:.7rem;color:var(--muted);font-family:var(--mono);margin-bottom:.6rem}
+.inbox-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+.inbox-btn{padding:.3rem .65rem;border-radius:6px;font-size:.65rem;font-weight:600;border:1px solid rgba(255,255,255,.1);background:var(--bg3);color:var(--white);cursor:pointer;transition:all .2s;font-family:var(--font)}
+.inbox-btn:hover{border-color:var(--teal);color:var(--teal);background:rgba(0,229,160,.06)}
+.inbox-btn.primary{background:var(--teal);color:var(--bg);border-color:var(--teal)}
+.inbox-btn.primary:hover{background:#00c896}
+
+/* SENTIMENT PANEL */
+.sentiment-panel{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:1.5rem}
+.sentiment-panel h3{font-size:.9rem;font-weight:600;margin-bottom:1.25rem}
+
+/* Donut Chart */
+.donut-wrap{position:relative;width:200px;height:200px;margin:0 auto 1.5rem}
+.donut-wrap canvas{width:200px;height:200px}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-center .total{font-size:1.6rem;font-weight:700;font-family:var(--mono)}
+.donut-center .label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+.sentiment-legend{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem}
+.sentiment-legend-item{display:flex;align-items:center;gap:.6rem;font-size:.8rem}
+.sentiment-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.sentiment-count{margin-left:auto;font-family:var(--mono);font-weight:600;font-size:.8rem}
+
+.sentiment-insights{border-top:1px solid rgba(255,255,255,.06);padding-top:1rem;display:flex;flex-direction:column;gap:.75rem}
+.insight-item{font-size:.8rem;color:rgba(240,244,248,.8);line-height:1.5;font-family:var(--body)}
+.insight-item strong{color:var(--teal)}
+.review-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:8px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);color:var(--purple);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:.25rem;font-family:var(--font)}
+.review-btn:hover{background:rgba(167,139,250,.2);border-color:var(--purple)}
+
+/* SEQUENCE TABLE */
+.table-wrap{overflow-x:auto;border-radius:14px;border:1px solid rgba(255,255,255,.06);background:var(--bg2)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+thead{background:var(--bg3)}
+th{padding:.85rem 1rem;text-align:left;font-weight:600;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.04);vertical-align:middle;font-family:var(--body)}
+tr{cursor:pointer;transition:background .15s}
+tr:hover td{background:rgba(255,255,255,.02)}
+.highlight{color:var(--teal);font-weight:600}
+.row-expand{display:none;background:var(--bg3)}
+.row-expand td{padding:1rem 1.25rem;font-size:.8rem}
+.row-expand.open{display:table-row}
+.expand-icon{display:inline-block;transition:transform .2s;margin-right:.4rem;font-size:.7rem;color:var(--muted)}
+.expand-icon.open{transform:rotate(90deg)}
+
+/* Sub-table for email breakdown */
+.sub-table{width:100%;margin-top:.5rem;font-size:.75rem}
+.sub-table th{padding:.5rem .75rem;font-size:.6rem;background:var(--bg4)}
+.sub-table td{padding:.45rem .75rem;border-color:rgba(255,255,255,.03)}
+
+/* AGENT FEED */
+.agent-feed{display:flex;flex-direction:column;gap:.75rem}
+.agent-item{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:1rem 1.25rem;display:flex;align-items:flex-start;gap:1rem;transition:border-color .2s}
+.agent-item:hover{border-color:rgba(0,229,160,.2)}
+.agent-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.agent-text{font-size:.85rem;line-height:1.5;font-family:var(--body);color:rgba(240,244,248,.85)}
+.agent-time{font-size:.65rem;color:var(--muted);font-family:var(--mono);margin-top:.25rem}
+
+/* DOMAIN HEALTH */
+.domain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.domain-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.25rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.domain-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-2px)}
+.domain-card .accent{position:absolute;top:0;left:0;right:0;height:3px}
+.domain-name{font-size:.9rem;font-weight:600;margin-bottom:.6rem;font-family:var(--mono);font-size:.8rem}
+.domain-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;margin-bottom:.4rem}
+.domain-health{font-family:var(--mono);font-weight:700;font-size:1.1rem}
+.health-green{color:var(--teal)}
+.health-amber{color:var(--gold)}
+.health-red{color:var(--coral)}
+.domain-meta{font-size:.7rem;color:var(--muted);display:flex;gap:1rem;flex-wrap:wrap}
+.domain-bar{height:4px;background:var(--bg);border-radius:2px;margin-top:.6rem;overflow:hidden}
+.domain-bar-fill{height:100%;border-radius:2px;transition:width .6s ease}
+
+/* Domain detail modal-like expansion */
+.domain-detail{display:none;margin-top:.75rem;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.06);font-size:.75rem;color:var(--muted)}
+.domain-detail.open{display:block}
+.domain-detail-row{display:flex;justify-content:space-between;margin-bottom:.3rem}
+
+/* WEEKLY TARGETS */
+.targets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.target-item{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:1rem 1.25rem}
+.target-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.target-label{font-size:.8rem;font-weight:500;color:rgba(240,244,248,.85)}
+.target-pct{font-family:var(--mono);font-weight:700;font-size:.85rem}
+.target-bar-outer{height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.target-bar-fill{height:100%;border-radius:4px;transition:width .8s cubic-bezier(.25,.46,.45,.94)}
+.target-meta{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.4rem;font-family:var(--mono)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,15,28,.85);backdrop-filter:blur(8px);z-index:100;justify-content:center;align-items:center;padding:2rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid rgba(255,255,255,.1);border-radius:16px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.modal-header{padding:1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center}
+.modal-header h3{font-size:1rem;font-weight:600}
+.modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:.25rem;transition:color .2s}
+.modal-close:hover{color:var(--white)}
+.modal-body{padding:1.5rem}
+.modal-footer{padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:flex-end;gap:.5rem}
+
+/* Compose modal */
+.compose-to{font-size:.8rem;color:var(--muted);margin-bottom:.75rem}
+.compose-to strong{color:var(--white)}
+.compose-subject{width:100%;padding:.6rem .85rem;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:var(--bg3);color:var(--white);font-family:var(--font);font-size:.85rem;margin-bottom:.75rem}
+.compose-subject:focus{outline:none;border-color:var(--teal)}
+.compose-body{width:100%;min-height:180px;padding:.85rem;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:var(--bg3);color:var(--white);font-family:var(--body);font-size:.85rem;line-height:1.6;resize:vertical}
+.compose-body:focus{outline:none;border-color:var(--teal)}
+.ai-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .5rem;border-radius:4px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);color:var(--purple);font-size:.6rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:.75rem}
+
+/* Review modal items */
+.review-item{background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:1rem;margin-bottom:.75rem}
+.review-item:last-child{margin-bottom:0}
+.review-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.review-item-name{font-weight:600;font-size:.85rem}
+.review-item-draft{font-size:.82rem;line-height:1.6;color:rgba(240,244,248,.75);font-family:var(--body);margin-bottom:.6rem;padding:.6rem;background:var(--bg);border-radius:6px}
+.review-actions{display:flex;gap:.4rem}
+
+/* FOOTER */
+.footer{text-align:center;padding:2.5rem 0 1.5rem;color:var(--muted);font-size:.7rem;border-top:1px solid rgba(255,255,255,.04);margin-top:2.5rem;letter-spacing:.5px}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.animate-in{animation:fadeInUp .4s ease-out both}
+
+@media(max-width:768px){
+  .container{padding:1rem}
+  .quick-stats{gap:.5rem}
+  .qs-item{min-width:130px;padding:.5rem .75rem}
+  .qs-value{font-size:1.1rem}
+  .funnel-wrap{gap:0}
+  .funnel-stage{min-width:100px;padding:.75rem .5rem}
+  .funnel-stage .f-count{font-size:1.1rem}
+  .two-col{grid-template-columns:1fr}
+  .domain-grid{grid-template-columns:1fr}
+  .targets-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- TOP BAR -->
+  <div class="top-bar animate-in">
+    <h1>Outreach <span>Command Centre</span></h1>
+    <div class="top-bar-date">23 March 2026</div>
+  </div>
+
+  <!-- QUICK STATS -->
+  <div class="quick-stats animate-in" style="animation-delay:.05s">
+    <div class="qs-item">
+      <div class="qs-label">Emails Sent Today</div>
+      <div class="qs-value teal">342</div>
+    </div>
+    <div class="qs-item">
+      <div class="qs-label">Open Rate</div>
+      <div class="qs-value" style="color:var(--white)">54%</div>
+    </div>
+    <div class="qs-item">
+      <div class="qs-label">Reply Rate</div>
+      <div class="qs-value gold">6.2%</div>
+    </div>
+    <div class="qs-item">
+      <div class="qs-label">Audits Booked</div>
+      <div class="qs-value purple">3</div>
+    </div>
+    <div class="qs-item">
+      <div class="qs-label">Pipeline Value</div>
+      <div class="qs-value teal">&pound;47,500</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: PIPELINE FUNNEL -->
+  <div class="section-title animate-in" style="animation-delay:.1s"><span class="icon">&#9654;</span> Pipeline Funnel</div>
+  <div class="funnel-wrap animate-in" style="animation-delay:.15s" id="funnel">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- SECTION 2: INBOX + SENTIMENT -->
+  <div class="section-title animate-in" style="animation-delay:.2s"><span class="icon">&#9993;</span> Inbox &amp; Sentiment Analysis</div>
+  <div class="two-col animate-in" style="animation-delay:.25s">
+
+    <!-- LEFT: INBOX -->
+    <div class="inbox">
+      <div class="inbox-header">
+        <h3>Recent Replies</h3>
+        <div class="inbox-filters" id="inbox-filters">
+          <button class="inbox-filter active" data-filter="all">All</button>
+          <button class="inbox-filter" data-filter="hot">Hot</button>
+          <button class="inbox-filter" data-filter="warm">Warm</button>
+          <button class="inbox-filter" data-filter="objection">Objection</button>
+          <button class="inbox-filter" data-filter="not-interested">Not Interested</button>
+        </div>
+      </div>
+      <div class="inbox-list" id="inbox-list">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- RIGHT: SENTIMENT -->
+    <div class="sentiment-panel">
+      <h3>Sentiment Breakdown</h3>
+      <div class="donut-wrap">
+        <canvas id="donutChart" width="200" height="200"></canvas>
+        <div class="donut-center">
+          <div class="total">64</div>
+          <div class="label">Replies</div>
+        </div>
+      </div>
+      <div class="sentiment-legend" id="sentiment-legend">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="sentiment-insights">
+        <div class="insight-item"><strong>AI Suggested Responses:</strong> 6 pending review</div>
+        <button class="review-btn" onclick="openReviewModal()">&#9733; Review AI Responses</button>
+        <div class="insight-item"><strong>Average response time:</strong> 2.4 hours</div>
+        <div class="insight-item"><strong>Hottest lead:</strong> Sarah Chen, Glow Botanics (responded in 12 min)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: SEQUENCE PERFORMANCE -->
+  <div class="section-title animate-in" style="animation-delay:.3s"><span class="icon">&#9881;</span> Sequence Performance</div>
+  <div class="table-wrap animate-in" style="animation-delay:.35s">
+    <table id="sequence-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Sequence</th>
+          <th>Sent</th>
+          <th>Opened</th>
+          <th>Open Rate</th>
+          <th>Replied</th>
+          <th>Reply Rate</th>
+          <th>Positive</th>
+          <th>Booked</th>
+        </tr>
+      </thead>
+      <tbody id="sequence-body">
+        <!-- Rendered by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4: AGENT ACTIVITY -->
+  <div class="section-title animate-in" style="animation-delay:.4s"><span class="icon">&#9889;</span> Agent Activity Feed</div>
+  <div class="agent-feed animate-in" style="animation-delay:.45s" id="agent-feed">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- SECTION 5: DOMAIN HEALTH -->
+  <div class="section-title animate-in" style="animation-delay:.5s"><span class="icon">&#9888;</span> Domain Health Monitor</div>
+  <div class="domain-grid animate-in" style="animation-delay:.55s" id="domain-grid">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- SECTION 6: WEEKLY TARGETS -->
+  <div class="section-title animate-in" style="animation-delay:.6s"><span class="icon">&#9899;</span> Weekly Targets</div>
+  <div class="targets-grid animate-in" style="animation-delay:.65s" id="targets-grid">
+    <!-- Rendered by JS -->
+  </div>
+
+  <div class="footer">Purposeful Profits Outreach Command Centre &bull; Internal Tool &bull; Built by the AI Growth Agent Team</div>
+</div>
+
+<!-- COMPOSE MODAL -->
+<div class="modal-overlay" id="compose-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Compose Reply</h3>
+      <button class="modal-close" onclick="closeComposeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="compose-to" id="compose-to">To: <strong></strong></div>
+      <div class="ai-badge" id="compose-ai-badge" style="display:none">&#9733; AI-Drafted Response</div>
+      <input class="compose-subject" id="compose-subject" placeholder="Subject line...">
+      <textarea class="compose-body" id="compose-body" placeholder="Write your reply..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="inbox-btn" onclick="closeComposeModal()">Cancel</button>
+      <button class="inbox-btn primary" onclick="closeComposeModal()">Send Reply</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI REVIEW MODAL -->
+<div class="modal-overlay" id="review-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Review AI-Drafted Responses (6)</h3>
+      <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="review-modal-body">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== DATA ====================
+
+const funnelData = [
+  { label: 'Prospected', count: 1247, conv: '71.5%', colour: '#3a4259' },
+  { label: 'Contacted', count: 892, conv: '7.2%', colour: '#465170' },
+  { label: 'Engaged', count: 64, conv: '18.8%', colour: '#527088' },
+  { label: 'Audit Booked', count: 12, conv: '66.7%', colour: '#3d8b7a' },
+  { label: 'Audit Delivered', count: 8, conv: '50.0%', colour: '#2ea882' },
+  { label: 'Negotiating', count: 4, conv: '25.0%', colour: '#1ac48b' },
+  { label: 'Won', count: 1, conv: '\u00a35,000/mo', colour: '#00e5a0' },
+  { label: 'Lost', count: 2, conv: '', colour: '#ff6b6b' }
+];
+
+const inboxData = [
+  {
+    name: 'Sarah Chen', company: 'Glow Botanics', sentiment: 'hot',
+    preview: 'This sounds interesting. Can we schedule a call this week?',
+    time: '2 hours ago', sequence: 'A (Growth Audit)', email: 'Email 1',
+    actions: ['Reply', 'Schedule Call', 'View Thread']
+  },
+  {
+    name: 'James Ward', company: 'Peak Nutrition', sentiment: 'warm',
+    preview: 'We\'re currently with another agency but the contract ends in April. Send me more info?',
+    time: '5 hours ago', sequence: 'B (AI Angle)', email: 'Email 2',
+    actions: ['Reply', 'Add to follow-up', 'View Thread']
+  },
+  {
+    name: 'Emma Liu', company: 'Sola Skincare', sentiment: 'objection',
+    preview: 'We don\'t really have budget for this right now.',
+    time: '8 hours ago', sequence: 'A', email: 'Email 3',
+    actions: ['Reply with objection handler', 'Snooze 30 days', 'View Thread']
+  },
+  {
+    name: 'Tom Richards', company: 'Brew Brothers', sentiment: 'hot',
+    preview: 'The AI agent concept is fascinating. What does onboarding look like?',
+    time: '1 day ago', sequence: 'B', email: 'Email 1',
+    actions: ['Reply', 'Schedule Call', 'View Thread']
+  },
+  {
+    name: 'Lisa Patel', company: 'Aura Home', sentiment: 'not-interested',
+    preview: 'Thanks but not for us right now.',
+    time: '1 day ago', sequence: 'A', email: 'Email 5',
+    actions: ['Unsubscribe', 'Snooze 90 days']
+  },
+  {
+    name: 'David Kim', company: 'Craft Coffee Co', sentiment: 'warm',
+    preview: 'Interesting. How is this different from what Triple Whale does?',
+    time: '2 days ago', sequence: 'B', email: 'Email 2',
+    actions: ['Reply', 'Send comparison', 'View Thread']
+  }
+];
+
+const sentimentData = [
+  { label: 'HOT', count: 8, pct: '12.5%', colour: '#ff6b6b' },
+  { label: 'WARM', count: 22, pct: '34.4%', colour: '#ffd700' },
+  { label: 'OBJECTION', count: 18, pct: '28.1%', colour: '#a78bfa' },
+  { label: 'NOT INTERESTED', count: 12, pct: '18.8%', colour: '#7a8ba7' },
+  { label: 'OOO/BOUNCE', count: 4, pct: '6.2%', colour: '#3b82f6' }
+];
+
+const sequenceData = [
+  {
+    name: 'A: Growth Audit', sent: 456, opened: 247, openRate: '54.2%', replied: 28, replyRate: '6.1%', positive: 12, booked: 5, best: false,
+    emails: [
+      { label: 'Email 1: Intro', sent: 456, opened: 247, replied: 16, rate: '3.5%' },
+      { label: 'Email 2: Value Add', sent: 410, opened: 198, replied: 7, rate: '1.7%' },
+      { label: 'Email 3: Case Study', sent: 375, opened: 161, replied: 3, rate: '0.8%' },
+      { label: 'Email 4: Breakup', sent: 340, opened: 112, replied: 2, rate: '0.6%' }
+    ]
+  },
+  {
+    name: 'B: AI Angle', sent: 312, opened: 178, openRate: '57.1%', replied: 22, replyRate: '7.1%', positive: 9, booked: 4, best: false,
+    emails: [
+      { label: 'Email 1: AI Hook', sent: 312, opened: 178, replied: 12, rate: '3.8%' },
+      { label: 'Email 2: Demo Offer', sent: 280, opened: 142, replied: 6, rate: '2.1%' },
+      { label: 'Email 3: Social Proof', sent: 248, opened: 108, replied: 4, rate: '1.6%' }
+    ]
+  },
+  {
+    name: 'C: Competitor Move', sent: 87, opened: 52, openRate: '59.8%', replied: 8, replyRate: '9.2%', positive: 5, booked: 2, best: true,
+    emails: [
+      { label: 'Email 1: Trigger Event', sent: 87, opened: 52, replied: 6, rate: '6.9%' },
+      { label: 'Email 2: Insight', sent: 72, opened: 38, replied: 2, rate: '2.8%' }
+    ]
+  },
+  {
+    name: 'D: Warm Intro', sent: 24, opened: 18, openRate: '75.0%', replied: 6, replyRate: '25.0%', positive: 4, booked: 1, best: true,
+    emails: [
+      { label: 'Email 1: Warm Touch', sent: 24, opened: 18, replied: 6, rate: '25.0%' }
+    ]
+  },
+  {
+    name: 'E: Re-engagement', sent: 13, opened: 7, openRate: '53.8%', replied: 0, replyRate: '0%', positive: 0, booked: 0, best: false,
+    emails: [
+      { label: 'Email 1: Check-in', sent: 13, opened: 7, replied: 0, rate: '0%' }
+    ]
+  }
+];
+
+const agentFeedData = [
+  { icon: '\ud83d\udd0d', bg: 'rgba(59,130,246,.15)', text: 'Competitive Intel Scout found 3 trigger events for Sequence C targets', time: '1 hr ago' },
+  { icon: '\ud83d\udcca', bg: 'rgba(0,229,160,.15)', text: 'CRO Analyst generated quick site observations for 12 new prospects', time: '3 hrs ago' },
+  { icon: '\ud83d\udcc8', bg: 'rgba(167,139,250,.15)', text: 'Analytics Brain updated outreach metrics dashboard', time: '4 hrs ago' },
+  { icon: '\ud83c\udfaf', bg: 'rgba(255,215,0,.15)', text: 'Growth Orchestrator prioritised 5 hot leads for immediate follow-up', time: '5 hrs ago' }
+];
+
+const domainData = [
+  { name: 'ppgrowth.co', health: 98, status: 'green', sent: 78, warmup: 'Complete', spf: 'Pass', dkim: 'Pass', dmarc: 'Pass', bounceRate: '0.8%', spamRate: '0.1%' },
+  { name: 'purposefulprofits.agency', health: 95, status: 'green', sent: 72, warmup: 'Complete', spf: 'Pass', dkim: 'Pass', dmarc: 'Pass', bounceRate: '1.2%', spamRate: '0.2%' },
+  { name: 'getpurposefulprofits.co', health: 92, status: 'green', sent: 68, warmup: 'Week 3', spf: 'Pass', dkim: 'Pass', dmarc: 'Pass', bounceRate: '1.5%', spamRate: '0.3%' },
+  { name: 'ppgrowthteam.co', health: 88, status: 'amber', sent: 65, warmup: 'Week 2', spf: 'Pass', dkim: 'Pass', dmarc: 'Partial', bounceRate: '2.1%', spamRate: '0.5%' },
+  { name: 'purposefulprofitsaudit.co', health: 74, status: 'amber', sent: 59, warmup: 'Week 1', spf: 'Pass', dkim: 'Pending', dmarc: 'Pending', bounceRate: '3.4%', spamRate: '0.9%' }
+];
+
+const targetData = [
+  { label: 'Emails sent', current: 342, target: 500, colour: 'var(--teal)' },
+  { label: 'New prospects added', current: 87, target: 200, colour: 'var(--blue)' },
+  { label: 'Replies received', current: 12, target: 20, colour: 'var(--gold)' },
+  { label: 'Audits booked', current: 3, target: 5, colour: 'var(--purple)' },
+  { label: 'Revenue closed', current: 5000, target: 10000, colour: 'var(--coral)', prefix: '\u00a3', format: true }
+];
+
+const aiDrafts = [
+  { to: 'Sarah Chen, Glow Botanics', sentiment: 'hot', subject: 'Re: Growth Audit for Glow Botanics', body: 'Hi Sarah,\n\nGreat to hear from you. I have availability this Thursday at 10am or Friday at 2pm for a 20-minute call.\n\nDuring the call, I will walk you through the specific growth opportunities we identified for Glow Botanics, including your product page conversion rate and Meta ad structure.\n\nWhich time works best for you?\n\nBest,\nCaner' },
+  { to: 'James Ward, Peak Nutrition', sentiment: 'warm', subject: 'Re: More info on Purposeful Profits', body: 'Hi James,\n\nGood to know your current contract wraps in April. Here is a quick overview of what we do differently:\n\n1. AI-powered growth audits that identify the top 3 revenue levers in under 48 hours\n2. No long-term contracts, just month-to-month performance\n3. Full-stack: paid, CRO, email, and analytics in one team\n\nI have attached a one-pager with a recent case study. Happy to schedule a call when your contract is closer to wrapping.\n\nBest,\nCaner' },
+  { to: 'Emma Liu, Sola Skincare', sentiment: 'objection', subject: 'Re: Budget considerations', body: 'Hi Emma,\n\nTotally understand. Budget is always a factor.\n\nOne thing worth noting: our Growth Audit is completely free and takes 20 minutes of your time. We identify the exact opportunities sitting in your data right now, so when budget does free up, you will know exactly where to invest.\n\nNo commitment, just clarity. Want me to send over the audit?\n\nBest,\nCaner' },
+  { to: 'Tom Richards, Brew Brothers', sentiment: 'hot', subject: 'Re: AI Agent Onboarding', body: 'Hi Tom,\n\nGreat question. Onboarding is straightforward:\n\nWeek 1: We connect your analytics, ad accounts, and Shopify. Our AI agents begin auditing.\nWeek 2: You get a full growth report with prioritised actions.\nWeek 3 onwards: We execute the plan. You see weekly dashboards with clear metrics.\n\nThe whole process is designed to show measurable ROI within the first 30 days.\n\nWant to jump on a quick call to walk through it?\n\nBest,\nCaner' },
+  { to: 'David Kim, Craft Coffee Co', sentiment: 'warm', subject: 'Re: How we compare to Triple Whale', body: 'Hi David,\n\nFair question. Triple Whale is a solid analytics tool. Here is the difference:\n\nTriple Whale shows you data. We act on it.\n\nOur AI agents do not just report metrics. They identify what is broken, prioritise fixes, and our team executes them. Think of us as the analytics layer plus the growth team in one package.\n\nHappy to show you a live demo with a real client dashboard. Interested?\n\nBest,\nCaner' },
+  { to: 'Marcus Webb, Halo Supplements', sentiment: 'warm', subject: 'Re: Quick question about pricing', body: 'Hi Marcus,\n\nOur pricing starts at \u00a32,500/month for DTC brands doing \u00a350k+ monthly revenue. That includes the full AI growth team: paid media, CRO, email, and analytics.\n\nFor context, most of our clients see 2-3x ROI within the first 90 days. We also offer a free Growth Audit so you can see the opportunity before committing.\n\nWant me to run one for Halo Supplements?\n\nBest,\nCaner' }
+];
+
+
+// ==================== RENDER ====================
+
+function renderFunnel() {
+  const wrap = document.getElementById('funnel');
+  wrap.innerHTML = funnelData.map((s, i) => {
+    const isLast = i === funnelData.length - 1;
+    const tooltipConv = i < funnelData.length - 1
+      ? `Conversion to ${funnelData[i+1].label}: ${s.conv}`
+      : (s.label === 'Won' ? 'Value: ' + s.conv : 'No further stage');
+    return `
+      <div class="funnel-stage" style="background:${s.colour}" data-stage="${s.label}">
+        <div class="funnel-tooltip">${tooltipConv}<br>Total in stage: ${s.count.toLocaleString()}</div>
+        <div class="f-count">${s.count.toLocaleString()}</div>
+        <div class="f-label">${s.label}</div>
+        <div class="f-conv">${s.conv ? '\u2192 ' + s.conv : ''}</div>
+        ${!isLast ? '<div class="funnel-arrow">\u25B6</div>' : ''}
+      </div>`;
+  }).join('');
+}
+
+function getBadgeClass(sentiment) {
+  const map = { hot: 'badge-hot', warm: 'badge-warm', objection: 'badge-objection', 'not-interested': 'badge-not-interested', ooo: 'badge-ooo' };
+  return map[sentiment] || 'badge-warm';
+}
+
+function getBadgeLabel(sentiment) {
+  const map = { hot: 'HOT', warm: 'WARM', objection: 'OBJECTION', 'not-interested': 'NOT INTERESTED', ooo: 'OOO/BOUNCE' };
+  return map[sentiment] || sentiment.toUpperCase();
+}
+
+function renderInbox(filter) {
+  const list = document.getElementById('inbox-list');
+  const filtered = filter === 'all' ? inboxData : inboxData.filter(i => i.sentiment === filter);
+  list.innerHTML = filtered.map(item => {
+    const isHot = item.sentiment === 'hot';
+    const isObjection = item.sentiment === 'objection';
+    const primaryAction = isHot ? 'Schedule Call' : (isObjection ? 'Reply with objection handler' : 'Reply');
+    return `
+      <div class="inbox-item" data-sentiment="${item.sentiment}">
+        <div class="inbox-item-top">
+          <div>
+            <span class="inbox-sender">${item.name}</span>
+            <span class="inbox-company">, ${item.company}</span>
+          </div>
+          <span class="badge ${getBadgeClass(item.sentiment)}">${getBadgeLabel(item.sentiment)}</span>
+        </div>
+        <div class="inbox-preview">"${item.preview}"</div>
+        <div class="inbox-meta">Received: ${item.time} &bull; Sequence: ${item.sequence} &bull; ${item.email}</div>
+        <div class="inbox-actions">
+          ${item.actions.map((a, idx) => {
+            const isPrimary = a === primaryAction || (a === 'Reply' && idx === 0 && !isHot && !isObjection);
+            return `<button class="inbox-btn${isPrimary ? ' primary' : ''}" onclick="handleAction('${a}', '${item.name}', '${item.company}', '${item.sentiment}')">${a}</button>`;
+          }).join('')}
+        </div>
+      </div>`;
+  }).join('');
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--muted);font-size:.85rem">No replies matching this filter.</div>';
+  }
+}
+
+function renderDonut() {
+  const canvas = document.getElementById('donutChart');
+  const ctx = canvas.getContext('2d');
+  const size = 200;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  ctx.scale(dpr, dpr);
+
+  const total = sentimentData.reduce((sum, d) => sum + d.count, 0);
+  const cx = size / 2, cy = size / 2, r = 80, lineWidth = 24;
+  let startAngle = -Math.PI / 2;
+
+  sentimentData.forEach(d => {
+    const sliceAngle = (d.count / total) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, startAngle, startAngle + sliceAngle);
+    ctx.strokeStyle = d.colour;
+    ctx.lineWidth = lineWidth;
+    ctx.lineCap = 'butt';
+    ctx.stroke();
+    startAngle += sliceAngle;
+  });
+}
+
+function renderSentimentLegend() {
+  const el = document.getElementById('sentiment-legend');
+  el.innerHTML = sentimentData.map(d => `
+    <div class="sentiment-legend-item">
+      <span class="sentiment-dot" style="background:${d.colour}"></span>
+      <span>${d.label}</span>
+      <span style="color:var(--muted);font-size:.75rem">${d.pct}</span>
+      <span class="sentiment-count" style="color:${d.colour}">${d.count}</span>
+    </div>
+  `).join('');
+}
+
+function renderSequenceTable() {
+  const tbody = document.getElementById('sequence-body');
+  tbody.innerHTML = sequenceData.map((s, i) => {
+    const cls = s.best ? ' class="highlight"' : '';
+    const subRows = s.emails.map(e => `
+      <tr>
+        <td>${e.label}</td>
+        <td>${e.sent}</td>
+        <td>${e.opened}</td>
+        <td>${e.replied}</td>
+        <td>${e.rate}</td>
+      </tr>
+    `).join('');
+    return `
+      <tr onclick="toggleRow(${i})" title="Click to expand">
+        <td><span class="expand-icon" id="expand-${i}">\u25B6</span></td>
+        <td${cls}>${s.name}</td>
+        <td>${s.sent}</td>
+        <td>${s.opened}</td>
+        <td${s.best ? cls : ''}>${s.openRate}</td>
+        <td>${s.replied}</td>
+        <td${s.best ? cls : ''}>${s.replyRate}</td>
+        <td>${s.positive}</td>
+        <td>${s.booked}</td>
+      </tr>
+      <tr class="row-expand" id="row-expand-${i}">
+        <td colspan="9">
+          <div style="font-weight:600;margin-bottom:.5rem;font-size:.8rem">Email-level breakdown for ${s.name}</div>
+          <table class="sub-table">
+            <thead><tr><th>Email</th><th>Sent</th><th>Opened</th><th>Replied</th><th>Reply Rate</th></tr></thead>
+            <tbody>${subRows}</tbody>
+          </table>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function renderAgentFeed() {
+  const wrap = document.getElementById('agent-feed');
+  wrap.innerHTML = agentFeedData.map(a => `
+    <div class="agent-item">
+      <div class="agent-icon" style="background:${a.bg}">${a.icon}</div>
+      <div>
+        <div class="agent-text">${a.text}</div>
+        <div class="agent-time">${a.time}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderDomainGrid() {
+  const wrap = document.getElementById('domain-grid');
+  wrap.innerHTML = domainData.map((d, i) => {
+    const healthClass = d.status === 'green' ? 'health-green' : (d.status === 'amber' ? 'health-amber' : 'health-red');
+    const accentColour = d.status === 'green' ? 'var(--teal)' : (d.status === 'amber' ? 'var(--gold)' : 'var(--coral)');
+    return `
+      <div class="domain-card" onclick="toggleDomain(${i})">
+        <div class="accent" style="background:${accentColour}"></div>
+        <div class="domain-name">${d.name}</div>
+        <div class="domain-row">
+          <span class="domain-health ${healthClass}">${d.health}%</span>
+          <span style="font-size:.7rem;color:var(--muted)">Health Score</span>
+        </div>
+        <div class="domain-meta">
+          <span>Sent today: ${d.sent}</span>
+          <span>Warmup: ${d.warmup}</span>
+        </div>
+        <div class="domain-bar">
+          <div class="domain-bar-fill" style="width:${d.health}%;background:${accentColour}"></div>
+        </div>
+        <div class="domain-detail" id="domain-detail-${i}">
+          <div class="domain-detail-row"><span>SPF</span><span>${d.spf}</span></div>
+          <div class="domain-detail-row"><span>DKIM</span><span>${d.dkim}</span></div>
+          <div class="domain-detail-row"><span>DMARC</span><span>${d.dmarc}</span></div>
+          <div class="domain-detail-row"><span>Bounce Rate</span><span>${d.bounceRate}</span></div>
+          <div class="domain-detail-row"><span>Spam Rate</span><span>${d.spamRate}</span></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderTargets() {
+  const wrap = document.getElementById('targets-grid');
+  wrap.innerHTML = targetData.map(t => {
+    const pct = Math.round((t.current / t.target) * 100);
+    const prefix = t.prefix || '';
+    const currentLabel = t.format ? prefix + t.current.toLocaleString() : prefix + t.current;
+    const targetLabel = t.format ? prefix + t.target.toLocaleString() : prefix + t.target;
+    return `
+      <div class="target-item">
+        <div class="target-header">
+          <span class="target-label">${t.label}</span>
+          <span class="target-pct" style="color:${t.colour}">${pct}%</span>
+        </div>
+        <div class="target-bar-outer">
+          <div class="target-bar-fill" style="width:${pct}%;background:${t.colour}"></div>
+        </div>
+        <div class="target-meta">
+          <span>${currentLabel}</span>
+          <span>Target: ${targetLabel}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderReviewModal() {
+  const body = document.getElementById('review-modal-body');
+  body.innerHTML = aiDrafts.map((d, i) => `
+    <div class="review-item">
+      <div class="review-item-header">
+        <div>
+          <span class="review-item-name">${d.to}</span>
+          <span class="badge ${getBadgeClass(d.sentiment)}" style="margin-left:.5rem">${getBadgeLabel(d.sentiment)}</span>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">Subject: ${d.subject}</div>
+      <div class="review-item-draft">${d.body.replace(/\n/g, '<br>')}</div>
+      <div class="review-actions">
+        <button class="inbox-btn primary" onclick="approveReview(${i})">Approve &amp; Send</button>
+        <button class="inbox-btn" onclick="editReview(${i}, '${d.to.replace(/'/g, "\\'")}', '${d.subject.replace(/'/g, "\\'")}')">Edit</button>
+        <button class="inbox-btn" onclick="this.closest('.review-item').style.display='none'">Dismiss</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+
+// ==================== INTERACTIONS ====================
+
+function toggleRow(idx) {
+  const row = document.getElementById('row-expand-' + idx);
+  const icon = document.getElementById('expand-' + idx);
+  row.classList.toggle('open');
+  icon.classList.toggle('open');
+}
+
+function toggleDomain(idx) {
+  const detail = document.getElementById('domain-detail-' + idx);
+  detail.classList.toggle('open');
+}
+
+// Inbox filtering
+document.getElementById('inbox-filters').addEventListener('click', function(e) {
+  if (e.target.classList.contains('inbox-filter')) {
+    document.querySelectorAll('.inbox-filter').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    renderInbox(e.target.dataset.filter);
+  }
+});
+
+// Sentiment legend click to filter inbox
+document.getElementById('sentiment-legend').addEventListener('click', function(e) {
+  const item = e.target.closest('.sentiment-legend-item');
+  if (!item) return;
+  const label = item.querySelector('span:nth-child(2)').textContent.trim().toLowerCase();
+  const filterMap = { 'hot': 'hot', 'warm': 'warm', 'objection': 'objection', 'not interested': 'not-interested', 'ooo/bounce': 'all' };
+  const filter = filterMap[label] || 'all';
+  document.querySelectorAll('.inbox-filter').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === filter);
+  });
+  renderInbox(filter);
+});
+
+function handleAction(action, name, company, sentiment) {
+  const lower = action.toLowerCase();
+  if (lower.includes('reply') || lower === 'schedule call' || lower === 'send comparison') {
+    openComposeModal(name, company, sentiment, action);
+  } else if (lower.includes('snooze') || lower === 'unsubscribe' || lower === 'add to follow-up') {
+    // Visual feedback
+    const btn = event.target;
+    btn.textContent = '\u2713 Done';
+    btn.style.borderColor = 'var(--teal)';
+    btn.style.color = 'var(--teal)';
+    btn.disabled = true;
+  } else if (lower === 'view thread') {
+    // Placeholder
+    alert('Thread view for ' + name + ', ' + company + ' would open here.');
+  }
+}
+
+function openComposeModal(name, company, sentiment, action) {
+  const modal = document.getElementById('compose-modal');
+  const toEl = document.getElementById('compose-to');
+  const subjectEl = document.getElementById('compose-subject');
+  const bodyEl = document.getElementById('compose-body');
+  const aiBadge = document.getElementById('compose-ai-badge');
+
+  toEl.innerHTML = 'To: <strong>' + name + ', ' + company + '</strong>';
+
+  // Find AI draft if exists
+  const draft = aiDrafts.find(d => d.to.includes(name));
+  if (draft) {
+    subjectEl.value = draft.subject;
+    bodyEl.value = draft.body;
+    aiBadge.style.display = 'inline-flex';
+  } else {
+    subjectEl.value = '';
+    bodyEl.value = '';
+    aiBadge.style.display = 'none';
+  }
+
+  if (action === 'Schedule Call') {
+    subjectEl.value = 'Re: Let\'s schedule a call';
+    if (!draft) {
+      bodyEl.value = 'Hi ' + name.split(' ')[0] + ',\n\nGreat to hear from you. I have the following slots available this week:\n\n- Thursday 10am GMT\n- Friday 2pm GMT\n\nWhich works best for you?\n\nBest,\nCaner';
+    }
+  }
+
+  if (action === 'Send comparison') {
+    subjectEl.value = 'Re: How Purposeful Profits compares';
+    bodyEl.value = 'Hi ' + name.split(' ')[0] + ',\n\nGreat question. Here is a quick comparison...\n\nBest,\nCaner';
+  }
+
+  modal.classList.add('open');
+}
+
+function closeComposeModal() {
+  document.getElementById('compose-modal').classList.remove('open');
+}
+
+function openReviewModal() {
+  renderReviewModal();
+  document.getElementById('review-modal').classList.add('open');
+}
+
+function closeReviewModal() {
+  document.getElementById('review-modal').classList.remove('open');
+}
+
+function approveReview(idx) {
+  const items = document.querySelectorAll('#review-modal-body .review-item');
+  if (items[idx]) {
+    items[idx].style.opacity = '0.4';
+    items[idx].querySelector('.inbox-btn.primary').textContent = '\u2713 Sent';
+    items[idx].querySelector('.inbox-btn.primary').disabled = true;
+  }
+}
+
+function editReview(idx, to, subject) {
+  closeReviewModal();
+  const draft = aiDrafts[idx];
+  if (draft) {
+    const modal = document.getElementById('compose-modal');
+    document.getElementById('compose-to').innerHTML = 'To: <strong>' + to + '</strong>';
+    document.getElementById('compose-subject').value = subject;
+    document.getElementById('compose-body').value = draft.body;
+    document.getElementById('compose-ai-badge').style.display = 'inline-flex';
+    modal.classList.add('open');
+  }
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('open');
+    }
+  });
+});
+
+// Close modals on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  }
+});
+
+
+// ==================== INIT ====================
+
+renderFunnel();
+renderInbox('all');
+renderDonut();
+renderSentimentLegend();
+renderSequenceTable();
+renderAgentFeed();
+renderDomainGrid();
+renderTargets();
+</script>
+
+</body>
+</html>

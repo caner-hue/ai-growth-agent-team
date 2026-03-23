@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>£200 to £20K Challenge | Purposeful Profits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0f1c;--bg2:#111827;--bg3:#1a2236;--bg4:#232d44;
+  --teal:#00e5a0;--coral:#ff6b6b;--amber:#fbbf24;--blue:#3b82f6;
+  --purple:#a78bfa;--white:#f0f4f8;--muted:#7a8ba7;
+  --font:'Space Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:100vh;
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);
+  background-size:32px 32px;
+}
+.container{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+[contenteditable]{cursor:text;border-bottom:1px dashed rgba(255,255,255,.15);transition:all .2s;outline:none;border-radius:2px}
+[contenteditable]:hover{border-bottom-color:var(--teal);background:rgba(0,229,160,.05)}
+[contenteditable]:focus{border-bottom-color:var(--teal);background:rgba(0,229,160,.08);box-shadow:0 2px 12px rgba(0,229,160,.1)}
+
+/* HERO */
+.hero{text-align:center;padding:3rem 0 2rem}
+.hero-badge{display:inline-block;padding:.35rem 1rem;border:1px solid var(--teal);border-radius:100px;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;font-weight:500}
+.hero h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:.5rem}
+.hero h1 .amount{color:var(--teal)}
+.hero .subtitle{color:var(--muted);font-size:1.05rem;margin-bottom:2.5rem;font-weight:300}
+
+/* PROGRESS */
+.progress-wrap{max-width:700px;margin:0 auto}
+.progress-labels{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.6rem;font-family:var(--mono)}
+.progress-labels .current{color:var(--teal);font-weight:600}
+.progress-labels .goal{color:var(--muted)}
+.progress-bar-outer{height:20px;background:var(--bg3);border-radius:12px;overflow:hidden;position:relative}
+.progress-bar-inner{height:100%;background:linear-gradient(90deg,var(--teal),#00c896);border-radius:12px;transition:width 1s cubic-bezier(.25,.46,.45,.94);position:relative;min-width:2px}
+.progress-bar-inner::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);
+  animation:shimmer 2.5s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.progress-pct{text-align:center;margin-top:.6rem;font-size:1.5rem;font-weight:700;color:var(--teal);font-family:var(--mono)}
+
+/* SECTION TITLES */
+.section-title{font-size:1.1rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin:3rem 0 1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06)}
+
+/* GRID LAYOUTS */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+.card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-2px)}
+.card-label{font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-weight:500}
+.card-value{font-size:1.8rem;font-weight:700;font-family:var(--mono);line-height:1.2}
+.card-sub{font-size:.8rem;color:var(--muted);margin-top:.35rem}
+.card-accent{position:absolute;top:0;left:0;right:0;height:3px}
+
+/* BUDGET ALLOCATION */
+.budget-bar{display:flex;height:36px;border-radius:10px;overflow:hidden;margin-bottom:1rem}
+.budget-bar div{display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;letter-spacing:.5px;transition:flex .4s}
+.budget-legend{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem}
+.budget-legend-item{display:flex;align-items:center;gap:.4rem;font-size:.8rem}
+.budget-dot{width:10px;height:10px;border-radius:3px}
+
+/* REVENUE ARMS */
+.arm-card .arm-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.arm-card .arm-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.arm-card .arm-pct{font-family:var(--mono);font-size:1.5rem;font-weight:700}
+.arm-progress{height:6px;background:var(--bg);border-radius:4px;overflow:hidden;margin-top:1rem}
+.arm-progress-fill{height:100%;border-radius:4px;transition:width .8s ease}
+
+/* P&L TABLE */
+.table-wrap{overflow-x:auto;border-radius:14px;border:1px solid rgba(255,255,255,.06)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+thead{background:var(--bg3)}
+th{padding:.85rem 1rem;text-align:left;font-weight:600;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+td{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.04);vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.02)}
+.income{color:var(--teal)}
+.expense{color:var(--coral)}
+.running-total{font-family:var(--mono);font-weight:600}
+.btn-row{display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap}
+.btn{padding:.5rem 1.2rem;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:var(--bg3);color:var(--white);font-family:var(--font);font-size:.8rem;cursor:pointer;transition:all .2s;font-weight:500}
+.btn:hover{background:var(--bg4);border-color:var(--teal)}
+.btn-primary{background:var(--teal);color:var(--bg);border-color:var(--teal)}
+.btn-primary:hover{background:#00c896}
+
+/* DAILY LOG */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--bg3)}
+.timeline-item{position:relative;margin-bottom:1.5rem;padding-left:1.5rem}
+.timeline-item::before{content:'';position:absolute;left:-2rem;top:.45rem;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--teal);z-index:1}
+.timeline-date{font-family:var(--mono);font-size:.75rem;color:var(--teal);font-weight:500;margin-bottom:.25rem}
+.timeline-text{font-size:.9rem;color:var(--white);line-height:1.5}
+.timeline-arm{display:inline-block;padding:.1rem .5rem;border-radius:4px;font-size:.65rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-left:.5rem}
+
+/* METRICS */
+.metric-card .card-value.positive{color:var(--teal)}
+.metric-card .card-value.negative{color:var(--coral)}
+
+/* FOOTER */
+.footer{text-align:center;padding:3rem 0 2rem;color:var(--muted);font-size:.75rem;border-top:1px solid rgba(255,255,255,.04);margin-top:3rem}
+
+@media(max-width:640px){
+  .container{padding:1.25rem 1rem}
+  .card-value{font-size:1.4rem}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  table{font-size:.75rem}
+  th,td{padding:.6rem .5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Live Challenge</div>
+    <h1><span class="amount">£200</span> to <span class="amount">£20,000</span></h1>
+    <p class="subtitle">An AI was given £200. The mission: turn it into £20,000. Every penny tracked.</p>
+    <div class="progress-wrap">
+      <div class="progress-labels">
+        <span class="current" id="progressCurrent">£200</span>
+        <span class="goal">£20,000</span>
+      </div>
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" id="progressBar" style="width:1%"></div>
+      </div>
+      <div class="progress-pct" id="progressPct">1.0%</div>
+    </div>
+  </section>
+
+  <!-- BUDGET ALLOCATION -->
+  <div class="section-title">Budget Allocation</div>
+  <div class="card" style="padding:1.75rem">
+    <div class="budget-bar">
+      <div style="flex:30;background:#3b82f6" title="Upwork: £30">Upwork</div>
+      <div style="flex:80;background:#a78bfa" title="Meta Ads: £80">Meta Ads</div>
+      <div style="flex:10;background:#fbbf24" title="Domain: £10">Domain</div>
+      <div style="flex:30;background:#f97316" title="Cold Email: £30">Cold Email</div>
+      <div style="flex:50;background:rgba(255,255,255,.15)" title="Reserve: £50">Reserve</div>
+    </div>
+    <div class="budget-legend">
+      <div class="budget-legend-item"><div class="budget-dot" style="background:#3b82f6"></div>Upwork <strong>£30</strong></div>
+      <div class="budget-legend-item"><div class="budget-dot" style="background:#a78bfa"></div>Meta Ads <strong>£80</strong></div>
+      <div class="budget-legend-item"><div class="budget-dot" style="background:#fbbf24"></div>Domain <strong>£10</strong></div>
+      <div class="budget-legend-item"><div class="budget-dot" style="background:#f97316"></div>Cold Email <strong>£30</strong></div>
+      <div class="budget-legend-item"><div class="budget-dot" style="background:rgba(255,255,255,.25)"></div>Reserve <strong>£50</strong></div>
+    </div>
+  </div>
+
+  <!-- REVENUE BY ARM -->
+  <div class="section-title">Revenue by Arm</div>
+  <div class="grid-4" id="armsGrid">
+    <!-- Services -->
+    <div class="card arm-card" data-arm="services">
+      <div class="card-accent" style="background:var(--teal)"></div>
+      <div class="arm-header">
+        <div>
+          <div class="card-label">Services</div>
+          <div class="card-value">£<span class="arm-revenue" contenteditable="true" data-arm="services">0</span></div>
+          <div class="card-sub">Target: £10,000</div>
+        </div>
+        <div class="arm-pct" style="color:var(--teal)"><span class="arm-pct-val" data-arm="services">0</span>%</div>
+      </div>
+      <div class="arm-icon" style="background:rgba(0,229,160,.1);color:var(--teal);position:absolute;top:1.25rem;right:1.25rem;display:none">S</div>
+      <div class="arm-progress"><div class="arm-progress-fill" data-arm="services" style="width:0%;background:var(--teal)"></div></div>
+    </div>
+    <!-- Products -->
+    <div class="card arm-card" data-arm="products">
+      <div class="card-accent" style="background:var(--blue)"></div>
+      <div class="arm-header">
+        <div>
+          <div class="card-label">Products</div>
+          <div class="card-value">£<span class="arm-revenue" contenteditable="true" data-arm="products">0</span></div>
+          <div class="card-sub">Target: £5,000</div>
+        </div>
+        <div class="arm-pct" style="color:var(--blue)"><span class="arm-pct-val" data-arm="products">0</span>%</div>
+      </div>
+      <div class="arm-progress"><div class="arm-progress-fill" data-arm="products" style="width:0%;background:var(--blue)"></div></div>
+    </div>
+    <!-- SaaS -->
+    <div class="card arm-card" data-arm="saas">
+      <div class="card-accent" style="background:var(--purple)"></div>
+      <div class="arm-header">
+        <div>
+          <div class="card-label">SaaS</div>
+          <div class="card-value">£<span class="arm-revenue" contenteditable="true" data-arm="saas">0</span></div>
+          <div class="card-sub">Target: £3,000</div>
+        </div>
+        <div class="arm-pct" style="color:var(--purple)"><span class="arm-pct-val" data-arm="saas">0</span>%</div>
+      </div>
+      <div class="arm-progress"><div class="arm-progress-fill" data-arm="saas" style="width:0%;background:var(--purple)"></div></div>
+    </div>
+    <!-- Content -->
+    <div class="card arm-card" data-arm="content">
+      <div class="card-accent" style="background:var(--amber)"></div>
+      <div class="arm-header">
+        <div>
+          <div class="card-label">Content</div>
+          <div class="card-value">£<span class="arm-revenue" contenteditable="true" data-arm="content">0</span></div>
+          <div class="card-sub">Target: £2,000</div>
+        </div>
+        <div class="arm-pct" style="color:var(--amber)"><span class="arm-pct-val" data-arm="content">0</span>%</div>
+      </div>
+      <div class="arm-progress"><div class="arm-progress-fill" data-arm="content" style="width:0%;background:var(--amber)"></div></div>
+    </div>
+  </div>
+
+  <!-- KEY METRICS -->
+  <div class="section-title">Key Metrics</div>
+  <div class="grid-3">
+    <div class="card metric-card">
+      <div class="card-label">Total Revenue</div>
+      <div class="card-value positive" id="metricRevenue">£0</div>
+    </div>
+    <div class="card metric-card">
+      <div class="card-label">Total Expenses</div>
+      <div class="card-value" style="color:var(--coral)" id="metricExpenses">£0</div>
+    </div>
+    <div class="card metric-card">
+      <div class="card-label">Net Profit</div>
+      <div class="card-value" id="metricProfit">£0</div>
+    </div>
+    <div class="card metric-card">
+      <div class="card-label">ROI</div>
+      <div class="card-value" id="metricROI">0%</div>
+    </div>
+    <div class="card metric-card">
+      <div class="card-label">Days Elapsed</div>
+      <div class="card-value" id="metricDays" style="color:var(--white)">0</div>
+    </div>
+    <div class="card metric-card">
+      <div class="card-label">Revenue / Day</div>
+      <div class="card-value positive" id="metricRPD">£0</div>
+    </div>
+  </div>
+
+  <!-- P&L TABLE -->
+  <div class="section-title">Profit &amp; Loss</div>
+  <div class="table-wrap">
+    <table id="plTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Arm</th>
+          <th>Description</th>
+          <th>Income</th>
+          <th>Expense</th>
+          <th>Running Total</th>
+        </tr>
+      </thead>
+      <tbody id="plBody">
+        <tr>
+          <td contenteditable="true">2026-03-23</td>
+          <td contenteditable="true">–</td>
+          <td contenteditable="true">Initial budget allocation</td>
+          <td class="income" contenteditable="true">200.00</td>
+          <td class="expense" contenteditable="true">0.00</td>
+          <td class="running-total">£200.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="addRow()">+ Add Row</button>
+    <button class="btn" onclick="recalcAll()">Recalculate</button>
+  </div>
+
+  <!-- DAILY LOG -->
+  <div class="section-title">Daily Log</div>
+  <div class="timeline" id="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">Day 0 · 23 Mar 2026</div>
+      <div class="timeline-text" contenteditable="true">
+        Challenge begins. £200 budget allocated across five channels: Upwork (£30), Meta Ads (£80), Domain (£10), Cold Email (£30), Reserve (£50).
+        <span class="timeline-arm" style="background:rgba(0,229,160,.15);color:var(--teal)">Setup</span>
+      </div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="addLogEntry()">+ Add Log Entry</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Purposeful Profits · £200 to £20K Challenge · Updated <span id="lastUpdated"></span>
+  </div>
+
+</div>
+
+<script>
+const START_DATE = new Date('2026-03-23');
+const GOAL = 20000;
+const ARM_TARGETS = {services:10000,products:5000,saas:3000,content:2000};
+const ARM_COLOURS = {services:'var(--teal)',products:'var(--blue)',saas:'var(--purple)',content:'var(--amber)'};
+
+function parseNum(el){
+  const t = (el.textContent||'').replace(/[^0-9.\-]/g,'');
+  return parseFloat(t)||0;
+}
+
+function recalcAll(){
+  const rows = document.querySelectorAll('#plBody tr');
+  let total = 0, totalIncome = 0, totalExpense = 0;
+  rows.forEach(row=>{
+    const cells = row.querySelectorAll('td');
+    const inc = parseNum(cells[3]);
+    const exp = parseNum(cells[4]);
+    totalIncome += inc;
+    totalExpense += exp;
+    total += inc - exp;
+    cells[5].textContent = '£' + total.toFixed(2);
+  });
+
+  // Arms
+  const armRevs = {};
+  document.querySelectorAll('.arm-revenue').forEach(el=>{
+    const arm = el.dataset.arm;
+    armRevs[arm] = parseNum(el);
+  });
+
+  Object.keys(ARM_TARGETS).forEach(arm=>{
+    const rev = armRevs[arm]||0;
+    const target = ARM_TARGETS[arm];
+    const pct = Math.min((rev/target)*100,100);
+    const pctEl = document.querySelector(`.arm-pct-val[data-arm="${arm}"]`);
+    if(pctEl) pctEl.textContent = pct.toFixed(1);
+    const fill = document.querySelector(`.arm-progress-fill[data-arm="${arm}"]`);
+    if(fill) fill.style.width = pct + '%';
+  });
+
+  const armTotal = Object.values(armRevs).reduce((a,b)=>a+b,0);
+
+  // Progress
+  const currentVal = Math.max(total, 0);
+  const pct = Math.min((currentVal/GOAL)*100,100);
+  document.getElementById('progressBar').style.width = Math.max(pct,0.5)+'%';
+  document.getElementById('progressPct').textContent = pct.toFixed(1)+'%';
+  document.getElementById('progressCurrent').textContent = '£'+currentVal.toLocaleString('en-GB',{minimumFractionDigits:0,maximumFractionDigits:0});
+
+  // Metrics
+  document.getElementById('metricRevenue').textContent = '£'+totalIncome.toLocaleString('en-GB',{minimumFractionDigits:0,maximumFractionDigits:0});
+  document.getElementById('metricExpenses').textContent = '£'+totalExpense.toLocaleString('en-GB',{minimumFractionDigits:0,maximumFractionDigits:0});
+
+  const profit = totalIncome - totalExpense;
+  const profitEl = document.getElementById('metricProfit');
+  profitEl.textContent = '£'+profit.toLocaleString('en-GB',{minimumFractionDigits:0,maximumFractionDigits:0});
+  profitEl.className = 'card-value '+(profit>=0?'positive':'negative');
+
+  const roi = totalExpense>0?((profit/totalExpense)*100):0;
+  const roiEl = document.getElementById('metricROI');
+  roiEl.textContent = roi.toFixed(1)+'%';
+  roiEl.className = 'card-value '+(roi>=0?'positive':'negative');
+
+  const days = Math.max(Math.floor((new Date()-START_DATE)/(1000*60*60*24)),0);
+  document.getElementById('metricDays').textContent = days;
+
+  const rpd = days>0?(totalIncome/days):0;
+  document.getElementById('metricRPD').textContent = '£'+rpd.toFixed(2);
+
+  document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function addRow(){
+  const tbody = document.getElementById('plBody');
+  const today = new Date().toISOString().slice(0,10);
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td contenteditable="true">${today}</td>
+    <td contenteditable="true">Services</td>
+    <td contenteditable="true">Description</td>
+    <td class="income" contenteditable="true">0.00</td>
+    <td class="expense" contenteditable="true">0.00</td>
+    <td class="running-total">£0.00</td>
+  `;
+  tbody.appendChild(tr);
+  tr.querySelector('td:nth-child(3)').focus();
+  attachRowListeners(tr);
+}
+
+function addLogEntry(){
+  const tl = document.getElementById('timeline');
+  const days = Math.max(Math.floor((new Date()-START_DATE)/(1000*60*60*24)),0);
+  const dateStr = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  const item = document.createElement('div');
+  item.className = 'timeline-item';
+  item.innerHTML = `
+    <div class="timeline-date">Day ${days} · ${dateStr}</div>
+    <div class="timeline-text" contenteditable="true">New activity logged.</div>
+  `;
+  tl.appendChild(item);
+  item.querySelector('.timeline-text').focus();
+}
+
+function attachRowListeners(tr){
+  tr.querySelectorAll('td[contenteditable]').forEach(td=>{
+    td.addEventListener('blur', recalcAll);
+    td.addEventListener('keydown', e=>{if(e.key==='Enter'){e.preventDefault();td.blur()}});
+  });
+}
+
+// Attach listeners to existing rows
+document.querySelectorAll('#plBody tr').forEach(attachRowListeners);
+
+// Attach listeners to arm revenue fields
+document.querySelectorAll('.arm-revenue').forEach(el=>{
+  el.addEventListener('blur', recalcAll);
+  el.addEventListener('keydown', e=>{if(e.key==='Enter'){e.preventDefault();el.blur()}});
+});
+
+// Initial calc
+recalcAll();
+</script>
+</body>
+</html>

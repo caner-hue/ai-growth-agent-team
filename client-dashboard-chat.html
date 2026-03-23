@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purposeful Profits | Growth Team Chat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0a0f1c;
+  --navy-light: #111827;
+  --navy-mid: #1a2235;
+  --navy-surface: #1e293b;
+  --navy-border: #2a3548;
+  --teal: #00e5a0;
+  --teal-dim: rgba(0,229,160,0.15);
+  --coral: #ff6b6b;
+  --coral-dim: rgba(255,107,107,0.15);
+  --gold: #ffd700;
+  --gold-dim: rgba(255,215,0,0.12);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.15);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96,165,250,0.15);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.15);
+  --pink: #f472b6;
+  --pink-dim: rgba(244,114,182,0.15);
+  --cyan: #22d3ee;
+  --cyan-dim: rgba(34,211,238,0.15);
+  --magenta: #e879f9;
+  --magenta-dim: rgba(232,121,249,0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --sidebar-width: 260px;
+  --topbar-height: 72px;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+html { font-size: 15px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--navy);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Dot grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--navy-light);
+  border-right: 1px solid var(--navy-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--navy-border);
+}
+.sidebar-logo h2 {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+.sidebar-logo h2 span { color: var(--teal); }
+
+.brand-selector {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--navy-border);
+}
+.brand-dropdown {
+  width: 100%;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.87rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394a3b8' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.2s;
+}
+.brand-dropdown:hover, .brand-dropdown:focus {
+  border-color: var(--teal);
+  outline: none;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 20px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  user-select: none;
+}
+.nav-item:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+}
+.nav-item.active {
+  color: var(--teal);
+  background: var(--teal-dim);
+  border-left-color: var(--teal);
+  font-weight: 500;
+}
+.nav-icon {
+  width: 20px;
+  text-align: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--navy-border);
+  font-size: 0.82rem;
+}
+.strategist-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.strategist-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.8rem; color: var(--navy);
+  flex-shrink: 0;
+}
+.strategist-info { line-height: 1.4; }
+.strategist-name { color: var(--text-primary); font-weight: 500; }
+.strategist-detail { color: var(--text-muted); font-size: 0.78rem; }
+.next-call {
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.next-call .call-icon { color: var(--blue); }
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-dim);
+  color: var(--gold);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ========== HAMBURGER ========== */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 18px; left: 16px;
+  z-index: 200;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  width: 42px; height: 42px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.hamburger span {
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: 0.3s;
+}
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 90;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== TOP BAR ========== */
+.topbar {
+  height: var(--topbar-height);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--navy-border);
+  background: rgba(10,15,28,0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  flex-shrink: 0;
+}
+.topbar-left h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.topbar-left h1 span { color: var(--teal); }
+.topbar-date {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--navy-border);
+  background: var(--navy-surface);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.action-btn:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+.action-btn.primary {
+  background: var(--teal);
+  color: var(--navy);
+  border-color: var(--teal);
+  font-weight: 600;
+}
+.action-btn.primary:hover {
+  background: #00cc8e;
+  border-color: #00cc8e;
+}
+
+.notif-btn {
+  position: relative;
+  width: 40px; height: 40px;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1.15rem;
+  transition: all 0.2s;
+}
+.notif-btn:hover {
+  border-color: var(--teal);
+  color: var(--text-primary);
+}
+.notif-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  width: 18px; height: 18px;
+  background: var(--coral);
+  border-radius: 50%;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ========== CHAT LAYOUT ========== */
+.chat-layout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  height: calc(100vh - var(--topbar-height));
+}
+
+.chat-main {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--navy-border);
+  min-width: 0;
+}
+
+.chat-context {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0;
+  min-width: 0;
+}
+
+/* ========== CHAT HEADER ========== */
+.chat-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--navy-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--navy-light);
+  flex-shrink: 0;
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.chat-header-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.status-online {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--teal);
+  font-weight: 500;
+}
+.status-online::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 8px var(--teal);
+  animation: statusPulse 2s ease infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.agents-ready-badge {
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--purple-dim);
+  color: var(--purple);
+  font-weight: 600;
+}
+
+.new-chat-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--teal);
+  background: transparent;
+  color: var(--teal);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.new-chat-btn:hover {
+  background: var(--teal-dim);
+}
+
+/* ========== CHAT MESSAGES ========== */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.message {
+  display: flex;
+  gap: 12px;
+  max-width: 92%;
+  animation: messageIn 0.3s ease forwards;
+}
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--navy);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.message-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.message-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.message-sender {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.message-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.message-content {
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+/* Agent messages */
+.message.agent .message-content {
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-top-left-radius: 4px;
+}
+
+/* User messages */
+.message.user .message-content {
+  background: linear-gradient(135deg, rgba(0,229,160,0.2), rgba(0,229,160,0.08));
+  border: 1px solid rgba(0,229,160,0.25);
+  border-top-right-radius: 4px;
+}
+
+/* System messages */
+.message.system {
+  align-self: center;
+  max-width: 80%;
+}
+.message.system .message-content {
+  background: rgba(167,139,250,0.08);
+  border: 1px dashed rgba(167,139,250,0.3);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 12px 20px;
+}
+
+.message-content strong {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.message-content .highlight-coral { color: var(--coral); font-weight: 600; }
+.message-content .highlight-gold { color: var(--gold); font-weight: 600; }
+.message-content .highlight-teal { color: var(--teal); font-weight: 600; }
+.message-content .highlight-purple { color: var(--purple); font-weight: 600; }
+
+.message-content .stat-line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.message-content .routing-msg {
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.message-content .task-list {
+  margin-top: 8px;
+}
+.message-content .task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+}
+.message-content .task-number {
+  font-weight: 700;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+.message-content .task-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.message-content .task-badge.urgent {
+  background: var(--coral-dim);
+  color: var(--coral);
+}
+.message-content .task-badge.high {
+  background: var(--orange-dim);
+  color: var(--orange);
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 0 0 0 0;
+  max-width: 92%;
+}
+.typing-indicator.visible { display: flex; }
+
+.typing-indicator .message-avatar {
+  background: var(--teal);
+}
+
+.typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 18px;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: 16px;
+  border-top-left-radius: 4px;
+}
+.typing-dots span {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: typingBounce 1.4s ease infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+.typing-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ========== CHAT INPUT ========== */
+.chat-input-area {
+  padding: 12px 24px 20px;
+  border-top: 1px solid var(--navy-border);
+  background: var(--navy-light);
+  flex-shrink: 0;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.quick-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--navy-border);
+  background: var(--navy-surface);
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.quick-pill:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-dim);
+}
+
+.input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  transition: border-color 0.2s;
+}
+.input-row:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(0,229,160,0.1);
+}
+
+.input-btn {
+  width: 38px; height: 38px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  position: relative;
+}
+.input-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.05);
+}
+
+.chat-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  resize: none;
+  min-height: 38px;
+  max-height: 120px;
+  line-height: 1.5;
+  padding: 8px 4px;
+}
+.chat-input::placeholder {
+  color: var(--text-muted);
+}
+
+.send-btn {
+  width: 38px; height: 38px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--teal);
+  color: var(--navy);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.send-btn:hover {
+  background: #00cc8e;
+  transform: scale(1.05);
+}
+
+/* Agent selector dropdown */
+.agent-selector {
+  display: none;
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  width: 260px;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  overflow: hidden;
+  z-index: 60;
+}
+.agent-selector.open { display: block; animation: fadeSlideUp 0.2s ease; }
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.agent-selector-header {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--navy-border);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.agent-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 0.82rem;
+}
+.agent-option:hover {
+  background: rgba(255,255,255,0.04);
+}
+.agent-option .agent-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.agent-option .agent-name {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.agent-option .agent-role {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  margin-left: auto;
+}
+
+/* ========== CONTEXT PANEL ========== */
+.context-section {
+  padding: 20px 20px;
+  border-bottom: 1px solid var(--navy-border);
+}
+.context-section:last-child { border-bottom: none; }
+
+.context-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Active agents */
+.active-agent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+.active-agent + .active-agent {
+  border-top: 1px solid rgba(42,53,72,0.5);
+}
+
+.active-agent-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.65rem;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.active-agent-info {
+  flex: 1;
+  min-width: 0;
+}
+.active-agent-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.active-agent-status {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.active-agent-status::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Resource links */
+.resource-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--navy-mid);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.resource-item:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+.resource-item .resource-name {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+}
+.resource-item .resource-action {
+  font-size: 0.72rem;
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* Quick action buttons */
+.context-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--navy-border);
+  background: var(--navy-mid);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  margin-bottom: 8px;
+}
+.context-btn:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+.context-btn.schedule {
+  border-color: rgba(96,165,250,0.3);
+  color: var(--blue);
+}
+.context-btn.schedule:hover {
+  background: var(--blue-dim);
+  border-color: var(--blue);
+}
+.context-btn.export {
+  border-color: rgba(251,146,60,0.3);
+  color: var(--orange);
+}
+.context-btn.export:hover {
+  background: var(--orange-dim);
+  border-color: var(--orange);
+}
+.context-btn.escalate {
+  border-color: rgba(255,107,107,0.3);
+  color: var(--coral);
+}
+.context-btn.escalate:hover {
+  background: var(--coral-dim);
+  border-color: var(--coral);
+}
+
+/* Conversation history */
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.82rem;
+}
+.history-item:hover {
+  background: rgba(255,255,255,0.04);
+}
+.history-item .history-icon {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.history-item .history-text {
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.history-item .history-date {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+.history-item.today .history-text {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ========== THREAD SIDEBAR ========== */
+.thread-sidebar {
+  width: 220px;
+  background: var(--navy-light);
+  border-right: 1px solid var(--navy-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.thread-sidebar-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--navy-border);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.thread-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.thread-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.thread-item:hover {
+  background: rgba(255,255,255,0.03);
+  color: var(--text-primary);
+}
+.thread-item.active {
+  color: var(--teal);
+  background: var(--teal-dim);
+  border-left-color: var(--teal);
+  font-weight: 500;
+}
+.thread-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.thread-unread {
+  margin-left: auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+.clear-chat-btn {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--navy-border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.clear-chat-btn:hover {
+  border-color: var(--coral);
+  color: var(--coral);
+  background: var(--coral-dim);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1100px) {
+  .chat-main { flex: 1 1 auto; }
+  .chat-context { display: none; }
+  .context-toggle { display: flex; }
+  .thread-sidebar { display: none; }
+}
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.show { display: block; }
+  .hamburger { display: flex; }
+  .main { margin-left: 0; }
+  .topbar { padding: 0 16px 0 64px; }
+  .topbar-actions .action-btn.hide-mobile { display: none; }
+  .chat-main { flex: 0 0 100%; }
+  .chat-context { display: none; }
+  .chat-header { padding: 12px 16px; }
+  .chat-messages { padding: 16px; }
+  .chat-input-area { padding: 10px 16px 16px; }
+  .agents-ready-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hamburger (mobile) -->
+<button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">
+  <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <h2>Purposeful<span>Profits</span></h2>
+  </div>
+
+  <div class="brand-selector">
+    <select class="brand-dropdown" id="brandSelect">
+      <option>Acme Skincare</option>
+      <option>Bloom Botanics</option>
+      <option>Terra Nutrition</option>
+    </select>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label" style="padding:12px 20px 6px;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:600;font-family:'Space Grotesk',sans-serif;">Overview</div>
+    <a href="client-dashboard-main.html" class="nav-item" style="text-decoration:none;">
+      <span class="nav-icon">&#9635;</span> Dashboard
+    </a>
+    <a href="client-dashboard-agents.html" class="nav-item" style="text-decoration:none;">
+      <span class="nav-icon">&#9881;</span> Agent Team
+    </a>
+    <a href="client-dashboard-reports.html" class="nav-item" style="text-decoration:none;">
+      <span class="nav-icon">&#9783;</span> Reports
+    </a>
+    <div class="nav-section-label" style="padding:12px 20px 6px;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:600;font-family:'Space Grotesk',sans-serif;">Workspace</div>
+    <a href="client-dashboard-kanban.html" class="nav-item" style="text-decoration:none;">
+      <span class="nav-icon">&#9744;</span> Task Board
+    </a>
+    <a href="client-dashboard-calendar.html" class="nav-item" style="text-decoration:none;">
+      <span class="nav-icon">&#128197;</span> Calendar
+    </a>
+    <a href="client-dashboard-chat.html" class="nav-item active" style="text-decoration:none;">
+      <span class="nav-icon">&#128172;</span> Chat
+    </a>
+    <a href="client-dashboard-learn.html" class="nav-item" style="text-decoration:none;">
+      <span class="nav-icon">&#127891;</span> Learn
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="strategist-row">
+      <div class="strategist-avatar">CV</div>
+      <div class="strategist-info">
+        <div class="strategist-name">Caner Veli</div>
+        <div class="strategist-detail">Your Strategist</div>
+      </div>
+    </div>
+    <div class="next-call">
+      <span class="call-icon">&#128222;</span> Next Call: Tue 25 Mar, 2pm
+    </div>
+    <div class="tier-badge">&#11088; Growth Pro</div>
+  </div>
+</aside>
+
+<!-- ========== MAIN ========== -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1><span>Growth Team</span> Chat</h1>
+      <div class="topbar-date">23 March 2026</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="clear-chat-btn hide-mobile" onclick="clearChat()">Clear Chat</button>
+      <button class="action-btn hide-mobile" onclick="showToast('Exporting chat transcript...')">Export Chat</button>
+      <button class="action-btn primary" onclick="startNewChat()">New Chat</button>
+      <div style="position:relative">
+        <button class="notif-btn" onclick="toggleNotifications(event)" aria-label="Notifications">
+          &#128276;
+          <span class="notif-badge">3</span>
+        </button>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-header">Notifications</div>
+          <div class="notif-item">
+            <span class="notif-dot" style="background:var(--teal)"></span>
+            CRO Analyst completed Fix 1: payment button repositioned.
+            <div class="notif-time">12 min ago</div>
+          </div>
+          <div class="notif-item">
+            <span class="notif-dot" style="background:var(--gold)"></span>
+            Email Strategist: Browse abandonment v2 deployed.
+            <div class="notif-time">1 hr ago</div>
+          </div>
+          <div class="notif-item">
+            <span class="notif-dot" style="background:var(--blue)"></span>
+            Weekly Strategy Brief is ready for review.
+            <div class="notif-time">3 hrs ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== CHAT LAYOUT ========== -->
+  <div class="chat-layout">
+
+    <!-- THREAD SIDEBAR -->
+    <div class="thread-sidebar">
+      <div class="thread-sidebar-header">Threads</div>
+      <div class="thread-list" id="threadList">
+        <div class="thread-item active" data-thread="general" onclick="switchThread('general')">
+          <span class="thread-icon">&#128488;</span> General
+        </div>
+        <div class="thread-item" data-thread="growth-strategy" onclick="switchThread('growth-strategy')">
+          <span class="thread-icon">&#128200;</span> Growth Strategy
+        </div>
+        <div class="thread-item" data-thread="weekly-reports" onclick="switchThread('weekly-reports')">
+          <span class="thread-icon">&#128203;</span> Weekly Reports
+        </div>
+      </div>
+    </div>
+
+    <!-- LEFT: CHAT INTERFACE -->
+    <div class="chat-main">
+
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <div class="chat-header-left">
+          <div class="chat-header-title">Growth Team Chat</div>
+          <span class="status-online">Online</span>
+          <span class="agents-ready-badge">108 agents ready</span>
+        </div>
+        <button class="new-chat-btn" onclick="startNewChat()">+ Start New Chat</button>
+      </div>
+
+      <!-- Chat Messages -->
+      <div class="chat-messages" id="chatMessages">
+
+        <!-- System welcome -->
+        <div class="message system">
+          <div class="message-body">
+            <div class="message-meta" style="justify-content:center">
+              <span class="message-time">10:00</span>
+            </div>
+            <div class="message-content">
+              Welcome to your Growth Team chat. I'm the Growth Orchestrator. Ask me anything about your growth strategy, request tasks, or get help from any of your 108 specialist agents.
+            </div>
+          </div>
+        </div>
+
+        <!-- User: Opening question -->
+        <div class="message user">
+          <div class="message-avatar" style="background: linear-gradient(135deg, var(--teal), var(--blue));">S</div>
+          <div class="message-body">
+            <div class="message-meta" style="justify-content:flex-end">
+              <span class="message-time">10:02</span>
+              <span class="message-sender">Sarah</span>
+            </div>
+            <div class="message-content">
+              Hi, can you give me a quick summary of how this week is going?
+            </div>
+          </div>
+        </div>
+
+        <!-- Growth Orchestrator: Weekly summary -->
+        <div class="message agent">
+          <div class="message-avatar" style="background: var(--teal);">GO</div>
+          <div class="message-body">
+            <div class="message-meta">
+              <span class="message-sender" style="color:var(--teal)">Growth Orchestrator</span>
+              <span class="message-time">10:02</span>
+            </div>
+            <div class="message-content">
+              Happy Monday, Sarah. Here's your week-at-a-glance:<br><br>
+              <div class="stat-line"><strong>Revenue:</strong> &pound;62,450 (on track for &pound;247K monthly target)</div>
+              <div class="stat-line"><strong>Key wins:</strong> Welcome flow A/B test showing <span class="highlight-teal">+18% improvement</span>. New Meta TOF campaign launched with early <span class="highlight-teal">4.8x ROAS</span>.</div>
+              <div class="stat-line"><span class="highlight-coral">Attention needed:</span> Mobile cart abandonment up 8% since Thursday. CRO Analyst has identified 3 fixes, waiting for your approval.</div>
+              <div class="stat-line"><strong>This week's priorities:</strong> 5 tasks in progress, 3 pending your review.</div>
+              <br>Want me to dive deeper into any of these?
+            </div>
+          </div>
+        </div>
+
+        <!-- User: Ask about cart issue -->
+        <div class="message user">
+          <div class="message-avatar" style="background: linear-gradient(135deg, var(--teal), var(--blue));">S</div>
+          <div class="message-body">
+            <div class="message-meta" style="justify-content:flex-end">
+              <span class="message-time">10:05</span>
+              <span class="message-sender">Sarah</span>
+            </div>
+            <div class="message-content">
+              Yes, tell me more about the mobile cart issue
+            </div>
+          </div>
+        </div>
+
+        <!-- Growth Orchestrator: Routing -->
+        <div class="message agent">
+          <div class="message-avatar" style="background: var(--teal);">GO</div>
+          <div class="message-body">
+            <div class="message-meta">
+              <span class="message-sender" style="color:var(--teal)">Growth Orchestrator</span>
+              <span class="message-time">10:05</span>
+            </div>
+            <div class="message-content">
+              <span class="routing-msg">Routing to CRO Analyst for details...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRO Analyst: Cart analysis -->
+        <div class="message agent">
+          <div class="message-avatar" style="background: var(--cyan);">CA</div>
+          <div class="message-body">
+            <div class="message-meta">
+              <span class="message-sender" style="color:var(--cyan)">CRO Analyst</span>
+              <span class="message-time">10:05</span>
+            </div>
+            <div class="message-content">
+              I detected a spike in mobile cart abandonment on Thursday (<span class="highlight-coral">68% to 76%</span>). Root causes:<br><br>
+              <div class="task-list">
+                <div class="task-item"><span class="task-number">1.</span> Payment button shifts below fold on iPhone SE/Mini screens</div>
+                <div class="task-item"><span class="task-number">2.</span> Shipping calculator takes <span class="highlight-coral">4.2 seconds</span> to load on mobile (was 1.8s)</div>
+                <div class="task-item"><span class="task-number">3.</span> Guest checkout option is hidden behind "Create Account" on mobile</div>
+              </div>
+              <br><strong>Recommended fixes:</strong>
+              <div class="task-list">
+                <div class="task-item"><span class="task-number">Fix 1:</span> CSS adjustment, 15 minutes, no theme update needed</div>
+                <div class="task-item"><span class="task-number">Fix 2:</span> Requires Shopify API call optimisation</div>
+                <div class="task-item"><span class="task-number">Fix 3:</span> Reorder checkout flow elements</div>
+              </div>
+              <br>Estimated revenue recovery: <span class="highlight-teal">&pound;3,200/month</span><br>
+              Shall I create tasks for these fixes?
+            </div>
+          </div>
+        </div>
+
+        <!-- User: Approve tasks -->
+        <div class="message user">
+          <div class="message-avatar" style="background: linear-gradient(135deg, var(--teal), var(--blue));">S</div>
+          <div class="message-body">
+            <div class="message-meta" style="justify-content:flex-end">
+              <span class="message-time">10:08</span>
+              <span class="message-sender">Sarah</span>
+            </div>
+            <div class="message-content">
+              Yes, create tasks for all three. Make fix 1 urgent.
+            </div>
+          </div>
+        </div>
+
+        <!-- CRO Analyst: Tasks created -->
+        <div class="message agent">
+          <div class="message-avatar" style="background: var(--cyan);">CA</div>
+          <div class="message-body">
+            <div class="message-meta">
+              <span class="message-sender" style="color:var(--cyan)">CRO Analyst</span>
+              <span class="message-time">10:08</span>
+            </div>
+            <div class="message-content">
+              Done. Three tasks created:
+              <div class="task-list">
+                <div class="task-item"><span class="task-number">1.</span> Fix payment button mobile positioning <span class="task-badge urgent">Urgent</span> &ndash; assigned to me</div>
+                <div class="task-item"><span class="task-number">2.</span> Optimise shipping calculator API <span class="task-badge high">High</span> &ndash; assigned to me</div>
+                <div class="task-item"><span class="task-number">3.</span> Reorder mobile checkout flow <span class="task-badge high">High</span> &ndash; assigned to me</div>
+              </div>
+              <br>Fix 1 will be completed within the hour. I'll update you when it's live.
+            </div>
+          </div>
+        </div>
+
+        <!-- Growth Orchestrator: Confirmation -->
+        <div class="message agent">
+          <div class="message-avatar" style="background: var(--teal);">GO</div>
+          <div class="message-body">
+            <div class="message-meta">
+              <span class="message-sender" style="color:var(--teal)">Growth Orchestrator</span>
+              <span class="message-time">10:09</span>
+            </div>
+            <div class="message-content">
+              Tasks added to your board. I've also flagged this to the Analytics Brain to set up monitoring on mobile cart abandonment so we can measure the impact of each fix.<br><br>
+              Anything else you need?
+            </div>
+          </div>
+        </div>
+
+        <!-- User: Ask about email -->
+        <div class="message user">
+          <div class="message-avatar" style="background: linear-gradient(135deg, var(--teal), var(--blue));">S</div>
+          <div class="message-body">
+            <div class="message-meta" style="justify-content:flex-end">
+              <span class="message-time">10:12</span>
+              <span class="message-sender">Sarah</span>
+            </div>
+            <div class="message-content">
+              Can you show me how our email revenue is trending?
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics Brain: Email report -->
+        <div class="message agent">
+          <div class="message-avatar" style="background: var(--magenta);">AB</div>
+          <div class="message-body">
+            <div class="message-meta">
+              <span class="message-sender" style="color:var(--magenta)">Analytics Brain</span>
+              <span class="message-time">10:12</span>
+            </div>
+            <div class="message-content">
+              <strong>Email revenue this month:</strong> &pound;71,126 (<span class="highlight-teal">28.7% of total</span>)<br><br>
+              <div class="stat-line"><strong>Trend:</strong> Up <span class="highlight-teal">18%</span> vs last month</div>
+              <div class="stat-line"><strong>Best performing flow:</strong> Abandoned cart (&pound;22,400, 31.5% of email revenue)</div>
+              <div class="stat-line"><strong>Campaign highlight:</strong> Spring Collection (42% open rate, &pound;8,900 revenue)</div>
+              <div class="stat-line"><span class="highlight-gold">Gap:</span> Browse abandonment flow generating less than expected. Email Strategist is deploying v2 this week.</div>
+              <br>Target: 30% of total revenue. Current pace puts us at <span class="highlight-teal">29.4%</span> by month end.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="typing-indicator" id="typingIndicator">
+        <div class="message-avatar" style="background: var(--teal); width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.72rem; color:var(--navy); flex-shrink:0;">GO</div>
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="typing-label" id="typingLabel">Growth Orchestrator is typing...</span>
+      </div>
+
+      <!-- Chat Input -->
+      <div class="chat-input-area">
+        <div class="quick-actions">
+          <button class="quick-pill" onclick="insertQuickAction('Give me a weekly summary')">Weekly Summary</button>
+          <button class="quick-pill" onclick="insertQuickAction('Run a full growth audit')">Run Audit</button>
+          <button class="quick-pill" onclick="insertQuickAction('Create a new task')">Create Task</button>
+          <button class="quick-pill" onclick="insertQuickAction('Show me the latest metrics')">Show Metrics</button>
+        </div>
+        <div class="input-row">
+          <button class="input-btn" onclick="showToast('File upload coming soon')" title="Attach file">
+            &#128206;
+          </button>
+          <div style="position:relative">
+            <button class="input-btn" id="agentSelectorBtn" onclick="toggleAgentSelector(event)" title="Direct message an agent">
+              @
+            </button>
+            <div class="agent-selector" id="agentSelector">
+              <div class="agent-selector-header">Direct message agent</div>
+              <div class="agent-option" onclick="selectAgent('Growth Orchestrator')">
+                <span class="agent-dot" style="background:var(--teal)"></span>
+                <span class="agent-name">Growth Orchestrator</span>
+                <span class="agent-role">Strategy</span>
+              </div>
+              <div class="agent-option" onclick="selectAgent('CRO Analyst')">
+                <span class="agent-dot" style="background:var(--cyan)"></span>
+                <span class="agent-name">CRO Analyst</span>
+                <span class="agent-role">Conversion</span>
+              </div>
+              <div class="agent-option" onclick="selectAgent('Analytics Brain')">
+                <span class="agent-dot" style="background:var(--magenta)"></span>
+                <span class="agent-name">Analytics Brain</span>
+                <span class="agent-role">Data</span>
+              </div>
+              <div class="agent-option" onclick="selectAgent('Email Strategist')">
+                <span class="agent-dot" style="background:var(--orange)"></span>
+                <span class="agent-name">Email Strategist</span>
+                <span class="agent-role">Retention</span>
+              </div>
+              <div class="agent-option" onclick="selectAgent('Meta Ads Pilot')">
+                <span class="agent-dot" style="background:var(--blue)"></span>
+                <span class="agent-name">Meta Ads Pilot</span>
+                <span class="agent-role">Paid Social</span>
+              </div>
+              <div class="agent-option" onclick="selectAgent('Creative Director')">
+                <span class="agent-dot" style="background:var(--coral)"></span>
+                <span class="agent-name">Creative Director</span>
+                <span class="agent-role">Creative</span>
+              </div>
+              <div class="agent-option" onclick="selectAgent('SEO Engineer')">
+                <span class="agent-dot" style="background:var(--gold)"></span>
+                <span class="agent-name">SEO Engineer</span>
+                <span class="agent-role">Organic</span>
+              </div>
+              <div class="agent-option" onclick="selectAgent('Retention Architect')">
+                <span class="agent-dot" style="background:var(--purple)"></span>
+                <span class="agent-name">Retention Architect</span>
+                <span class="agent-role">Loyalty</span>
+              </div>
+            </div>
+          </div>
+          <textarea class="chat-input" id="chatInput" placeholder="Ask your Growth Team anything..." rows="1" onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+          <button class="send-btn" onclick="sendMessage()" title="Send message">
+            &#10148;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: CONTEXT PANEL -->
+    <div class="chat-context">
+
+      <!-- Active Agents -->
+      <div class="context-section">
+        <div class="context-label">Active in this conversation</div>
+
+        <div class="active-agent">
+          <div class="active-agent-avatar" style="background:var(--teal);">GO</div>
+          <div class="active-agent-info">
+            <div class="active-agent-name">Growth Orchestrator</div>
+            <div class="active-agent-status" style="color:var(--teal)">
+              <style>.active-agent:nth-child(1) .active-agent-status::before { background: var(--teal); }</style>
+              Coordinating
+            </div>
+          </div>
+        </div>
+
+        <div class="active-agent">
+          <div class="active-agent-avatar" style="background:var(--cyan);">CA</div>
+          <div class="active-agent-info">
+            <div class="active-agent-name">CRO Analyst</div>
+            <div class="active-agent-status" style="color:var(--orange)">
+              <style>.active-agent:nth-child(2) .active-agent-status::before { background: var(--orange); }</style>
+              Working on 3 tasks
+            </div>
+          </div>
+        </div>
+
+        <div class="active-agent">
+          <div class="active-agent-avatar" style="background:var(--magenta);">AB</div>
+          <div class="active-agent-info">
+            <div class="active-agent-name">Analytics Brain</div>
+            <div class="active-agent-status" style="color:var(--purple)">
+              <style>.active-agent:nth-child(3) .active-agent-status::before { background: var(--purple); }</style>
+              Generating report
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Resources -->
+      <div class="context-section">
+        <div class="context-label">Related Resources</div>
+        <div class="resource-item" onclick="showToast('Opening Weekly Strategy Brief...')">
+          <span class="resource-name">Weekly Strategy Brief</span>
+          <span class="resource-action">View</span>
+        </div>
+        <div class="resource-item" onclick="showToast('Opening CRO Audit Report...')">
+          <span class="resource-name">CRO Audit Report</span>
+          <span class="resource-action">View</span>
+        </div>
+        <div class="resource-item" onclick="showToast('Opening Mobile Cart Analysis...')">
+          <span class="resource-name">Mobile Cart Analysis</span>
+          <span class="resource-action">View</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="context-section">
+        <div class="context-label">Quick Actions</div>
+        <button class="context-btn schedule" onclick="showToast('Opening calendar to schedule with Caner...')">
+          &#128197; Schedule a call with Caner
+        </button>
+        <button class="context-btn export" onclick="showToast('Exporting chat as PDF...')">
+          &#128196; Export chat as PDF
+        </button>
+        <button class="context-btn escalate" onclick="showToast('Escalating to human support. Caner will be in touch within the hour.')">
+          &#128680; Escalate to human
+        </button>
+      </div>
+
+      <!-- Conversation History -->
+      <div class="context-section">
+        <div class="context-label">Conversation History</div>
+        <div class="history-item today" onclick="loadHistory('today')">
+          <span class="history-icon">&#128488;</span>
+          <span class="history-text">Today (3 chats)</span>
+          <span class="history-date">Now</span>
+        </div>
+        <div class="history-item" onclick="loadHistory('yesterday')">
+          <span class="history-icon">&#128488;</span>
+          <span class="history-text">Weekly check-in</span>
+          <span class="history-date">Yesterday</span>
+        </div>
+        <div class="history-item" onclick="loadHistory('20mar')">
+          <span class="history-icon">&#128488;</span>
+          <span class="history-text">Campaign review</span>
+          <span class="history-date">20 Mar</span>
+        </div>
+        <div class="history-item" onclick="loadHistory('18mar')">
+          <span class="history-icon">&#128488;</span>
+          <span class="history-text">Onboarding Q&amp;A</span>
+          <span class="history-date">18 Mar</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /chat-layout -->
+</div><!-- /main -->
+
+<!-- ========== TOAST ========== -->
+<div id="toast" style="
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--navy-surface);border:1px solid var(--teal);color:var(--text-primary);
+  padding:12px 24px;border-radius:var(--radius);font-size:0.85rem;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:999;transition:transform 0.3s ease;
+  pointer-events:none;
+"></div>
+
+<script>
+// ========== SIDEBAR TOGGLE ==========
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.querySelector('.sidebar-overlay').classList.toggle('show');
+}
+
+// ========== NOTIFICATIONS ==========
+function toggleNotifications(e) {
+  e.stopPropagation();
+  document.getElementById('notifDropdown').classList.toggle('open');
+}
+document.addEventListener('click', () => {
+  const nd = document.getElementById('notifDropdown');
+  const as = document.getElementById('agentSelector');
+  if (nd) nd.classList.remove('open');
+  if (as) as.classList.remove('open');
+});
+
+// ========== TOAST ==========
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(100px)'; }, 2500);
+}
+
+// ========== AGENT SELECTOR ==========
+let selectedAgent = null;
+
+function toggleAgentSelector(e) {
+  e.stopPropagation();
+  document.getElementById('agentSelector').classList.toggle('open');
+}
+
+function selectAgent(agentName) {
+  selectedAgent = agentName;
+  const input = document.getElementById('chatInput');
+  input.value = '@' + agentName + ' ';
+  input.focus();
+  document.getElementById('agentSelector').classList.remove('open');
+  showToast('Directing to ' + agentName);
+}
+
+// ========== AUTO RESIZE TEXTAREA ==========
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+// ========== QUICK ACTIONS ==========
+function insertQuickAction(text) {
+  const input = document.getElementById('chatInput');
+  input.value = text;
+  input.focus();
+  autoResize(input);
+  sendMessage();
+}
+
+// ========== CHAT FUNCTIONALITY ==========
+function handleKeyDown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+// ========== AGENT DEFINITIONS ==========
+const agents = {
+  'Growth Orchestrator': { avatar: 'GO', bg: 'var(--teal)', colour: 'var(--teal)' },
+  'CRO Analyst': { avatar: 'CA', bg: 'var(--cyan)', colour: 'var(--cyan)' },
+  'Analytics Brain': { avatar: 'AB', bg: 'var(--magenta)', colour: 'var(--magenta)' },
+  'Email Strategist': { avatar: 'ES', bg: 'var(--orange)', colour: 'var(--orange)' },
+  'Meta Ads Pilot': { avatar: 'MA', bg: 'var(--blue)', colour: 'var(--blue)' },
+  'Creative Director': { avatar: 'CD', bg: 'var(--coral)', colour: 'var(--coral)' },
+  'SEO Engineer': { avatar: 'SE', bg: 'var(--gold)', colour: 'var(--gold)' },
+  'Retention Architect': { avatar: 'RA', bg: 'var(--purple)', colour: 'var(--purple)' }
+};
+
+// ========== RELATIVE TIMESTAMPS ==========
+function relativeTime(ts) {
+  const now = Date.now();
+  const diff = now - ts;
+  const seconds = Math.floor(diff / 1000);
+  if (seconds < 10) return 'just now';
+  if (seconds < 60) return seconds + 's ago';
+  const mins = Math.floor(seconds / 60);
+  if (mins < 60) return mins + ' min ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + ' hour' + (hrs > 1 ? 's' : '') + ' ago';
+  const days = Math.floor(hrs / 24);
+  return days + ' day' + (days > 1 ? 's' : '') + ' ago';
+}
+
+function updateTimestamps() {
+  document.querySelectorAll('.message-time[data-ts]').forEach(el => {
+    el.textContent = relativeTime(parseInt(el.getAttribute('data-ts')));
+  });
+}
+setInterval(updateTimestamps, 30000);
+
+// ========== THREAD MANAGEMENT ==========
+let currentThread = 'general';
+
+function getStorageKey(thread) {
+  return 'pp_chat_messages_' + (thread || currentThread);
+}
+
+function loadMessages(thread) {
+  const key = getStorageKey(thread);
+  try {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveMessages(messages, thread) {
+  const key = getStorageKey(thread);
+  try {
+    localStorage.setItem(key, JSON.stringify(messages));
+  } catch (e) {
+    // Storage full, silently fail
+  }
+  // Also mirror to the generic key for the current thread
+  if ((thread || currentThread) === currentThread) {
+    try {
+      localStorage.setItem('pp_chat_messages', JSON.stringify(messages));
+    } catch (e) {}
+  }
+}
+
+function switchThread(threadId) {
+  currentThread = threadId;
+  document.querySelectorAll('.thread-item').forEach(el => el.classList.remove('active'));
+  const target = document.querySelector('.thread-item[data-thread="' + threadId + '"]');
+  if (target) target.classList.add('active');
+  renderMessages();
+}
+
+// ========== RENDER MESSAGES ==========
+function renderMessages() {
+  const container = document.getElementById('chatMessages');
+  container.innerHTML = '';
+  const messages = loadMessages(currentThread);
+
+  if (messages.length === 0) {
+    // Show welcome
+    const threadNames = { 'general': 'General', 'growth-strategy': 'Growth Strategy', 'weekly-reports': 'Weekly Reports' };
+    const welcome = document.createElement('div');
+    welcome.className = 'message system';
+    welcome.innerHTML = '<div class="message-body"><div class="message-meta" style="justify-content:center"><span class="message-time" data-ts="' + Date.now() + '">just now</span></div><div class="message-content">Welcome to the <strong>' + (threadNames[currentThread] || 'General') + '</strong> thread. I\'m the Growth Orchestrator. Ask me anything about your growth strategy, request tasks, or get help from any of your specialist agents.</div></div>';
+    container.appendChild(welcome);
+    scrollToBottom();
+    return;
+  }
+
+  messages.forEach(m => {
+    const msgEl = document.createElement('div');
+    msgEl.className = 'message ' + m.type;
+
+    if (m.type === 'user') {
+      msgEl.innerHTML = '<div class="message-avatar" style="background: linear-gradient(135deg, var(--teal), var(--blue));">Y</div><div class="message-body"><div class="message-meta" style="justify-content:flex-end"><span class="message-time" data-ts="' + m.timestamp + '">' + relativeTime(m.timestamp) + '</span><span class="message-sender">You</span></div><div class="message-content">' + escapeHtml(m.content) + '</div></div>';
+    } else if (m.type === 'agent') {
+      const agent = agents[m.sender] || agents['Growth Orchestrator'];
+      msgEl.innerHTML = '<div class="message-avatar" style="background: ' + agent.bg + ';">' + agent.avatar + '</div><div class="message-body"><div class="message-meta"><span class="message-sender" style="color:' + agent.colour + '">' + m.sender + '</span><span class="message-time" data-ts="' + m.timestamp + '">' + relativeTime(m.timestamp) + '</span></div><div class="message-content">' + m.content + '</div></div>';
+    } else if (m.type === 'system') {
+      msgEl.innerHTML = '<div class="message-body"><div class="message-meta" style="justify-content:center"><span class="message-time" data-ts="' + m.timestamp + '">' + relativeTime(m.timestamp) + '</span></div><div class="message-content">' + m.content + '</div></div>';
+    }
+
+    container.appendChild(msgEl);
+  });
+
+  scrollToBottom();
+}
+
+// ========== RESPONSE ENGINE ==========
+function generateResponse(userMessage) {
+  const lower = userMessage.toLowerCase();
+
+  // Check for @agent prefix
+  let targetAgent = selectedAgent;
+  selectedAgent = null;
+  const atMatch = userMessage.match(/^@([A-Za-z\s]+?)\s/);
+  if (atMatch) {
+    const mentioned = atMatch[1].trim();
+    if (agents[mentioned]) targetAgent = mentioned;
+  }
+
+  // Audit / Score / CRO
+  if (/audit|score|cro/i.test(lower)) {
+    const agent = targetAgent || 'CRO Analyst';
+    const a = agents[agent] || agents['CRO Analyst'];
+    return {
+      sender: agent,
+      content: '<strong>Quick Audit Summary</strong><br><br>' +
+        '<div class="stat-line"><strong>Overall Growth Score:</strong> <span class="highlight-teal">72/100</span> (up from 64 last month)</div>' +
+        '<div class="stat-line"><strong>Conversion Rate:</strong> 2.4% (<span class="highlight-teal">+0.3%</span> vs last week)</div>' +
+        '<div class="stat-line"><strong>AOV:</strong> &pound;67.20 (target: &pound;72)</div>' +
+        '<div class="stat-line"><strong>Cart Abandonment:</strong> <span class="highlight-coral">71%</span> (needs attention)</div>' +
+        '<br>Three quick wins identified: sticky add-to-cart bar (+0.5% CR est.), trust badges above fold (+0.2% CR est.), and express checkout for returning customers (+0.4% CR est.). Shall I create tasks for these?'
+    };
+  }
+
+  // Email / Flow / Klaviyo
+  if (/email|flow|klaviyo/i.test(lower)) {
+    const agent = targetAgent || 'Email Strategist';
+    return {
+      sender: agent,
+      content: '<strong>Email Channel Overview</strong><br><br>' +
+        '<div class="stat-line"><strong>Email Revenue (MTD):</strong> &pound;71,126 (<span class="highlight-teal">28.7% of total</span>)</div>' +
+        '<div class="stat-line"><strong>Active Flows:</strong> 12 (3 updated this week)</div>' +
+        '<div class="stat-line"><strong>Top Flow:</strong> Abandoned Cart at &pound;22,400 revenue, 45.2% open rate</div>' +
+        '<br>The browse abandonment v2 flow launched yesterday and is already showing a <span class="highlight-teal">23% improvement</span> in click-through. I recommend we also test a sunset re-engagement flow targeting the 8,400 subscribers who haven\'t opened in 90+ days.'
+    };
+  }
+
+  // Ads / Creative / Meta / Facebook
+  if (/\bad\b|ads|creative|meta|facebook/i.test(lower)) {
+    const agent = targetAgent || 'Meta Ads Pilot';
+    return {
+      sender: agent,
+      content: '<strong>Paid Social Performance</strong><br><br>' +
+        '<div class="stat-line"><strong>Meta Spend (MTD):</strong> &pound;12,840</div>' +
+        '<div class="stat-line"><strong>Blended ROAS:</strong> <span class="highlight-teal">4.2x</span> (target: 3.8x)</div>' +
+        '<div class="stat-line"><strong>Top Campaign:</strong> Spring Collection TOF at 5.1x ROAS, &pound;3.20 CPA</div>' +
+        '<div class="stat-line"><strong>Cost per Purchase:</strong> &pound;18.40 (<span class="highlight-teal">down 12%</span> vs last week)</div>' +
+        '<br>New UGC creatives are outperforming studio shots by 34%. I recommend scaling the top 3 UGC variants and pausing the two lowest-performing static ads to reallocate budget.'
+    };
+  }
+
+  // SEO / Keyword / Ranking
+  if (/seo|keyword|ranking/i.test(lower)) {
+    const agent = targetAgent || 'SEO Engineer';
+    return {
+      sender: agent,
+      content: '<strong>SEO Performance Report</strong><br><br>' +
+        '<div class="stat-line"><strong>Organic Traffic (MTD):</strong> 34,200 sessions (<span class="highlight-teal">+22%</span> MoM)</div>' +
+        '<div class="stat-line"><strong>Top 10 Keywords:</strong> 47 (up from 31 last month)</div>' +
+        '<div class="stat-line"><strong>Domain Authority:</strong> 38 (<span class="highlight-teal">+3</span> this quarter)</div>' +
+        '<br>Your blog post on "best skincare routine for dry skin" moved from position 14 to position 6 this week, driving 1,240 new sessions. I recommend publishing 2 supporting articles to build topical authority and push for the top 3.'
+    };
+  }
+
+  // Task / To-do / Assign
+  if (/task|to-do|todo|assign/i.test(lower)) {
+    const agent = targetAgent || 'Growth Orchestrator';
+    return {
+      sender: agent,
+      content: 'Task created and added to your board. Here\'s what I\'ve set up:<br><br>' +
+        '<div class="task-list">' +
+        '<div class="task-item"><span class="task-number">1.</span> New task created from your request <span class="task-badge high">High</span></div>' +
+        '</div>' +
+        '<br>I\'ve assigned it to the most relevant specialist based on the context. You can view and manage all tasks on your <strong>Task Board</strong>. The assigned agent will begin work immediately and update you here with progress.'
+    };
+  }
+
+  // Metrics / KPI / Performance / Summary
+  if (/metric|kpi|performance|summary|weekly/i.test(lower)) {
+    const agent = targetAgent || 'Analytics Brain';
+    return {
+      sender: agent,
+      content: '<strong>Weekly Metrics Overview</strong><br><br>' +
+        '<div class="stat-line"><strong>Revenue:</strong> &pound;62,450 (<span class="highlight-teal">on track</span> for &pound;247K target)</div>' +
+        '<div class="stat-line"><strong>Conversion Rate:</strong> 2.4% (up from 2.1%)</div>' +
+        '<div class="stat-line"><strong>AOV:</strong> &pound;67.20</div>' +
+        '<div class="stat-line"><strong>New Customers:</strong> 892 (<span class="highlight-teal">+15%</span> WoW)</div>' +
+        '<div class="stat-line"><strong>Returning Rate:</strong> 34% (target: 38%)</div>' +
+        '<div class="stat-line"><strong>Email Revenue Share:</strong> 28.7%</div>' +
+        '<div class="stat-line"><strong>Meta ROAS:</strong> 4.2x</div>' +
+        '<br>Biggest opportunity this week: improving mobile conversion (currently 1.6% vs 3.1% desktop). The CRO Analyst has 3 fixes queued. Shall I prioritise those?'
+    };
+  }
+
+  // Default: Growth Orchestrator helpful response
+  const agent = targetAgent || 'Growth Orchestrator';
+  const defaults = [
+    'I\'ve reviewed your request and here\'s what I recommend. Your growth engine is performing well across most channels, with email at 28.7% revenue share and paid social delivering 4.2x ROAS. The biggest lever right now is improving mobile conversion, which sits at 1.6% versus 3.1% on desktop. Want me to pull in the CRO Analyst to run a deep-dive?',
+    'Good question. Let me pull together the relevant data. Your current monthly run rate is &pound;247K with a 2.4% blended conversion rate. The team has completed 23 tasks this week across 6 growth levers. Three items need your approval on the Task Board. Would you like me to walk you through them?',
+    'I\'ve coordinated with the specialist agents on this. Here\'s the consensus: your top priority should be the mobile checkout optimisation (est. &pound;3,200/month recovery), followed by scaling the top-performing UGC ad creatives (potential 20% spend increase at current ROAS). Shall I create tasks for both?',
+    'Understood. I\'ve flagged this to the relevant team members. Your Email Strategist is working on the browse abandonment v2 flow (expected +23% CTR), and the SEO Engineer has identified 5 new keyword opportunities worth an estimated 2,400 monthly sessions. I\'ll keep you updated as progress comes in.',
+    'That\'s noted. Based on your current growth trajectory, you\'re tracking at 89% of your quarterly target. The three biggest contributors this month have been the new Meta TOF campaign (4.8x ROAS), the welcome flow A/B test (+18% improvement), and organic traffic growth (+22% MoM). What would you like to focus on next?'
+  ];
+
+  return {
+    sender: agent,
+    content: defaults[Math.floor(Math.random() * defaults.length)]
+  };
+}
+
+// ========== SCROLL TO BOTTOM ==========
+function scrollToBottom() {
+  const container = document.getElementById('chatMessages');
+  container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+}
+
+// ========== ESCAPE HTML ==========
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ========== TYPING INDICATOR ==========
+function showTyping(agentName) {
+  const indicator = document.getElementById('typingIndicator');
+  const label = document.getElementById('typingLabel');
+  const agent = agents[agentName] || agents['Growth Orchestrator'];
+  // Update typing indicator avatar
+  const avatarEl = indicator.querySelector('.message-avatar');
+  if (avatarEl) {
+    avatarEl.style.background = agent.bg;
+    avatarEl.textContent = agent.avatar;
+  }
+  label.textContent = agentName + ' is typing...';
+  indicator.classList.add('visible');
+  scrollToBottom();
+}
+
+function hideTyping() {
+  document.getElementById('typingIndicator').classList.remove('visible');
+}
+
+// ========== SEND MESSAGE ==========
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const now = Date.now();
+  const messages = loadMessages(currentThread);
+
+  // Save user message
+  messages.push({ type: 'user', sender: 'You', content: text, timestamp: now });
+  saveMessages(messages, currentThread);
+
+  // Render user message in DOM
+  const container = document.getElementById('chatMessages');
+  const userMsg = document.createElement('div');
+  userMsg.className = 'message user';
+  userMsg.innerHTML = '<div class="message-avatar" style="background: linear-gradient(135deg, var(--teal), var(--blue));">Y</div><div class="message-body"><div class="message-meta" style="justify-content:flex-end"><span class="message-time" data-ts="' + now + '">just now</span><span class="message-sender">You</span></div><div class="message-content">' + escapeHtml(text) + '</div></div>';
+  container.appendChild(userMsg);
+
+  // Clear input
+  input.value = '';
+  input.style.height = 'auto';
+  scrollToBottom();
+
+  // Generate response
+  const response = generateResponse(text);
+  const agent = agents[response.sender] || agents['Growth Orchestrator'];
+  const typingDelay = 1500 + Math.random() * 1500; // 1.5-3 seconds
+
+  // Show typing indicator
+  setTimeout(() => {
+    showTyping(response.sender);
+
+    setTimeout(() => {
+      hideTyping();
+
+      const responseTs = Date.now();
+      // Save agent message
+      const msgs = loadMessages(currentThread);
+      msgs.push({ type: 'agent', sender: response.sender, content: response.content, timestamp: responseTs });
+      saveMessages(msgs, currentThread);
+
+      // Render agent message
+      const agentMsg = document.createElement('div');
+      agentMsg.className = 'message agent';
+      agentMsg.innerHTML = '<div class="message-avatar" style="background: ' + agent.bg + ';">' + agent.avatar + '</div><div class="message-body"><div class="message-meta"><span class="message-sender" style="color:' + agent.colour + '">' + response.sender + '</span><span class="message-time" data-ts="' + responseTs + '">just now</span></div><div class="message-content">' + response.content + '</div></div>';
+      container.appendChild(agentMsg);
+      scrollToBottom();
+    }, typingDelay);
+  }, 500);
+}
+
+// ========== NEW CHAT ==========
+function startNewChat() {
+  const messages = [];
+  saveMessages(messages, currentThread);
+  renderMessages();
+  showToast('New chat started');
+}
+
+// ========== CLEAR CHAT ==========
+function clearChat() {
+  if (!confirm('Clear all messages in this thread?')) return;
+  saveMessages([], currentThread);
+  renderMessages();
+  showToast('Chat cleared');
+}
+
+// ========== CONVERSATION HISTORY (CONTEXT PANEL) ==========
+function loadHistory(id) {
+  const container = document.getElementById('chatMessages');
+  const loading = document.createElement('div');
+  loading.className = 'message system';
+  loading.innerHTML = '<div class="message-body"><div class="message-content" style="color:var(--text-muted)">Loading previous chat...</div></div>';
+  container.appendChild(loading);
+  scrollToBottom();
+
+  setTimeout(() => {
+    loading.querySelector('.message-content').textContent = 'Chat history loaded. Scroll up to view.';
+    loading.querySelector('.message-content').style.color = 'var(--teal)';
+  }, 1200);
+}
+
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', () => {
+  // Load saved messages for current thread, or show demo messages if first visit
+  const saved = loadMessages(currentThread);
+  if (saved.length > 0) {
+    renderMessages();
+  } else {
+    // First visit: keep the demo HTML messages as-is, they serve as onboarding
+    scrollToBottom();
+  }
+});
+</script>
+</body>
+</html>

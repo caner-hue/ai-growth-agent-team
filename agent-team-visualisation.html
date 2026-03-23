@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Growth Agent Team | Purposeful Profits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #0a0f1c;
+  --bg-card: #111827;
+  --bg-card-hover: #1a2332;
+  --teal: #00e5a0;
+  --coral: #ff6b6b;
+  --gold: #ffd700;
+  --purple: #a78bfa;
+  --cyan: #22d3ee;
+  --orange: #fb923c;
+  --blue: #60a5fa;
+  --yellow: #facc15;
+  --magenta: #e879f9;
+  --pink: #f472b6;
+  --red: #f87171;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Dot grid background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+section {
+  padding: 100px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== NAVIGATION ========== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10, 15, 28, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 16px 0;
+}
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--teal);
+}
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--teal); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* ========== HERO HEADER ========== */
+#hero {
+  padding-top: 140px;
+  padding-bottom: 40px;
+  text-align: center;
+}
+#hero .section-title {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#hero .section-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 229, 160, 0.1);
+  border: 1px solid rgba(0, 229, 160, 0.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  color: var(--teal);
+  margin-bottom: 24px;
+}
+.hero-badge .dot {
+  width: 8px; height: 8px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ========== SECTION 1: AGENT HUB ========== */
+#agent-hub { padding-bottom: 60px; }
+
+.hub-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  aspect-ratio: 1;
+}
+
+.hub-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hub-line {
+  stroke-dasharray: 8, 6;
+  stroke-width: 1.5;
+  fill: none;
+  animation: dash-flow 2s linear infinite;
+}
+
+@keyframes dash-flow {
+  to { stroke-dashoffset: -28; }
+}
+
+.hub-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(0,229,160,0.15), transparent);
+  border: 2px solid var(--teal);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  animation: center-glow 3s ease-in-out infinite;
+}
+@keyframes center-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(0,229,160,0.15); }
+  50% { box-shadow: 0 0 60px rgba(0,229,160,0.3); }
+}
+.hub-center-icon { font-size: 2rem; margin-bottom: 4px; }
+.hub-center-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--teal);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.agent-node {
+  position: absolute;
+  z-index: 10;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.agent-node:hover {
+  transform: scale(1.15);
+  z-index: 20;
+}
+.agent-node-icon { font-size: 1.6rem; margin-bottom: 2px; }
+.agent-node-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  line-height: 1.2;
+  padding: 0 4px;
+}
+
+/* Agent tooltip */
+.agent-tooltip {
+  position: absolute;
+  z-index: 30;
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 16px;
+  width: 220px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.agent-node:hover .agent-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.agent-tooltip h4 {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+.agent-tooltip ul {
+  list-style: none;
+  padding: 0;
+}
+.agent-tooltip li {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 3px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.agent-tooltip li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+}
+
+/* Node pulse animation */
+@keyframes node-pulse {
+  0%, 100% { box-shadow: 0 0 20px var(--node-glow); }
+  50% { box-shadow: 0 0 40px var(--node-glow); }
+}
+
+/* Mobile agent hub fallback */
+@media (max-width: 600px) {
+  .hub-canvas { display: none; }
+  .hub-mobile { display: grid !important; }
+}
+
+.hub-mobile {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.hub-mobile-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.hub-mobile-card .icon { font-size: 1.8rem; margin-bottom: 6px; }
+.hub-mobile-card .label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.hub-mobile-card .deliverables {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* ========== SECTION 2: WEEKLY WORKFLOW ========== */
+.timeline-track {
+  position: relative;
+  overflow-x: auto;
+  padding: 40px 0;
+  -webkit-overflow-scrolling: touch;
+}
+.timeline-inner {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+  position: relative;
+  padding: 0 20px;
+}
+.timeline-line {
+  position: absolute;
+  top: 28px;
+  left: 20px;
+  right: 20px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--cyan), var(--blue), var(--purple), var(--teal));
+  border-radius: 2px;
+  z-index: 0;
+}
+.timeline-progress {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--teal);
+  border-radius: 2px;
+  transition: width 1.5s ease;
+  box-shadow: 0 0 12px var(--teal);
+}
+.timeline-day {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 200px;
+  padding-top: 50px;
+  text-align: center;
+}
+.timeline-dot {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--bg-deep);
+  border: 3px solid var(--teal);
+  transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+}
+.timeline-day.active .timeline-dot {
+  background: var(--teal);
+  box-shadow: 0 0 20px rgba(0,229,160,0.5);
+}
+.timeline-day-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+.timeline-tasks {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.timeline-tasks span {
+  display: block;
+}
+
+/* ========== SECTION 3: 6-LEVER PIPELINE ========== */
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  position: relative;
+}
+@media (max-width: 900px) {
+  .pipeline-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 500px) {
+  .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.pipeline-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.pipeline-card:hover {
+  transform: translateY(-4px);
+}
+.pipeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+.pipeline-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  opacity: 0.15;
+  position: absolute;
+  top: 8px; right: 12px;
+}
+.pipeline-icon { font-size: 2rem; margin-bottom: 12px; }
+.pipeline-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.pipeline-agents {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+.pipeline-phase {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-top: 12px;
+}
+.phase-build {
+  background: rgba(0, 229, 160, 0.12);
+  color: var(--teal);
+}
+.phase-scale {
+  background: rgba(167, 139, 250, 0.12);
+  color: var(--purple);
+}
+
+/* Arrow between pipeline cards */
+.pipeline-arrow {
+  display: none; /* shown on larger screens via JS */
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+/* ========== SECTION 4: BEFORE/AFTER ========== */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 700px) {
+  .comparison-grid { grid-template-columns: 1fr; }
+}
+
+.comparison-card {
+  border-radius: 20px;
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.comparison-card.before {
+  background: linear-gradient(135deg, #1a1520, #1e1525);
+  border: 1px solid rgba(255,107,107,0.15);
+}
+.comparison-card.after {
+  background: linear-gradient(135deg, #0a1a1a, #0a1f1a);
+  border: 1px solid rgba(0,229,160,0.15);
+}
+.comparison-card.after .comp-items {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+.comparison-card.after.activated .comp-items {
+  opacity: 1;
+  transform: translateY(0);
+}
+.comp-badge {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.comparison-card.before .comp-badge { color: var(--coral); }
+.comparison-card.after .comp-badge { color: var(--teal); }
+
+.comp-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+.comp-items { list-style: none; }
+.comp-items li {
+  padding: 10px 0;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.comp-items li:last-child { border-bottom: none; }
+.comp-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.comp-items .detail {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+/* ========== SECTION 5: ROI IMPACT ========== */
+.roi-chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 48px;
+}
+
+.roi-svg {
+  width: 100%;
+  height: auto;
+}
+
+.roi-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .roi-metrics { grid-template-columns: 1fr; }
+}
+
+.roi-metric-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+}
+.roi-metric-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.roi-metric-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+.roi-metric-time {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Count-up animation */
+.count-up { display: inline-block; }
+
+/* ========== SECTION 6: DASHBOARD PREVIEW ========== */
+.dashboard-frame {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+}
+.dash-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+.dash-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dash-logo {
+  width: 28px; height: 28px;
+  background: var(--teal);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--bg-deep);
+}
+.dash-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.dash-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--teal);
+}
+.dash-status-dot {
+  width: 6px; height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+.dash-body { padding: 24px; }
+
+/* Revenue hero widget */
+.dash-revenue {
+  background: linear-gradient(135deg, rgba(0,229,160,0.08), rgba(0,229,160,0.02));
+  border: 1px solid rgba(0,229,160,0.12);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dash-revenue-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+.dash-revenue-label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.dash-revenue-trend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--teal);
+}
+
+/* Metric cards */
+.dash-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .dash-metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+.dash-metric {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 16px;
+}
+.dash-metric-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.dash-metric-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.dash-metric-change {
+  font-size: 0.7rem;
+  margin-top: 4px;
+}
+.dash-metric-change.up { color: var(--teal); }
+.dash-metric-change.down { color: var(--coral); }
+
+/* Agent activity feed */
+.dash-feed {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 16px;
+}
+.dash-feed-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.dash-feed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: feed-in 0.5s ease forwards;
+}
+.dash-feed-item:last-child { border-bottom: none; }
+.dash-feed-item:nth-child(2) { animation-delay: 0.3s; }
+.dash-feed-item:nth-child(3) { animation-delay: 0.6s; }
+.dash-feed-item:nth-child(4) { animation-delay: 0.9s; }
+.dash-feed-item:nth-child(5) { animation-delay: 1.2s; }
+
+@keyframes feed-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.feed-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.feed-text { color: var(--text-dim); }
+.feed-text strong { color: var(--text); font-weight: 500; }
+.feed-time { font-size: 0.65rem; color: var(--text-muted); display: block; margin-top: 2px; }
+
+/* ========== CTA SECTION ========== */
+#cta {
+  text-align: center;
+  padding: 80px 0 120px;
+}
+.cta-box {
+  background: linear-gradient(135deg, rgba(0,229,160,0.08), rgba(167,139,250,0.08));
+  border: 1px solid rgba(0,229,160,0.15);
+  border-radius: 24px;
+  padding: 60px 40px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.cta-title {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.cta-subtitle {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-button {
+  display: inline-block;
+  background: var(--teal);
+  color: var(--bg-deep);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 16px 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,229,160,0.3);
+}
+
+/* ========== FOOTER ========== */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="container">
+    <a href="https://purposefulprofits.co" style="text-decoration:none;color:inherit;"><div class="nav-logo">Purposeful Profits</div></a>
+    <div class="nav-links">
+      <a href="#agent-hub">Agents</a>
+      <a href="#workflow">Weekly Workflow</a>
+      <a href="#pipeline">6 Levers</a>
+      <a href="#comparison">Before / After</a>
+      <a href="#roi">ROI</a>
+      <a href="#dashboard">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-badge"><span class="dot"></span> 108 Specialist AI Agents. Always On.</div>
+    <h1 class="section-title">Your AI Growth Team,<br>Visualised</h1>
+    <p class="section-subtitle">8 always-on core growth agents coordinating 100 on-demand specialists across security, analytics, performance, deployment, and QA. One system that replaces 5 agencies, 8 tools, and endless Slack threads.</p>
+  </div>
+</section>
+
+<!-- Section 1: Agent Hub Diagram -->
+<section id="agent-hub">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">System Architecture</p>
+      <h2 class="section-title">108 Agents. One Brain.</h2>
+      <p class="section-subtitle">8 always-on core agents handle daily growth operations. 100 on-demand specialists activate for security, analytics, performance, deployment, and QA. The Growth Orchestrator coordinates them all. Hover on any agent to see what they ship.</p>
+    </div>
+
+    <div class="hub-canvas fade-in" id="hubCanvas">
+      <svg class="hub-svg" id="hubSvg" viewBox="0 0 800 800"></svg>
+      <div class="hub-center">
+        <span class="hub-center-icon">🧠</span>
+        <span class="hub-center-label">Growth<br>Orchestrator</span>
+      </div>
+      <!-- Agent nodes inserted by JS -->
+    </div>
+
+    <!-- Mobile fallback -->
+    <div class="hub-mobile" id="hubMobile"></div>
+  </div>
+</section>
+
+<!-- Section 2: Weekly Workflow Timeline -->
+<section id="workflow">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Weekly Operations</p>
+      <h2 class="section-title">What Your Agent Team Ships Every Week</h2>
+      <p class="section-subtitle">Not someday. Every single week. A fully automated sprint cycle that compounds results month on month.</p>
+    </div>
+    <div class="timeline-track fade-in" id="timelineTrack">
+      <div class="timeline-inner" id="timelineInner">
+        <div class="timeline-line">
+          <div class="timeline-progress" id="timelineProgress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: 6-Lever Pipeline -->
+<section id="pipeline">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Growth Framework</p>
+      <h2 class="section-title">The 6-Lever Pipeline</h2>
+      <p class="section-subtitle">Build foundations first, then scale. Each lever compounds on the one before it. Your agents know which levers to pull and when.</p>
+    </div>
+    <div class="pipeline-grid fade-in" id="pipelineGrid"></div>
+  </div>
+</section>
+
+<!-- Section 4: Before / After Comparison -->
+<section id="comparison">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">The Shift</p>
+      <h2 class="section-title">What Changes When AI Takes Over Growth</h2>
+      <p class="section-subtitle">From duct tape and disconnected tools to a single, coordinated system running 24/7.</p>
+    </div>
+    <div class="comparison-grid fade-in">
+      <div class="comparison-card before">
+        <div class="comp-badge">Without AI Growth Team</div>
+        <h3 class="comp-title" style="color:var(--coral)">Fragmented. Expensive. Slow.</h3>
+        <ul class="comp-items">
+          <li><span class="comp-icon">🔴</span><div>5 different agencies, none talking to each other<span class="detail">SEO agency, ad agency, email agency, social agency, CRO consultant</span></div></li>
+          <li><span class="comp-icon">🔴</span><div>8 tools with 8 logins and 8 invoices<span class="detail">Klaviyo, GA4, Hotjar, SEMrush, Canva, Hootsuite, and more</span></div></li>
+          <li><span class="comp-icon">🔴</span><div>Weekly meetings that generate tasks, not results<span class="detail">2 hours of calls, 3 days waiting for deliverables</span></div></li>
+          <li><span class="comp-icon">🔴</span><div>Insights buried in spreadsheets nobody reads<span class="detail">Monthly reports land a week late, already outdated</span></div></li>
+          <li><span class="comp-icon">🔴</span><div>No single source of truth for growth metrics<span class="detail">Everyone quotes different numbers in every meeting</span></div></li>
+          <li><span class="comp-icon">🔴</span><div>Minimum spend: £8k+ per month, 3-month lock-ins<span class="detail">ROI unclear, attribution messy</span></div></li>
+        </ul>
+      </div>
+      <div class="comparison-card after" id="compAfter">
+        <div class="comp-badge">With AI Growth Team</div>
+        <h3 class="comp-title" style="color:var(--teal)">Coordinated. Automated. Compounding.</h3>
+        <ul class="comp-items">
+          <li><span class="comp-icon">✅</span><div>108 specialist agents, one orchestrator, zero miscommunication<span class="detail">8 core agents run daily ops; 100 on-demand specialists activate as needed</span></div></li>
+          <li><span class="comp-icon">✅</span><div>Single dashboard with all metrics in one view<span class="detail">Revenue, ROAS, CR, AOV, email, SEO: all live</span></div></li>
+          <li><span class="comp-icon">✅</span><div>Automated weekly sprints, no meetings required<span class="detail">Monday to Friday, every task planned and executed</span></div></li>
+          <li><span class="comp-icon">✅</span><div>Real-time optimisation, not monthly reports<span class="detail">Agents spot issues and fix them before you notice</span></div></li>
+          <li><span class="comp-icon">✅</span><div>One source of truth your whole team can trust<span class="detail">Live data, consistent methodology, no arguments</span></div></li>
+          <li><span class="comp-icon">✅</span><div>Fraction of the cost, no lock-in, results from week 1<span class="detail">Cancel any time. Your data stays with you.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: ROI Impact -->
+<section id="roi">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Impact</p>
+      <h2 class="section-title">The Compounding Revenue Effect</h2>
+      <p class="section-subtitle">Small weekly improvements compound into significant gains. Here is what the first 90 days typically look like.</p>
+    </div>
+
+    <div class="roi-chart-container fade-in">
+      <svg class="roi-svg" viewBox="0 0 800 350" id="roiChart"></svg>
+    </div>
+
+    <div class="roi-metrics fade-in" id="roiMetrics">
+      <div class="roi-metric-card">
+        <div class="roi-metric-value" style="color:var(--teal)">+<span class="count-up" data-target="40">0</span>%</div>
+        <div class="roi-metric-label">Conversion Rate Lift</div>
+        <div class="roi-metric-time">Within 60 days</div>
+      </div>
+      <div class="roi-metric-card">
+        <div class="roi-metric-value" style="color:var(--gold)">+<span class="count-up" data-target="30">0</span>%</div>
+        <div class="roi-metric-label">Email Revenue Growth</div>
+        <div class="roi-metric-time">Within 45 days</div>
+      </div>
+      <div class="roi-metric-card">
+        <div class="roi-metric-value" style="color:var(--cyan)">+<span class="count-up" data-target="50">0</span>%</div>
+        <div class="roi-metric-label">ROAS Improvement</div>
+        <div class="roi-metric-time">Within 90 days</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6: Dashboard Preview -->
+<section id="dashboard">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Your View</p>
+      <h2 class="section-title">One Dashboard. Complete Clarity.</h2>
+      <p class="section-subtitle">No more logging into 8 tools. Your entire growth operation, live metrics, and agent activity in one place.</p>
+    </div>
+    <div class="dashboard-frame fade-in" id="dashboardFrame">
+      <div class="dash-topbar">
+        <div class="dash-topbar-left">
+          <div class="dash-logo">PP</div>
+          <span class="dash-brand">Growth Command Centre</span>
+        </div>
+        <div class="dash-status"><span class="dash-status-dot"></span> 108 agents active</div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-revenue">
+          <div>
+            <div class="dash-revenue-number">£247,830</div>
+            <div class="dash-revenue-label">Monthly Revenue (March)</div>
+          </div>
+          <div class="dash-revenue-trend">↑ 23.4% vs last month</div>
+        </div>
+        <div class="dash-metrics">
+          <div class="dash-metric">
+            <div class="dash-metric-label">Conversion Rate</div>
+            <div class="dash-metric-val" style="color:var(--teal)">3.8%</div>
+            <div class="dash-metric-change up">↑ 0.9% this week</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dash-metric-label">Avg Order Value</div>
+            <div class="dash-metric-val" style="color:var(--gold)">£67.40</div>
+            <div class="dash-metric-change up">↑ £4.20 this week</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dash-metric-label">Email Revenue %</div>
+            <div class="dash-metric-val" style="color:var(--blue)">38%</div>
+            <div class="dash-metric-change up">↑ 5% this month</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dash-metric-label">Blended ROAS</div>
+            <div class="dash-metric-val" style="color:var(--cyan)">4.2x</div>
+            <div class="dash-metric-change up">↑ 0.7x this month</div>
+          </div>
+        </div>
+        <div class="dash-feed">
+          <div class="dash-feed-title">Agent Activity Feed</div>
+          <div class="dash-feed-item"><span class="feed-icon">🔍</span><div class="feed-text"><strong>CRO Analyst</strong> completed weekly audit. 3 high-impact fixes identified.<span class="feed-time">12 minutes ago</span></div></div>
+          <div class="dash-feed-item"><span class="feed-icon">✉️</span><div class="feed-text"><strong>Email Strategist</strong> deployed new post-purchase flow. Expected +£2.4k/month.<span class="feed-time">1 hour ago</span></div></div>
+          <div class="dash-feed-item"><span class="feed-icon">🎨</span><div class="feed-text"><strong>Ad Creative Engine</strong> generated 6 new ad variants for testing.<span class="feed-time">3 hours ago</span></div></div>
+          <div class="dash-feed-item"><span class="feed-icon">📊</span><div class="feed-text"><strong>Analytics Brain</strong> flagged ROAS drop on Campaign #14. Paused automatically.<span class="feed-time">5 hours ago</span></div></div>
+          <div class="dash-feed-item"><span class="feed-icon">🕵️</span><div class="feed-text"><strong>Competitive Intel Scout</strong> detected competitor price change on 3 SKUs.<span class="feed-time">8 hours ago</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-box fade-in">
+      <h2 class="cta-title">Ready to Deploy Your AI Growth Team?</h2>
+      <p class="cta-subtitle">Book a 20-minute call. We will audit your current setup and show you exactly what your AI Growth Team would look like.</p>
+      <a href="https://purposefulprofits.co" class="cta-button">Book Your Free Growth Audit</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">Purposeful Profits &copy; 2026. Built for DTC brands serious about growth.</div>
+</footer>
+
+<script>
+// ============================
+// DATA
+// ============================
+const agents = [
+  { name: 'CRO Analyst', icon: '🔍', color: '#22d3ee', deliverables: ['Weekly conversion audit', 'A/B test recommendations', 'Landing page teardowns'] },
+  { name: 'Ad Creative Engine', icon: '🎨', color: '#fb923c', deliverables: ['6 new ad variants per week', 'Performance creative analysis', 'Hook and angle library'] },
+  { name: 'Email Strategist', icon: '✉️', color: '#60a5fa', deliverables: ['Automated flow builds', 'Campaign calendar', 'Subject line testing'] },
+  { name: 'SEO Commander', icon: '📈', color: '#facc15', deliverables: ['Keyword gap analysis', '4 SEO articles per month', 'Technical SEO fixes'] },
+  { name: 'Analytics Brain', icon: '📊', color: '#e879f9', deliverables: ['Real-time KPI dashboard', 'Anomaly detection alerts', 'Attribution modelling'] },
+  { name: 'Social Content Factory', icon: '📱', color: '#f472b6', deliverables: ['20 social posts per week', 'UGC repurposing', 'Trend hijacking'] },
+  { name: 'Competitive Intel Scout', icon: '🕵️', color: '#f87171', deliverables: ['Competitor price monitoring', 'Ad library tracking', 'Market shift alerts'] },
+];
+
+const timelineDays = [
+  { day: 'Monday', tasks: ['Analytics report generated', 'CRO audit kicks off'] },
+  { day: 'Tuesday', tasks: ['Ad performance review', 'Content calendar drafted'] },
+  { day: 'Wednesday', tasks: ['Email campaigns written', 'SEO articles drafted'] },
+  { day: 'Thursday', tasks: ['Competitive intel briefing', 'Social posts scheduled'] },
+  { day: 'Friday', tasks: ['Weekly strategy brief', 'Compiled by Orchestrator'] },
+];
+
+const pipelineLevers = [
+  { num: 1, name: 'Offer', icon: '🎯', color: '#00e5a0', agents: 'Orchestrator, CRO', phase: 'build' },
+  { num: 2, name: 'CRO', icon: '🔍', color: '#22d3ee', agents: 'CRO Analyst', phase: 'build' },
+  { num: 3, name: 'Email', icon: '✉️', color: '#60a5fa', agents: 'Email Strategist', phase: 'build' },
+  { num: 4, name: 'Content', icon: '📝', color: '#facc15', agents: 'SEO, Social', phase: 'scale' },
+  { num: 5, name: 'Ads', icon: '📣', color: '#fb923c', agents: 'Ad Creative, Analytics', phase: 'scale' },
+  { num: 6, name: 'Outreach', icon: '🤝', color: '#a78bfa', agents: 'Intel Scout, Orchestrator', phase: 'scale' },
+];
+
+// ============================
+// AGENT HUB
+// ============================
+function buildAgentHub() {
+  const canvas = document.getElementById('hubCanvas');
+  const svg = document.getElementById('hubSvg');
+  const mobile = document.getElementById('hubMobile');
+  const cx = 400, cy = 400, radius = 280;
+
+  agents.forEach((agent, i) => {
+    const angle = (i / agents.length) * Math.PI * 2 - Math.PI / 2;
+    const x = cx + radius * Math.cos(angle);
+    const y = cy + radius * Math.sin(angle);
+
+    // SVG line
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', cx);
+    line.setAttribute('y1', cy);
+    line.setAttribute('x2', x);
+    line.setAttribute('y2', y);
+    line.setAttribute('class', 'hub-line');
+    line.setAttribute('stroke', agent.color);
+    line.style.animationDelay = `${i * 0.2}s`;
+    svg.appendChild(line);
+
+    // Data flow dot
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', '4');
+    circle.setAttribute('fill', agent.color);
+    const animX = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+    animX.setAttribute('attributeName', 'cx');
+    animX.setAttribute('values', `${cx};${x};${cx}`);
+    animX.setAttribute('dur', `${3 + i * 0.3}s`);
+    animX.setAttribute('repeatCount', 'indefinite');
+    circle.appendChild(animX);
+    const animY = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+    animY.setAttribute('attributeName', 'cy');
+    animY.setAttribute('values', `${cy};${y};${cy}`);
+    animY.setAttribute('dur', `${3 + i * 0.3}s`);
+    animY.setAttribute('repeatCount', 'indefinite');
+    circle.appendChild(animY);
+    svg.appendChild(circle);
+
+    // HTML node
+    const node = document.createElement('div');
+    node.className = 'agent-node';
+    node.style.cssText = `
+      left: calc(${(x / 800) * 100}% - 50px);
+      top: calc(${(y / 800) * 100}% - 50px);
+      background: radial-gradient(circle, ${agent.color}22, transparent);
+      border: 2px solid ${agent.color};
+      --node-glow: ${agent.color}40;
+      animation: node-pulse ${2.5 + i * 0.3}s ease-in-out infinite;
+    `;
+    node.innerHTML = `
+      <span class="agent-node-icon">${agent.icon}</span>
+      <span class="agent-node-label" style="color:${agent.color}">${agent.name}</span>
+      <div class="agent-tooltip" style="border-color:${agent.color}33;${(x > 400) ? 'right:110px;' : 'left:110px;'}">
+        <h4 style="color:${agent.color}">${agent.icon} ${agent.name}</h4>
+        <ul>${agent.deliverables.map(d => `<li style="color:var(--text-dim)"><span style="color:${agent.color}">></span> ${d}</li>`).join('')}</ul>
+      </div>
+    `;
+    canvas.appendChild(node);
+
+    // Mobile card
+    const card = document.createElement('div');
+    card.className = 'hub-mobile-card';
+    card.style.borderColor = `${agent.color}33`;
+    card.innerHTML = `
+      <div class="icon">${agent.icon}</div>
+      <div class="label" style="color:${agent.color}">${agent.name}</div>
+      <div class="deliverables">${agent.deliverables.join('<br>')}</div>
+    `;
+    mobile.appendChild(card);
+  });
+}
+
+// ============================
+// TIMELINE
+// ============================
+function buildTimeline() {
+  const inner = document.getElementById('timelineInner');
+  timelineDays.forEach((item, i) => {
+    const day = document.createElement('div');
+    day.className = 'timeline-day';
+    day.setAttribute('data-index', i);
+    day.innerHTML = `
+      <div class="timeline-dot"></div>
+      <div class="timeline-day-name">${item.day}</div>
+      <div class="timeline-tasks">${item.tasks.map(t => `<span>${t}</span>`).join('')}</div>
+    `;
+    inner.appendChild(day);
+  });
+}
+
+// ============================
+// PIPELINE
+// ============================
+function buildPipeline() {
+  const grid = document.getElementById('pipelineGrid');
+  pipelineLevers.forEach((lever) => {
+    const card = document.createElement('div');
+    card.className = 'pipeline-card';
+    card.style.borderColor = `${lever.color}22`;
+    card.innerHTML = `
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:${lever.color};"></div>
+      <span class="pipeline-number" style="color:${lever.color}">${lever.num}</span>
+      <div class="pipeline-icon">${lever.icon}</div>
+      <div class="pipeline-name">${lever.name}</div>
+      <div class="pipeline-agents">${lever.agents}</div>
+      <span class="pipeline-phase ${lever.phase === 'build' ? 'phase-build' : 'phase-scale'}">${lever.phase === 'build' ? 'Build First' : 'Scale After'}</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ============================
+// ROI CHART
+// ============================
+function buildRoiChart() {
+  const svg = document.getElementById('roiChart');
+  const w = 800, h = 350, pad = 60;
+
+  // Grid lines
+  for (let i = 0; i <= 4; i++) {
+    const y = pad + (h - pad * 2) * (1 - i / 4);
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', pad); line.setAttribute('y1', y);
+    line.setAttribute('x2', w - pad); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'rgba(255,255,255,0.05)');
+    svg.appendChild(line);
+  }
+
+  // X-axis labels
+  const xLabels = ['Week 1', 'Week 4', 'Week 8', 'Week 12'];
+  xLabels.forEach((label, i) => {
+    const x = pad + (w - pad * 2) * (i / (xLabels.length - 1));
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', x); text.setAttribute('y', h - 15);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#64748b');
+    text.setAttribute('font-size', '12');
+    text.setAttribute('font-family', 'Space Grotesk, sans-serif');
+    text.textContent = label;
+    svg.appendChild(text);
+  });
+
+  // Baseline path (flat)
+  const baselinePoints = [];
+  for (let i = 0; i <= 100; i++) {
+    const x = pad + (w - pad * 2) * (i / 100);
+    const y = h - pad - 40 + Math.sin(i * 0.1) * 3;
+    baselinePoints.push(`${x},${y}`);
+  }
+  const baseline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+  baseline.setAttribute('points', baselinePoints.join(' '));
+  baseline.setAttribute('fill', 'none');
+  baseline.setAttribute('stroke', '#475569');
+  baseline.setAttribute('stroke-width', '2');
+  baseline.setAttribute('stroke-dasharray', '6,4');
+  svg.appendChild(baseline);
+
+  // Baseline label
+  const blLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  blLabel.setAttribute('x', w - pad + 5); blLabel.setAttribute('y', h - pad - 35);
+  blLabel.setAttribute('fill', '#475569');
+  blLabel.setAttribute('font-size', '11');
+  blLabel.setAttribute('font-family', 'DM Sans, sans-serif');
+  blLabel.textContent = 'Baseline';
+  svg.appendChild(blLabel);
+
+  // Growth curve
+  const growthPoints = [];
+  for (let i = 0; i <= 100; i++) {
+    const x = pad + (w - pad * 2) * (i / 100);
+    const progress = i / 100;
+    const curve = Math.pow(progress, 1.6) * 180;
+    const y = h - pad - 40 - curve;
+    growthPoints.push(`${x},${y}`);
+  }
+  const growth = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+  growth.setAttribute('points', growthPoints.join(' '));
+  growth.setAttribute('fill', 'none');
+  growth.setAttribute('stroke', '#00e5a0');
+  growth.setAttribute('stroke-width', '3');
+  growth.setAttribute('id', 'growthLine');
+  // Animate stroke
+  const totalLength = 1400;
+  growth.setAttribute('stroke-dasharray', totalLength);
+  growth.setAttribute('stroke-dashoffset', totalLength);
+  growth.style.transition = 'stroke-dashoffset 2s ease-in-out';
+  svg.appendChild(growth);
+
+  // Glow gradient
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+  grad.setAttribute('id', 'growthGrad'); grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
+  grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
+  const s1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  s1.setAttribute('offset', '0'); s1.setAttribute('stop-color', 'rgba(0,229,160,0.15)');
+  const s2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  s2.setAttribute('offset', '1'); s2.setAttribute('stop-color', 'rgba(0,229,160,0)');
+  grad.appendChild(s1); grad.appendChild(s2);
+  defs.appendChild(grad);
+  svg.insertBefore(defs, svg.firstChild);
+
+  // Area fill under growth
+  const areaPoints = [...growthPoints];
+  areaPoints.push(`${w - pad},${h - pad}`);
+  areaPoints.push(`${pad},${h - pad}`);
+  const area = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  area.setAttribute('points', areaPoints.join(' '));
+  area.setAttribute('fill', 'url(#growthGrad)');
+  area.setAttribute('opacity', '0');
+  area.style.transition = 'opacity 1.5s ease 0.5s';
+  area.setAttribute('id', 'growthArea');
+  svg.insertBefore(area, growth);
+
+  // Growth label
+  const grLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  grLabel.setAttribute('x', w - pad + 5); grLabel.setAttribute('y', pad + 10);
+  grLabel.setAttribute('fill', '#00e5a0');
+  grLabel.setAttribute('font-size', '11');
+  grLabel.setAttribute('font-weight', '600');
+  grLabel.setAttribute('font-family', 'Space Grotesk, sans-serif');
+  grLabel.textContent = 'With AI Team';
+  svg.appendChild(grLabel);
+
+  // Milestone markers
+  const milestones = [
+    { week: 4, x: pad + (w - pad * 2) * (4 / 12), label: '30 Days', sublabel: '+15% CR' },
+    { week: 8, x: pad + (w - pad * 2) * (8 / 12), label: '60 Days', sublabel: '+30% Email Rev' },
+    { week: 12, x: pad + (w - pad * 2) * (12 / 12), label: '90 Days', sublabel: '+50% ROAS' },
+  ];
+  milestones.forEach(m => {
+    const progress = m.week / 12;
+    const curveY = h - pad - 40 - Math.pow(progress, 1.6) * 180;
+
+    const circ = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circ.setAttribute('cx', m.x); circ.setAttribute('cy', curveY);
+    circ.setAttribute('r', '6'); circ.setAttribute('fill', '#0a0f1c');
+    circ.setAttribute('stroke', '#00e5a0'); circ.setAttribute('stroke-width', '2');
+    svg.appendChild(circ);
+
+    const t1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t1.setAttribute('x', m.x); t1.setAttribute('y', curveY - 22);
+    t1.setAttribute('text-anchor', 'middle');
+    t1.setAttribute('fill', '#e2e8f0');
+    t1.setAttribute('font-size', '11'); t1.setAttribute('font-weight', '600');
+    t1.setAttribute('font-family', 'Space Grotesk, sans-serif');
+    t1.textContent = m.label;
+    svg.appendChild(t1);
+
+    const t2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t2.setAttribute('x', m.x); t2.setAttribute('y', curveY - 10);
+    t2.setAttribute('text-anchor', 'middle');
+    t2.setAttribute('fill', '#00e5a0');
+    t2.setAttribute('font-size', '10');
+    t2.setAttribute('font-family', 'DM Sans, sans-serif');
+    t2.textContent = m.sublabel;
+    svg.appendChild(t2);
+  });
+}
+
+// ============================
+// SCROLL OBSERVER
+// ============================
+function initObservers() {
+  // Fade-in observer
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+
+  // Timeline observer
+  const tlObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateTimeline();
+        tlObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const tlTrack = document.getElementById('timelineTrack');
+  if (tlTrack) tlObs.observe(tlTrack);
+
+  // Before/After observer
+  const compObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.getElementById('compAfter').classList.add('activated');
+        compObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const compAfter = document.getElementById('compAfter');
+  if (compAfter) compObs.observe(compAfter);
+
+  // ROI chart observer
+  const roiObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const growthLine = document.getElementById('growthLine');
+        const growthArea = document.getElementById('growthArea');
+        if (growthLine) growthLine.style.strokeDashoffset = '0';
+        if (growthArea) growthArea.style.opacity = '1';
+        animateCountUps();
+        roiObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const roiSection = document.getElementById('roi');
+  if (roiSection) roiObs.observe(roiSection);
+}
+
+function animateTimeline() {
+  const days = document.querySelectorAll('.timeline-day');
+  const progress = document.getElementById('timelineProgress');
+  days.forEach((day, i) => {
+    setTimeout(() => {
+      day.classList.add('active');
+      const pct = ((i + 1) / days.length) * 100;
+      progress.style.width = pct + '%';
+    }, i * 500);
+  });
+}
+
+function animateCountUps() {
+  document.querySelectorAll('.count-up').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const duration = 2000;
+    const start = performance.now();
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// ============================
+// INIT
+// ============================
+document.addEventListener('DOMContentLoaded', () => {
+  buildAgentHub();
+  buildTimeline();
+  buildPipeline();
+  buildRoiChart();
+  initObservers();
+});
+</script>
+</body>
+</html>

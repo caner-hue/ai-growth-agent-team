@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Growth Agent ROI Calculator | Purposeful Profits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0f1c;--bg2:#111827;--bg3:#1a2236;--bg4:#232d44;
+  --teal:#00e5a0;--coral:#ff6b6b;--amber:#fbbf24;--blue:#3b82f6;
+  --purple:#a78bfa;--white:#f0f4f8;--muted:#7a8ba7;
+  --font:'Space Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:100vh;
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);
+  background-size:32px 32px;overflow-x:hidden;
+}
+
+/* CONTAINER */
+.container{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+
+/* HERO */
+.hero{text-align:center;padding:3rem 0 1.5rem;position:relative}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);
+  width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,160,.06) 0%,transparent 70%);
+  pointer-events:none;z-index:0}
+.hero>*{position:relative;z-index:1}
+.hero-badge{display:inline-block;padding:.35rem 1.2rem;border:1px solid var(--teal);border-radius:100px;
+  font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;
+  font-weight:500;background:rgba(0,229,160,.05)}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:.75rem}
+.hero h1 .highlight{color:var(--teal)}
+.hero .subtitle{color:var(--muted);font-size:1.05rem;max-width:600px;margin:0 auto 1rem;font-weight:300;line-height:1.6}
+
+/* SECTION TITLE */
+.section-title{font-size:.85rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  margin:3rem 0 1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:.75rem}
+.section-title .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+
+/* ROI HERO DISPLAY */
+.roi-hero{text-align:center;padding:2.5rem 2rem;background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);
+  border:1px solid rgba(0,229,160,.15);border-radius:20px;margin:2rem 0;position:relative;overflow:hidden}
+.roi-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--teal),transparent)}
+.roi-hero::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(0,229,160,.04) 0%,transparent 70%);pointer-events:none}
+.roi-hero>*{position:relative;z-index:1}
+.roi-label{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.roi-number{font-family:var(--mono);font-size:clamp(3rem,8vw,5.5rem);font-weight:700;color:var(--teal);
+  line-height:1;transition:all .4s ease;margin-bottom:.25rem}
+.roi-sub{color:var(--muted);font-size:.95rem;margin-top:.5rem}
+.roi-sub strong{color:var(--white);font-weight:600}
+.investment-flow{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.investment-flow .inv-box{padding:.75rem 1.5rem;border-radius:12px;font-family:var(--mono);font-weight:600;font-size:1.1rem}
+.inv-cost{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.2);color:var(--coral)}
+.inv-arrow{color:var(--muted);font-size:1.5rem}
+.inv-return{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:var(--teal)}
+.inv-multiplier{font-family:var(--mono);font-size:.85rem;color:var(--amber);font-weight:600;
+  padding:.3rem .75rem;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid rgba(251,191,36,.15)}
+
+/* INPUTS */
+.inputs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.25rem}
+.input-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:1.5rem;
+  transition:border-color .3s,box-shadow .3s}
+.input-card:hover{border-color:rgba(255,255,255,.1)}
+.input-card:focus-within{border-color:rgba(0,229,160,.3);box-shadow:0 0 30px rgba(0,229,160,.05)}
+.input-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.input-label{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500}
+.input-value{font-family:var(--mono);font-size:1.3rem;font-weight:600;color:var(--white);
+  background:transparent;border:none;text-align:right;width:140px;outline:none;
+  border-bottom:1px dashed rgba(255,255,255,.15);padding-bottom:2px;transition:border-color .2s}
+.input-value:focus{border-bottom-color:var(--teal);color:var(--teal)}
+.slider-wrap{position:relative}
+input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:6px;
+  border-radius:4px;background:var(--bg4);outline:none;cursor:pointer}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;
+  border-radius:50%;background:var(--teal);cursor:pointer;border:3px solid var(--bg2);
+  box-shadow:0 0 12px rgba(0,229,160,.3);transition:box-shadow .2s,transform .2s}
+input[type="range"]::-webkit-slider-thumb:hover{box-shadow:0 0 20px rgba(0,229,160,.5);transform:scale(1.1)}
+input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--teal);
+  cursor:pointer;border:3px solid var(--bg2);box-shadow:0 0 12px rgba(0,229,160,.3)}
+.slider-minmax{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);
+  font-family:var(--mono);margin-top:.35rem}
+
+/* SCENARIO CARDS */
+.scenarios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+.scenario-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;
+  padding:1.75rem;position:relative;overflow:hidden;transition:all .3s}
+.scenario-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.1)}
+.scenario-card.featured{border-color:rgba(0,229,160,.25);box-shadow:0 8px 40px rgba(0,229,160,.08)}
+.scenario-card .accent-bar{position:absolute;top:0;left:0;right:0;height:3px}
+.scenario-tag{display:inline-block;padding:.25rem .75rem;border-radius:6px;font-size:.65rem;
+  letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:1rem}
+.scenario-card h3{font-size:1.1rem;font-weight:600;margin-bottom:1.5rem}
+
+/* METRIC ROW */
+.metric-row{margin-bottom:1.25rem}
+.metric-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+.metric-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:500}
+.metric-values{display:flex;align-items:baseline;gap:.5rem}
+.metric-before{font-family:var(--mono);font-size:.8rem;color:var(--muted);text-decoration:line-through}
+.metric-after{font-family:var(--mono);font-size:.95rem;font-weight:600}
+.metric-bar{height:8px;background:var(--bg);border-radius:6px;overflow:hidden;position:relative}
+.metric-bar-before{position:absolute;top:0;left:0;height:100%;border-radius:6px;
+  background:rgba(255,255,255,.08);transition:width .6s ease}
+.metric-bar-after{position:absolute;top:0;left:0;height:100%;border-radius:6px;
+  transition:width .6s ease .1s}
+.metric-change{font-family:var(--mono);font-size:.7rem;font-weight:600;color:var(--teal);
+  padding:.15rem .4rem;background:rgba(0,229,160,.1);border-radius:4px}
+
+/* SUMMARY STATS */
+.summary-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1.5rem;
+  padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06)}
+.stat{text-align:center}
+.stat-value{font-family:var(--mono);font-size:1.3rem;font-weight:700;margin-bottom:.25rem}
+.stat-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+/* TIER CARDS */
+.tiers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+.tier-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;
+  padding:2rem;position:relative;overflow:hidden;transition:all .3s}
+.tier-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.12)}
+.tier-card.featured{border-color:rgba(0,229,160,.3);box-shadow:0 8px 40px rgba(0,229,160,.08)}
+.tier-card .tier-accent{position:absolute;top:0;left:0;right:0;height:3px}
+.tier-badge{display:inline-block;padding:.25rem .75rem;border-radius:6px;font-size:.65rem;
+  letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:.75rem}
+.tier-name{font-size:1.3rem;font-weight:700;margin-bottom:.25rem}
+.tier-price{font-family:var(--mono);font-size:.85rem;color:var(--muted);margin-bottom:1.5rem}
+.tier-price strong{color:var(--white);font-size:1rem}
+.tier-stat{display:flex;justify-content:space-between;align-items:center;padding:.65rem 0;
+  border-bottom:1px solid rgba(255,255,255,.04)}
+.tier-stat:last-child{border-bottom:none}
+.tier-stat-label{font-size:.8rem;color:var(--muted)}
+.tier-stat-value{font-family:var(--mono);font-weight:600;font-size:.9rem}
+.popular-badge{position:absolute;top:1rem;right:1rem;padding:.2rem .6rem;border-radius:5px;
+  font-size:.6rem;letter-spacing:1px;text-transform:uppercase;font-weight:700;
+  background:var(--teal);color:var(--bg)}
+
+/* CTA */
+.cta-section{text-align:center;padding:4rem 2rem;margin-top:3rem;
+  background:linear-gradient(135deg,rgba(0,229,160,.05) 0%,rgba(0,229,160,.02) 100%);
+  border:1px solid rgba(0,229,160,.1);border-radius:20px;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:800px;height:400px;background:radial-gradient(ellipse,rgba(0,229,160,.06),transparent 70%);pointer-events:none}
+.cta-section>*{position:relative;z-index:1}
+.cta-section h2{font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;letter-spacing:-1px;margin-bottom:.75rem}
+.cta-section p{color:var(--muted);max-width:500px;margin:0 auto 2rem;font-size:1rem;line-height:1.6}
+.cta-btn{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 2.5rem;
+  background:var(--teal);color:var(--bg);font-family:var(--font);font-size:1.05rem;font-weight:700;
+  border:none;border-radius:12px;cursor:pointer;transition:all .3s;text-decoration:none;
+  box-shadow:0 4px 20px rgba(0,229,160,.25)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,160,.35);background:#00c896}
+.cta-btn svg{width:20px;height:20px;transition:transform .3s}
+.cta-btn:hover svg{transform:translateX(4px)}
+.cta-disclaimer{font-size:.75rem;color:var(--muted);margin-top:1rem}
+
+/* FOOTER */
+.footer{text-align:center;padding:3rem 0 2rem;color:var(--muted);font-size:.8rem}
+.footer a{color:var(--teal);text-decoration:none}
+
+/* ANIMATIONS */
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.animate-in{animation:slideUp .6s ease forwards}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .container{padding:1.25rem 1rem}
+  .inputs-grid{grid-template-columns:1fr}
+  .scenarios-grid{grid-template-columns:1fr}
+  .tiers-grid{grid-template-columns:1fr}
+  .investment-flow{gap:.75rem}
+  .investment-flow .inv-box{padding:.5rem 1rem;font-size:.9rem}
+  .summary-stats{grid-template-columns:1fr;gap:1rem}
+  .roi-number{font-size:3rem}
+  .scenario-card{padding:1.25rem}
+}
+@media(max-width:480px){
+  .input-value{width:100px;font-size:1.1rem}
+  .hero h1{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-badge">108 Specialist AI Agents</div>
+    <h1>What's Your <span class="highlight">Growth ROI</span>?</h1>
+    <p class="subtitle">Enter your current metrics below. See exactly what our 108 specialist AI agents can deliver in 90 days.</p>
+  </header>
+
+  <!-- ROI HERO DISPLAY -->
+  <div class="roi-hero" id="roiHero">
+    <div class="roi-label">Expected 90-Day ROI</div>
+    <div class="roi-number" id="roiNumber">0%</div>
+    <div class="roi-sub">Your investment pays for itself in <strong id="paybackDays">0</strong> days</div>
+    <div class="investment-flow">
+      <div class="inv-box inv-cost" id="invCost">£25,000</div>
+      <div class="inv-arrow">&rarr;</div>
+      <div class="inv-box inv-return" id="invReturn">£0</div>
+      <div class="inv-multiplier" id="invMultiplier">0x return per £1</div>
+    </div>
+  </div>
+
+  <!-- INPUTS SECTION -->
+  <div class="section-title"><span class="dot"></span>Your Current Metrics</div>
+  <div class="inputs-grid">
+
+    <div class="input-card">
+      <div class="input-header">
+        <span class="input-label">Monthly Revenue</span>
+        <input type="text" class="input-value" id="revenueDisplay" value="£50,000">
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="revenue" min="10000" max="500000" value="50000" step="1000">
+        <div class="slider-minmax"><span>£10k</span><span>£500k</span></div>
+      </div>
+    </div>
+
+    <div class="input-card">
+      <div class="input-header">
+        <span class="input-label">Conversion Rate</span>
+        <input type="text" class="input-value" id="crDisplay" value="1.20%">
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="cr" min="0.5" max="5" value="1.2" step="0.1">
+        <div class="slider-minmax"><span>0.5%</span><span>5.0%</span></div>
+      </div>
+    </div>
+
+    <div class="input-card">
+      <div class="input-header">
+        <span class="input-label">Email Revenue %</span>
+        <input type="text" class="input-value" id="emailDisplay" value="15%">
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="email" min="0" max="50" value="15" step="1">
+        <div class="slider-minmax"><span>0%</span><span>50%</span></div>
+      </div>
+    </div>
+
+    <div class="input-card">
+      <div class="input-header">
+        <span class="input-label">Monthly Ad Spend</span>
+        <input type="text" class="input-value" id="adSpendDisplay" value="£5,000">
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="adSpend" min="0" max="50000" value="5000" step="500">
+        <div class="slider-minmax"><span>£0</span><span>£50k</span></div>
+      </div>
+    </div>
+
+    <div class="input-card">
+      <div class="input-header">
+        <span class="input-label">Current ROAS</span>
+        <input type="text" class="input-value" id="roasDisplay" value="2.0x">
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="roas" min="0.5" max="10" value="2" step="0.1">
+        <div class="slider-minmax"><span>0.5x</span><span>10x</span></div>
+      </div>
+    </div>
+
+    <div class="input-card">
+      <div class="input-header">
+        <span class="input-label">Average Order Value</span>
+        <input type="text" class="input-value" id="aovDisplay" value="£45">
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="aov" min="10" max="500" value="45" step="5">
+        <div class="slider-minmax"><span>£10</span><span>£500</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCENARIO COMPARISON -->
+  <div class="section-title"><span class="dot"></span>90-Day Projections</div>
+  <div class="scenarios-grid" id="scenariosGrid">
+    <!-- Conservative -->
+    <div class="scenario-card" id="conservative">
+      <div class="accent-bar" style="background:var(--blue)"></div>
+      <div class="scenario-tag" style="background:rgba(59,130,246,.12);color:var(--blue)">Conservative</div>
+      <h3>Low-end scenario</h3>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Conversion Rate</span>
+          <div class="metric-values">
+            <span class="metric-before" id="con-cr-before">1.20%</span>
+            <span class="metric-after" style="color:var(--blue)" id="con-cr-after">1.68%</span>
+            <span class="metric-change" style="background:rgba(59,130,246,.1);color:var(--blue)" id="con-cr-change">+40%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="con-cr-bar-before" style="width:24%"></div>
+          <div class="metric-bar-after" id="con-cr-bar-after" style="width:34%;background:var(--blue)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Email Revenue</span>
+          <div class="metric-values">
+            <span class="metric-before" id="con-email-before">15%</span>
+            <span class="metric-after" style="color:var(--blue)" id="con-email-after">25%</span>
+            <span class="metric-change" style="background:rgba(59,130,246,.1);color:var(--blue)" id="con-email-change">+67%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="con-email-bar-before" style="width:30%"></div>
+          <div class="metric-bar-after" id="con-email-bar-after" style="width:50%;background:var(--blue)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">ROAS</span>
+          <div class="metric-values">
+            <span class="metric-before" id="con-roas-before">2.0x</span>
+            <span class="metric-after" style="color:var(--blue)" id="con-roas-after">2.6x</span>
+            <span class="metric-change" style="background:rgba(59,130,246,.1);color:var(--blue)" id="con-roas-change">+30%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="con-roas-bar-before" style="width:20%"></div>
+          <div class="metric-bar-after" id="con-roas-bar-after" style="width:26%;background:var(--blue)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">AOV</span>
+          <div class="metric-values">
+            <span class="metric-before" id="con-aov-before">£45</span>
+            <span class="metric-after" style="color:var(--blue)" id="con-aov-after">£52</span>
+            <span class="metric-change" style="background:rgba(59,130,246,.1);color:var(--blue)" id="con-aov-change">+15%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="con-aov-bar-before" style="width:9%"></div>
+          <div class="metric-bar-after" id="con-aov-bar-after" style="width:10%;background:var(--blue)"></div>
+        </div>
+      </div>
+
+      <div class="summary-stats">
+        <div class="stat"><div class="stat-value" style="color:var(--blue)" id="con-uplift">£0</div><div class="stat-label">Monthly Uplift</div></div>
+        <div class="stat"><div class="stat-value" style="color:var(--blue)" id="con-annual">£0</div><div class="stat-label">Annual Uplift</div></div>
+        <div class="stat"><div class="stat-value" style="color:var(--blue)" id="con-roi">0%</div><div class="stat-label">90-Day ROI</div></div>
+      </div>
+    </div>
+
+    <!-- Expected -->
+    <div class="scenario-card featured" id="expected">
+      <div class="accent-bar" style="background:var(--teal)"></div>
+      <div class="scenario-tag" style="background:rgba(0,229,160,.12);color:var(--teal)">Expected</div>
+      <h3>Most likely outcome</h3>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Conversion Rate</span>
+          <div class="metric-values">
+            <span class="metric-before" id="exp-cr-before">1.20%</span>
+            <span class="metric-after" style="color:var(--teal)" id="exp-cr-after">1.80%</span>
+            <span class="metric-change" id="exp-cr-change">+50%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="exp-cr-bar-before" style="width:24%"></div>
+          <div class="metric-bar-after" id="exp-cr-bar-after" style="width:36%;background:var(--teal)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Email Revenue</span>
+          <div class="metric-values">
+            <span class="metric-before" id="exp-email-before">15%</span>
+            <span class="metric-after" style="color:var(--teal)" id="exp-email-after">30%</span>
+            <span class="metric-change" id="exp-email-change">+100%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="exp-email-bar-before" style="width:30%"></div>
+          <div class="metric-bar-after" id="exp-email-bar-after" style="width:60%;background:var(--teal)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">ROAS</span>
+          <div class="metric-values">
+            <span class="metric-before" id="exp-roas-before">2.0x</span>
+            <span class="metric-after" style="color:var(--teal)" id="exp-roas-after">2.8x</span>
+            <span class="metric-change" id="exp-roas-change">+40%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="exp-roas-bar-before" style="width:20%"></div>
+          <div class="metric-bar-after" id="exp-roas-bar-after" style="width:28%;background:var(--teal)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">AOV</span>
+          <div class="metric-values">
+            <span class="metric-before" id="exp-aov-before">£45</span>
+            <span class="metric-after" style="color:var(--teal)" id="exp-aov-after">£54</span>
+            <span class="metric-change" id="exp-aov-change">+20%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="exp-aov-bar-before" style="width:9%"></div>
+          <div class="metric-bar-after" id="exp-aov-bar-after" style="width:11%;background:var(--teal)"></div>
+        </div>
+      </div>
+
+      <div class="summary-stats">
+        <div class="stat"><div class="stat-value" style="color:var(--teal)" id="exp-uplift">£0</div><div class="stat-label">Monthly Uplift</div></div>
+        <div class="stat"><div class="stat-value" style="color:var(--teal)" id="exp-annual">£0</div><div class="stat-label">Annual Uplift</div></div>
+        <div class="stat"><div class="stat-value" style="color:var(--teal)" id="exp-roi">0%</div><div class="stat-label">90-Day ROI</div></div>
+      </div>
+    </div>
+
+    <!-- Aggressive -->
+    <div class="scenario-card" id="aggressive">
+      <div class="accent-bar" style="background:var(--amber)"></div>
+      <div class="scenario-tag" style="background:rgba(251,191,36,.12);color:var(--amber)">Aggressive</div>
+      <h3>High-performance outcome</h3>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Conversion Rate</span>
+          <div class="metric-values">
+            <span class="metric-before" id="agg-cr-before">1.20%</span>
+            <span class="metric-after" style="color:var(--amber)" id="agg-cr-after">1.92%</span>
+            <span class="metric-change" style="background:rgba(251,191,36,.1);color:var(--amber)" id="agg-cr-change">+60%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="agg-cr-bar-before" style="width:24%"></div>
+          <div class="metric-bar-after" id="agg-cr-bar-after" style="width:38%;background:var(--amber)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Email Revenue</span>
+          <div class="metric-values">
+            <span class="metric-before" id="agg-email-before">15%</span>
+            <span class="metric-after" style="color:var(--amber)" id="agg-email-after">35%</span>
+            <span class="metric-change" style="background:rgba(251,191,36,.1);color:var(--amber)" id="agg-email-change">+133%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="agg-email-bar-before" style="width:30%"></div>
+          <div class="metric-bar-after" id="agg-email-bar-after" style="width:70%;background:var(--amber)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">ROAS</span>
+          <div class="metric-values">
+            <span class="metric-before" id="agg-roas-before">2.0x</span>
+            <span class="metric-after" style="color:var(--amber)" id="agg-roas-after">3.0x</span>
+            <span class="metric-change" style="background:rgba(251,191,36,.1);color:var(--amber)" id="agg-roas-change">+50%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="agg-roas-bar-before" style="width:20%"></div>
+          <div class="metric-bar-after" id="agg-roas-bar-after" style="width:30%;background:var(--amber)"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">AOV</span>
+          <div class="metric-values">
+            <span class="metric-before" id="agg-aov-before">£45</span>
+            <span class="metric-after" style="color:var(--amber)" id="agg-aov-after">£56</span>
+            <span class="metric-change" style="background:rgba(251,191,36,.1);color:var(--amber)" id="agg-aov-change">+25%</span>
+          </div>
+        </div>
+        <div class="metric-bar">
+          <div class="metric-bar-before" id="agg-aov-bar-before" style="width:9%"></div>
+          <div class="metric-bar-after" id="agg-aov-bar-after" style="width:11%;background:var(--amber)"></div>
+        </div>
+      </div>
+
+      <div class="summary-stats">
+        <div class="stat"><div class="stat-value" style="color:var(--amber)" id="agg-uplift">£0</div><div class="stat-label">Monthly Uplift</div></div>
+        <div class="stat"><div class="stat-value" style="color:var(--amber)" id="agg-annual">£0</div><div class="stat-label">Annual Uplift</div></div>
+        <div class="stat"><div class="stat-value" style="color:var(--amber)" id="agg-roi">0%</div><div class="stat-label">90-Day ROI</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER COMPARISON -->
+  <div class="section-title"><span class="dot"></span>Choose Your Growth Tier</div>
+  <div class="tiers-grid" id="tiersGrid">
+
+    <!-- Growth Starter -->
+    <div class="tier-card" id="tierStarter">
+      <div class="tier-accent" style="background:var(--blue)"></div>
+      <div class="tier-badge" style="background:rgba(59,130,246,.12);color:var(--blue)">Starter</div>
+      <div class="tier-name">Growth Starter</div>
+      <div class="tier-stat"><span class="tier-stat-label">Agents deployed</span><span class="tier-stat-value" style="color:var(--blue)">20+</span></div>
+      <div class="tier-price"><strong>£5,000</strong> setup + <strong>£2,500</strong>/mo</div>
+      <div class="tier-stat"><span class="tier-stat-label">3-month investment</span><span class="tier-stat-value" style="color:var(--coral)">£12,500</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Projected 90-day return</span><span class="tier-stat-value" style="color:var(--teal)" id="starter-return">£0</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">ROI</span><span class="tier-stat-value" style="color:var(--teal)" id="starter-roi">0%</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Payback period</span><span class="tier-stat-value" id="starter-payback">0 days</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Return per £1 spent</span><span class="tier-stat-value" style="color:var(--teal)" id="starter-per-pound">£0</span></div>
+    </div>
+
+    <!-- Growth Pro -->
+    <div class="tier-card featured" id="tierPro">
+      <div class="tier-accent" style="background:var(--teal)"></div>
+      <div class="popular-badge">Most Popular</div>
+      <div class="tier-badge" style="background:rgba(0,229,160,.12);color:var(--teal)">Pro</div>
+      <div class="tier-name">Growth Pro</div>
+      <div class="tier-stat"><span class="tier-stat-label">Agents deployed</span><span class="tier-stat-value" style="color:var(--teal)">60+</span></div>
+      <div class="tier-price"><strong>£10,000</strong> setup + <strong>£5,000</strong>/mo</div>
+      <div class="tier-stat"><span class="tier-stat-label">3-month investment</span><span class="tier-stat-value" style="color:var(--coral)">£25,000</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Projected 90-day return</span><span class="tier-stat-value" style="color:var(--teal)" id="pro-return">£0</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">ROI</span><span class="tier-stat-value" style="color:var(--teal)" id="pro-roi">0%</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Payback period</span><span class="tier-stat-value" id="pro-payback">0 days</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Return per £1 spent</span><span class="tier-stat-value" style="color:var(--teal)" id="pro-per-pound">£0</span></div>
+    </div>
+
+    <!-- Growth Enterprise -->
+    <div class="tier-card" id="tierEnterprise">
+      <div class="tier-accent" style="background:var(--amber)"></div>
+      <div class="tier-badge" style="background:rgba(251,191,36,.12);color:var(--amber)">Enterprise</div>
+      <div class="tier-name">Growth Enterprise</div>
+      <div class="tier-stat"><span class="tier-stat-label">Agents deployed</span><span class="tier-stat-value" style="color:var(--amber)">Full 108</span></div>
+      <div class="tier-price"><strong>£25,000</strong> setup + <strong>£10,000</strong>/mo</div>
+      <div class="tier-stat"><span class="tier-stat-label">3-month investment</span><span class="tier-stat-value" style="color:var(--coral)">£55,000</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Projected 90-day return</span><span class="tier-stat-value" style="color:var(--teal)" id="enterprise-return">£0</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">ROI</span><span class="tier-stat-value" style="color:var(--teal)" id="enterprise-roi">0%</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Payback period</span><span class="tier-stat-value" id="enterprise-payback">0 days</span></div>
+      <div class="tier-stat"><span class="tier-stat-label">Return per £1 spent</span><span class="tier-stat-value" style="color:var(--teal)" id="enterprise-per-pound">£0</span></div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to unlock <span style="color:var(--teal)" id="ctaUplift">£0</span>/year?</h2>
+    <p>Book a free 30-minute Growth Audit. We will map out a personalised 90-day plan to hit these numbers.</p>
+    <a href="https://purposefulprofits.co/audit" class="cta-btn" target="_blank">
+      Book Your Growth Audit
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+      </svg>
+    </a>
+    <div class="cta-disclaimer">No obligation. No hard sell. Just clarity on what is possible.</div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 <a href="https://purposefulprofits.co" target="_blank">Purposeful Profits</a>. Built for brands that want to grow with intent.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // ===== UTILITY FUNCTIONS =====
+  const fmt = (n) => {
+    if (n >= 1000000) return '£' + (n / 1000000).toFixed(1) + 'M';
+    if (n >= 10000) return '£' + Math.round(n).toLocaleString('en-GB');
+    if (n >= 1000) return '£' + n.toLocaleString('en-GB', {maximumFractionDigits:0});
+    return '£' + n.toLocaleString('en-GB', {maximumFractionDigits:0});
+  };
+  const fmtK = (n) => {
+    if (n >= 1000000) return '£' + (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000) return '£' + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + 'k';
+    return '£' + Math.round(n);
+  };
+  const fmtPct = (n) => n.toFixed(n < 10 ? 1 : 0) + '%';
+  const fmtX = (n) => n.toFixed(1) + 'x';
+
+  // ===== DOM REFERENCES =====
+  const els = {
+    revenue: document.getElementById('revenue'),
+    cr: document.getElementById('cr'),
+    email: document.getElementById('email'),
+    adSpend: document.getElementById('adSpend'),
+    roas: document.getElementById('roas'),
+    aov: document.getElementById('aov'),
+    revenueDisplay: document.getElementById('revenueDisplay'),
+    crDisplay: document.getElementById('crDisplay'),
+    emailDisplay: document.getElementById('emailDisplay'),
+    adSpendDisplay: document.getElementById('adSpendDisplay'),
+    roasDisplay: document.getElementById('roasDisplay'),
+    aovDisplay: document.getElementById('aovDisplay'),
+  };
+
+  // ===== SLIDER FILL STYLING =====
+  function updateSliderFill(slider) {
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
+    const val = parseFloat(slider.value);
+    const pct = ((val - min) / (max - min)) * 100;
+    slider.style.background = `linear-gradient(to right, var(--teal) 0%, var(--teal) ${pct}%, var(--bg4) ${pct}%, var(--bg4) 100%)`;
+  }
+
+  // ===== SYNC: slider <-> display =====
+  function syncDisplays() {
+    els.revenueDisplay.value = fmt(parseFloat(els.revenue.value));
+    els.crDisplay.value = parseFloat(els.cr.value).toFixed(2) + '%';
+    els.emailDisplay.value = parseInt(els.email.value) + '%';
+    els.adSpendDisplay.value = fmt(parseFloat(els.adSpend.value));
+    els.roasDisplay.value = fmtX(parseFloat(els.roas.value));
+    els.aovDisplay.value = fmt(parseFloat(els.aov.value));
+    Object.values(els).forEach(el => { if (el.type === 'range') updateSliderFill(el); });
+  }
+
+  // Parse display value back to number
+  function parseDisplay(val) {
+    return parseFloat(val.replace(/[^0-9.\-]/g, '')) || 0;
+  }
+
+  // Display field -> slider sync
+  function setupDisplayInput(displayEl, sliderEl, formatter) {
+    displayEl.addEventListener('change', function() {
+      let v = parseDisplay(this.value);
+      const min = parseFloat(sliderEl.min);
+      const max = parseFloat(sliderEl.max);
+      v = Math.max(min, Math.min(max, v));
+      sliderEl.value = v;
+      syncDisplays();
+      calculate();
+    });
+    displayEl.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); this.blur(); }
+    });
+  }
+
+  setupDisplayInput(els.revenueDisplay, els.revenue);
+  setupDisplayInput(els.crDisplay, els.cr);
+  setupDisplayInput(els.emailDisplay, els.email);
+  setupDisplayInput(els.adSpendDisplay, els.adSpend);
+  setupDisplayInput(els.roasDisplay, els.roas);
+  setupDisplayInput(els.aovDisplay, els.aov);
+
+  // Slider -> display sync
+  ['revenue','cr','email','adSpend','roas','aov'].forEach(key => {
+    els[key].addEventListener('input', function() {
+      syncDisplays();
+      calculate();
+    });
+  });
+
+  // ===== TIER COSTS =====
+  const tiers = {
+    starter: { setup: 5000, monthly: 2500, total3mo: 12500 },
+    pro: { setup: 10000, monthly: 5000, total3mo: 25000 },
+    enterprise: { setup: 25000, monthly: 10000, total3mo: 55000 }
+  };
+
+  // ===== SCENARIO MULTIPLIERS =====
+  const scenarios = {
+    conservative: { cr: 1.40, emailTarget: 0.25, roas: 1.30, aov: 1.15 },
+    expected:     { cr: 1.50, emailTarget: 0.30, roas: 1.40, aov: 1.20 },
+    aggressive:   { cr: 1.60, emailTarget: 0.35, roas: 1.50, aov: 1.25 }
+  };
+
+  // ===== ANIMATED NUMBER =====
+  let currentRoiDisplay = 0;
+  let roiAnimFrame = null;
+
+  function animateValue(el, target, duration, formatter) {
+    const start = parseFloat(el.dataset.current || 0);
+    el.dataset.current = target;
+    const startTime = performance.now();
+    function tick(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const current = start + (target - start) * eased;
+      el.textContent = formatter(current);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ===== MAIN CALCULATION =====
+  function calculate() {
+    const revenue = parseFloat(els.revenue.value);
+    const cr = parseFloat(els.cr.value);
+    const emailPct = parseFloat(els.email.value) / 100;
+    const adSpend = parseFloat(els.adSpend.value);
+    const roas = parseFloat(els.roas.value);
+    const aov = parseFloat(els.aov.value);
+
+    // Current breakdown
+    const currentAdRevenue = adSpend * roas;
+    const currentEmailRevenue = revenue * emailPct;
+    const currentOrganic = revenue - currentAdRevenue - currentEmailRevenue;
+
+    // Calculate each scenario
+    Object.keys(scenarios).forEach(key => {
+      const s = scenarios[key];
+      const prefix = key === 'conservative' ? 'con' : key === 'expected' ? 'exp' : 'agg';
+
+      // New metrics
+      const newCR = cr * s.cr;
+      const newEmailPct = Math.max(emailPct, s.emailTarget); // email goes to at least the target
+      const newROAS = roas * s.roas;
+      const newAOV = aov * s.aov;
+
+      // CR improvement drives overall revenue up proportionally
+      const crMultiplier = newCR / cr;
+      // AOV improvement adds on top
+      const aovMultiplier = newAOV / aov;
+
+      // New revenue components
+      const newAdRevenue = adSpend * newROAS;
+      const baseRevenueFromCRandAOV = revenue * crMultiplier * aovMultiplier;
+      const newEmailRevenue = baseRevenueFromCRandAOV * newEmailPct;
+      const newTotalRevenue = baseRevenueFromCRandAOV;
+
+      // If email pct was already high, ensure we still use the base
+      const projectedRevenue = Math.max(newTotalRevenue, revenue * crMultiplier);
+
+      const monthlyUplift = projectedRevenue - revenue;
+      const quarterlyUplift = monthlyUplift * 3;
+      const annualUplift = monthlyUplift * 12;
+
+      // Update before values
+      document.getElementById(prefix + '-cr-before').textContent = cr.toFixed(2) + '%';
+      document.getElementById(prefix + '-email-before').textContent = Math.round(emailPct * 100) + '%';
+      document.getElementById(prefix + '-roas-before').textContent = fmtX(roas);
+      document.getElementById(prefix + '-aov-before').textContent = fmt(aov);
+
+      // Update after values
+      document.getElementById(prefix + '-cr-after').textContent = newCR.toFixed(2) + '%';
+      document.getElementById(prefix + '-email-after').textContent = Math.round(newEmailPct * 100) + '%';
+      document.getElementById(prefix + '-roas-after').textContent = fmtX(newROAS);
+      document.getElementById(prefix + '-aov-after').textContent = fmt(newAOV);
+
+      // Update change badges
+      document.getElementById(prefix + '-cr-change').textContent = '+' + Math.round((s.cr - 1) * 100) + '%';
+      const emailChange = emailPct > 0 ? Math.round(((newEmailPct - emailPct) / emailPct) * 100) : 0;
+      document.getElementById(prefix + '-email-change').textContent = emailChange > 0 ? '+' + emailChange + '%' : 'Target ' + Math.round(newEmailPct * 100) + '%';
+      document.getElementById(prefix + '-roas-change').textContent = '+' + Math.round((s.roas - 1) * 100) + '%';
+      document.getElementById(prefix + '-aov-change').textContent = '+' + Math.round((s.aov - 1) * 100) + '%';
+
+      // Update bars (normalised)
+      const crMax = 5;
+      document.getElementById(prefix + '-cr-bar-before').style.width = (cr / crMax * 100) + '%';
+      document.getElementById(prefix + '-cr-bar-after').style.width = (newCR / crMax * 100) + '%';
+
+      document.getElementById(prefix + '-email-bar-before').style.width = (emailPct * 100) + '%';
+      document.getElementById(prefix + '-email-bar-after').style.width = (newEmailPct * 100) + '%';
+
+      const roasMax = 10;
+      document.getElementById(prefix + '-roas-bar-before').style.width = (roas / roasMax * 100) + '%';
+      document.getElementById(prefix + '-roas-bar-after').style.width = (newROAS / roasMax * 100) + '%';
+
+      const aovMax = 500;
+      document.getElementById(prefix + '-aov-bar-before').style.width = (aov / aovMax * 100) + '%';
+      document.getElementById(prefix + '-aov-bar-after').style.width = (newAOV / aovMax * 100) + '%';
+
+      // Summary stats
+      document.getElementById(prefix + '-uplift').textContent = fmtK(monthlyUplift);
+      document.getElementById(prefix + '-annual').textContent = fmtK(annualUplift);
+
+      // ROI based on Pro tier for scenario cards
+      const proROI = ((quarterlyUplift - tiers.pro.total3mo) / tiers.pro.total3mo) * 100;
+      document.getElementById(prefix + '-roi').textContent = Math.round(proROI) + '%';
+
+      // If this is the "expected" scenario, update the hero
+      if (key === 'expected') {
+        animateValue(document.getElementById('roiNumber'), proROI, 600, (v) => Math.round(v) + '%');
+        const paybackDays = monthlyUplift > 0 ? Math.round(tiers.pro.total3mo / (monthlyUplift / 30)) : 999;
+        document.getElementById('paybackDays').textContent = paybackDays;
+        document.getElementById('invCost').textContent = fmt(tiers.pro.total3mo);
+        document.getElementById('invReturn').textContent = fmtK(quarterlyUplift);
+        const perPound = quarterlyUplift / tiers.pro.total3mo;
+        document.getElementById('invMultiplier').textContent = perPound.toFixed(1) + 'x return per £1';
+        document.getElementById('ctaUplift').textContent = fmtK(annualUplift);
+      }
+
+      // Tier calculations (using this scenario's uplift for the "expected" row)
+      if (key === 'expected') {
+        Object.keys(tiers).forEach(tierKey => {
+          const t = tiers[tierKey];
+          const tierReturn = quarterlyUplift;
+          const tierROI = ((tierReturn - t.total3mo) / t.total3mo) * 100;
+          const tierPayback = monthlyUplift > 0 ? Math.round(t.total3mo / (monthlyUplift / 30)) : 999;
+          const tierPerPound = tierReturn / t.total3mo;
+
+          document.getElementById(tierKey + '-return').textContent = fmtK(tierReturn);
+          document.getElementById(tierKey + '-roi').textContent = Math.round(tierROI) + '%';
+          document.getElementById(tierKey + '-payback').textContent = tierPayback + ' days';
+          document.getElementById(tierKey + '-per-pound').textContent = '£' + tierPerPound.toFixed(2);
+        });
+      }
+    });
+  }
+
+  // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.scenario-card, .tier-card, .cta-section').forEach(el => observer.observe(el));
+
+  // ===== INITIAL CALCULATION =====
+  syncDisplays();
+  calculate();
+
+})();
+</script>
+</body>
+</html>

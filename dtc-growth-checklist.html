@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The DTC Growth Checklist: 50 Points | Purposeful Profits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a0f1c;
+    --navy-light: #111827;
+    --navy-mid: #1a2237;
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45, 212, 191, 0.15);
+    --teal-glow: rgba(45, 212, 191, 0.08);
+    --white: #f8fafc;
+    --white-dim: rgba(248, 250, 252, 0.7);
+    --white-muted: rgba(248, 250, 252, 0.45);
+    --gold: #f59e0b;
+    --coral: #f472b6;
+    --violet: #a78bfa;
+    --sky: #38bdf8;
+    --lime: #a3e635;
+    --orange: #fb923c;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── Ambient Background ─── */
+  .ambient {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .ambient::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    top: -150px; right: -100px;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .ambient::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    bottom: -100px; left: -100px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ─── Cover Page ─── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 32px;
+    position: relative;
+  }
+
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal-dim);
+    border: 1px solid rgba(45, 212, 191, 0.25);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 40px;
+  }
+  .cover-badge::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .cover h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    max-width: 680px;
+    margin-bottom: 24px;
+  }
+  .cover h1 .highlight {
+    background: linear-gradient(135deg, var(--teal), var(--sky));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cover-subtitle {
+    font-size: 1.15rem;
+    color: var(--white-dim);
+    max-width: 520px;
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    margin-bottom: 32px;
+  }
+
+  .cover-author {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white-dim);
+    letter-spacing: 0.02em;
+  }
+  .cover-author strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .cover-logo {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-mark {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--teal), #0d9488);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--navy);
+  }
+  .logo-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+  }
+
+  /* ─── Intro Section ─── */
+  .intro {
+    padding: 80px 0 40px;
+  }
+  .intro-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--white-dim);
+    max-width: 680px;
+  }
+
+  /* ─── Scoring Guide ─── */
+  .scoring {
+    background: var(--navy-light);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 32px 0 56px;
+  }
+  .scoring-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .scoring-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .score-tier {
+    background: var(--navy-mid);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: border-color 0.2s;
+  }
+  .score-tier:hover {
+    border-color: rgba(45, 212, 191, 0.2);
+  }
+  .score-range {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .tier-1 .score-range { color: var(--teal); }
+  .tier-2 .score-range { color: var(--sky); }
+  .tier-3 .score-range { color: var(--gold); }
+  .tier-4 .score-range { color: var(--coral); }
+  .score-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--white-muted);
+  }
+
+  /* ─── Checklist Sections ─── */
+  .checklist-section {
+    margin-bottom: 56px;
+    page-break-inside: avoid;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .section-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .section-offer .section-icon { background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.2); }
+  .section-cro .section-icon { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.2); }
+  .section-email .section-icon { background: rgba(167, 139, 250, 0.12); border: 1px solid rgba(167, 139, 250, 0.2); }
+  .section-content .section-icon { background: rgba(163, 230, 53, 0.12); border: 1px solid rgba(163, 230, 53, 0.2); }
+  .section-ads .section-icon { background: rgba(244, 114, 182, 0.12); border: 1px solid rgba(244, 114, 182, 0.2); }
+  .section-outreach .section-icon { background: rgba(251, 146, 60, 0.12); border: 1px solid rgba(251, 146, 60, 0.2); }
+
+  .section-title-group {
+    flex: 1;
+  }
+  .section-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    margin-bottom: 2px;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .section-offer .section-title { color: var(--gold); }
+  .section-cro .section-title { color: var(--sky); }
+  .section-email .section-title { color: var(--violet); }
+  .section-content .section-title { color: var(--lime); }
+  .section-ads .section-title { color: var(--coral); }
+  .section-outreach .section-title { color: var(--orange); }
+
+  .section-count {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--white-muted);
+    background: var(--navy-mid);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 6px 14px;
+    white-space: nowrap;
+  }
+
+  /* ─── Checklist Items ─── */
+  .checklist-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--navy-light);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .checklist-item:hover {
+    border-color: rgba(45, 212, 191, 0.15);
+    background: rgba(17, 24, 39, 0.9);
+  }
+
+  .checkbox {
+    width: 22px; height: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  .checkbox svg {
+    width: 14px; height: 14px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.15s ease;
+  }
+
+  .checklist-item.checked .checkbox {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .checklist-item.checked .checkbox svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .checklist-item.checked .item-text {
+    color: var(--white-muted);
+  }
+
+  .item-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--white-dim);
+    flex: 1;
+    padding-top: 1px;
+  }
+
+  /* ─── Score Summary ─── */
+  .score-summary {
+    background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+    border: 1px solid rgba(45, 212, 191, 0.15);
+    border-radius: 20px;
+    padding: 48px 40px;
+    text-align: center;
+    margin: 64px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .score-summary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  }
+  .score-summary-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .score-display {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .score-display .score-total {
+    font-size: 2rem;
+    color: var(--white-muted);
+    font-weight: 500;
+  }
+  .score-message {
+    font-size: 1rem;
+    color: var(--white-dim);
+    margin-top: 16px;
+    min-height: 24px;
+  }
+
+  /* ─── Category Breakdown ─── */
+  .category-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+    text-align: left;
+  }
+  .cat-score {
+    background: rgba(10, 15, 28, 0.5);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cat-score-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--white-muted);
+  }
+  .cat-score-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CTA Section ─── */
+  .cta {
+    text-align: center;
+    padding: 64px 0 80px;
+    page-break-inside: avoid;
+  }
+  .cta-divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    margin: 0 auto 32px;
+  }
+  .cta h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .cta p {
+    font-size: 1.05rem;
+    color: var(--white-dim);
+    max-width: 520px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--teal), #0d9488);
+    color: var(--navy);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 16px 36px;
+    border-radius: 12px;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 24px rgba(45, 212, 191, 0.2);
+  }
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(45, 212, 191, 0.3);
+  }
+  .cta-button svg {
+    width: 18px; height: 18px;
+  }
+
+  .cta-url {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--white-muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ─── Footer ─── */
+  .footer {
+    text-align: center;
+    padding: 32px 0 48px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .footer p {
+    font-size: 0.78rem;
+    color: var(--white-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── Print Styles ─── */
+  @media print {
+    @page {
+      size: A4;
+      margin: 18mm 16mm;
+    }
+
+    body {
+      background: var(--navy) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .ambient { display: none; }
+
+    .cover {
+      min-height: auto;
+      padding: 60px 0 40px;
+      page-break-after: always;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    .checklist-section {
+      page-break-inside: avoid;
+    }
+
+    .checklist-item {
+      break-inside: avoid;
+    }
+
+    .checklist-item:hover {
+      border-color: rgba(255, 255, 255, 0.04);
+      background: var(--navy-light);
+    }
+
+    .score-summary {
+      page-break-inside: avoid;
+    }
+
+    .cta {
+      page-break-inside: avoid;
+    }
+
+    .cta-button {
+      box-shadow: none;
+    }
+
+    .cover-badge::before {
+      animation: none;
+    }
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .cover h1 {
+      font-size: 2rem;
+    }
+    .scoring-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .category-breakdown {
+      grid-template-columns: 1fr 1fr;
+    }
+    .score-display {
+      font-size: 3.5rem;
+    }
+    .section-header {
+      flex-wrap: wrap;
+    }
+    .section-count {
+      margin-left: 64px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<!-- ═══════════ COVER PAGE ═══════════ -->
+<div class="cover">
+  <div class="container">
+    <div class="cover-badge">Lead Magnet</div>
+    <h1>The DTC Growth Checklist: <span class="highlight">50 Points</span> That Separate 7-Figure Brands from the Rest</h1>
+    <p class="cover-subtitle">A practical, no-nonsense scorecard for direct-to-consumer brands. Check every point that applies to your business, then see exactly where to focus next.</p>
+    <div class="cover-divider"></div>
+    <p class="cover-author">By <strong>Caner Veli</strong></p>
+    <div class="cover-logo">
+      <div class="logo-mark">PP</div>
+      <div class="logo-text">Purposeful Profits</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ INTRO + SCORING ═══════════ -->
+<div class="container">
+  <div class="intro">
+    <p class="intro-text">Most DTC brands are leaving money on the table. Not because their product is bad, but because they have blind spots across their growth engine. This checklist covers the six core levers that drive sustainable, profitable growth. Score yourself honestly, and you will know exactly where to focus your next sprint.</p>
+  </div>
+
+  <div class="scoring">
+    <div class="scoring-title">Your Scoring Guide</div>
+    <div class="scoring-grid">
+      <div class="score-tier tier-1">
+        <div class="score-range">40+</div>
+        <div class="score-label">Growth-Ready</div>
+      </div>
+      <div class="score-tier tier-2">
+        <div class="score-range">30-39</div>
+        <div class="score-label">Solid Foundations</div>
+      </div>
+      <div class="score-tier tier-3">
+        <div class="score-range">20-29</div>
+        <div class="score-label">Key Gaps</div>
+      </div>
+      <div class="score-tier tier-4">
+        <div class="score-range">&lt;20</div>
+        <div class="score-label">Time for an Audit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 1. OFFER ═══════════ -->
+  <div class="checklist-section section-offer" data-category="offer" data-max="8">
+    <div class="section-header">
+      <div class="section-icon">&#127919;</div>
+      <div class="section-title-group">
+        <div class="section-number">Lever 01 of 06</div>
+        <div class="section-title">Offer</div>
+      </div>
+      <div class="section-count"><span class="cat-checked" data-cat="offer">0</span> / 8</div>
+    </div>
+    <ul class="checklist-items">
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Clear value proposition in under 10 words</span>
+      </li>
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Pricing anchored against a higher reference point</span>
+      </li>
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">At least one bundle offer live on site</span>
+      </li>
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Subscription or replenishment option (if applicable)</span>
+      </li>
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Free shipping threshold set above AOV</span>
+      </li>
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Gift with purchase or bonus offer</span>
+      </li>
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Money-back guarantee prominently displayed</span>
+      </li>
+      <li class="checklist-item" data-cat="offer" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Upsell and cross-sell on product and cart pages</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 2. CRO ═══════════ -->
+  <div class="checklist-section section-cro" data-category="cro" data-max="10">
+    <div class="section-header">
+      <div class="section-icon">&#128202;</div>
+      <div class="section-title-group">
+        <div class="section-number">Lever 02 of 06</div>
+        <div class="section-title">CRO</div>
+      </div>
+      <div class="section-count"><span class="cat-checked" data-cat="cro">0</span> / 10</div>
+    </div>
+    <ul class="checklist-items">
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Site loads in under 3 seconds on mobile</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Mobile conversion rate within 30% of desktop</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Hero section communicates the offer in 5 seconds</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Trust badges above the fold</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Product pages have reviews (minimum 10 per product)</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Add-to-cart button visible without scrolling</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Cart page shows order summary and savings</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Checkout is 3 steps or fewer</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Exit-intent popup captures abandoning visitors</span>
+      </li>
+      <li class="checklist-item" data-cat="cro" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Site search is functional and returns relevant results</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 3. EMAIL ═══════════ -->
+  <div class="checklist-section section-email" data-category="email" data-max="10">
+    <div class="section-header">
+      <div class="section-icon">&#9993;&#65039;</div>
+      <div class="section-title-group">
+        <div class="section-number">Lever 03 of 06</div>
+        <div class="section-title">Email</div>
+      </div>
+      <div class="section-count"><span class="cat-checked" data-cat="email">0</span> / 10</div>
+    </div>
+    <ul class="checklist-items">
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Welcome flow live (5+ emails)</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Abandoned cart flow live (3+ emails)</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Browse abandonment flow live (3+ emails)</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Post-purchase flow live (4+ emails)</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Win-back flow live (3+ emails for 60+ day lapsed)</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Campaign calendar planned monthly</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">List segmented by purchase behaviour (F0/F1+)</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Email revenue is 25%+ of total</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Deliverability rate above 95%</span>
+      </li>
+      <li class="checklist-item" data-cat="email" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Unsubscribe rate under 0.3% per campaign</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 4. CONTENT ═══════════ -->
+  <div class="checklist-section section-content" data-category="content" data-max="8">
+    <div class="section-header">
+      <div class="section-icon">&#9997;&#65039;</div>
+      <div class="section-title-group">
+        <div class="section-number">Lever 04 of 06</div>
+        <div class="section-title">Content</div>
+      </div>
+      <div class="section-count"><span class="cat-checked" data-cat="content">0</span> / 8</div>
+    </div>
+    <ul class="checklist-items">
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Blog published at least 2x per month</span>
+      </li>
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Social media posting at least 3x per week</span>
+      </li>
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">UGC collection system in place</span>
+      </li>
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Content repurposed across 3+ platforms</span>
+      </li>
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">SEO keyword targets defined for top 20 pages</span>
+      </li>
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Content calendar planned 30 days ahead</span>
+      </li>
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Brand story documented and used consistently</span>
+      </li>
+      <li class="checklist-item" data-cat="content" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Customer FAQ content published on site</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 5. ADS ═══════════ -->
+  <div class="checklist-section section-ads" data-category="ads" data-max="8">
+    <div class="section-header">
+      <div class="section-icon">&#128640;</div>
+      <div class="section-title-group">
+        <div class="section-number">Lever 05 of 06</div>
+        <div class="section-title">Ads</div>
+      </div>
+      <div class="section-count"><span class="cat-checked" data-cat="ads">0</span> / 8</div>
+    </div>
+    <ul class="checklist-items">
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Meta Ads ROAS above 3x</span>
+      </li>
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Google Ads ROAS above 4x</span>
+      </li>
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Creative refreshed every 2 to 3 weeks</span>
+      </li>
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">TOF/MOF/BOF funnel structure in place</span>
+      </li>
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Retargeting audiences configured (site visitors, cart abandoners, purchasers)</span>
+      </li>
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Ad spend under 30% of revenue</span>
+      </li>
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">At least 3 ad creative angles tested per month</span>
+      </li>
+      <li class="checklist-item" data-cat="ads" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Lookalike audiences built from purchaser data</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 6. OUTREACH ═══════════ -->
+  <div class="checklist-section section-outreach" data-category="outreach" data-max="6">
+    <div class="section-header">
+      <div class="section-icon">&#129309;</div>
+      <div class="section-title-group">
+        <div class="section-number">Lever 06 of 06</div>
+        <div class="section-title">Outreach</div>
+      </div>
+      <div class="section-count"><span class="cat-checked" data-cat="outreach">0</span> / 6</div>
+    </div>
+    <ul class="checklist-items">
+      <li class="checklist-item" data-cat="outreach" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Influencer or creator partnership programme active</span>
+      </li>
+      <li class="checklist-item" data-cat="outreach" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Affiliate or referral programme live</span>
+      </li>
+      <li class="checklist-item" data-cat="outreach" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">PR or press mentions in last 90 days</span>
+      </li>
+      <li class="checklist-item" data-cat="outreach" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Wholesale or retail partnerships explored</span>
+      </li>
+      <li class="checklist-item" data-cat="outreach" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Strategic brand collaborations identified</span>
+      </li>
+      <li class="checklist-item" data-cat="outreach" onclick="toggleItem(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="#0a0f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="item-text">Customer referral programme with incentive</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SCORE SUMMARY ═══════════ -->
+  <div class="score-summary">
+    <div class="score-summary-label">Your Growth Score</div>
+    <div class="score-display">
+      <span id="totalScore">0</span><span class="score-total"> / 50</span>
+    </div>
+    <div class="score-message" id="scoreMessage">Check your items above to see your score.</div>
+    <div class="category-breakdown">
+      <div class="cat-score">
+        <span class="cat-score-name">Offer</span>
+        <span class="cat-score-value" style="color: var(--gold)"><span class="cat-checked" data-cat="offer">0</span>/8</span>
+      </div>
+      <div class="cat-score">
+        <span class="cat-score-name">CRO</span>
+        <span class="cat-score-value" style="color: var(--sky)"><span class="cat-checked" data-cat="cro">0</span>/10</span>
+      </div>
+      <div class="cat-score">
+        <span class="cat-score-name">Email</span>
+        <span class="cat-score-value" style="color: var(--violet)"><span class="cat-checked" data-cat="email">0</span>/10</span>
+      </div>
+      <div class="cat-score">
+        <span class="cat-score-name">Content</span>
+        <span class="cat-score-value" style="color: var(--lime)"><span class="cat-checked" data-cat="content">0</span>/8</span>
+      </div>
+      <div class="cat-score">
+        <span class="cat-score-name">Ads</span>
+        <span class="cat-score-value" style="color: var(--coral)"><span class="cat-checked" data-cat="ads">0</span>/8</span>
+      </div>
+      <div class="cat-score">
+        <span class="cat-score-name">Outreach</span>
+        <span class="cat-score-value" style="color: var(--orange)"><span class="cat-checked" data-cat="outreach">0</span>/6</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CTA ═══════════ -->
+  <div class="cta">
+    <div class="cta-divider"></div>
+    <h2>Want Us to Run This Audit for You?</h2>
+    <p>Our team will go through every one of these 50 points, plus another 30 advanced checks, and deliver a personalised growth roadmap. Completely free. No obligations.</p>
+    <a href="https://purposefulprofits.co/audit" class="cta-button">
+      Book Your Free Growth Audit
+      <svg viewBox="0 0 18 18" fill="none"><path d="M3.75 9H14.25M14.25 9L9.75 4.5M14.25 9L9.75 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="cta-url">purposefulprofits.co/audit</div>
+  </div>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <div class="footer">
+    <p>Purposeful Profits &middot; purposefulprofits.co &middot; &copy; 2026</p>
+  </div>
+</div>
+
+<script>
+  function toggleItem(el) {
+    el.classList.toggle('checked');
+    updateScores();
+  }
+
+  function updateScores() {
+    const categories = ['offer', 'cro', 'email', 'content', 'ads', 'outreach'];
+    let total = 0;
+
+    categories.forEach(cat => {
+      const checked = document.querySelectorAll('.checklist-item.checked[data-cat="' + cat + '"]').length;
+      total += checked;
+      // Update all displays for this category
+      document.querySelectorAll('.cat-checked[data-cat="' + cat + '"]').forEach(el => {
+        el.textContent = checked;
+      });
+    });
+
+    document.getElementById('totalScore').textContent = total;
+
+    const msg = document.getElementById('scoreMessage');
+    if (total >= 40) {
+      msg.textContent = 'Growth-ready. You are in the top tier. Time to scale aggressively.';
+      msg.style.color = 'var(--teal)';
+    } else if (total >= 30) {
+      msg.textContent = 'Solid foundations. A few focused sprints could unlock significant growth.';
+      msg.style.color = 'var(--sky)';
+    } else if (total >= 20) {
+      msg.textContent = 'Key gaps exist. Prioritise the weakest lever and close the gaps.';
+      msg.style.color = 'var(--gold)';
+    } else if (total > 0) {
+      msg.textContent = 'Time for an audit. Multiple levers need attention before scaling.';
+      msg.style.color = 'var(--coral)';
+    } else {
+      msg.textContent = 'Check your items above to see your score.';
+      msg.style.color = 'var(--white-dim)';
+    }
+  }
+</script>
+</body>
+</html>

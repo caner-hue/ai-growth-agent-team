@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Team Management | Purposeful Profits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & TOKENS ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0f1c;
+  --bg-card: #111827;
+  --bg-card-hover: #1a2332;
+  --bg-sidebar: #080c17;
+  --bg-input: #1a2236;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --teal: #00e5a0;
+  --teal-dim: rgba(0,229,160,0.12);
+  --coral: #ff6b6b;
+  --gold: #ffd700;
+  --purple: #a78bfa;
+  --cyan: #22d3ee;
+  --orange: #fb923c;
+  --blue: #60a5fa;
+  --yellow: #facc15;
+  --magenta: #e879f9;
+  --pink: #f472b6;
+  --red: #f87171;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --sidebar-w: 260px;
+  --topbar-h: 0px;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+
+/* ========== LAYOUT ========== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 0 20px;
+  margin-bottom: 8px;
+}
+.sidebar-logo h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+.sidebar-logo h2 span { color: var(--teal); }
+.sidebar-logo p {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Brand selector */
+.brand-selector {
+  margin: 12px 16px;
+  padding: 10px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.brand-selector:hover { border-color: var(--teal); }
+.brand-avatar {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--teal), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--bg);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.brand-info {
+  flex: 1;
+  min-width: 0;
+}
+.brand-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.brand-plan {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+.brand-chevron {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+/* Nav */
+.sidebar-nav {
+  margin-top: 8px;
+  padding: 0 12px;
+  flex: 1;
+}
+.nav-section-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 16px 12px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  position: relative;
+}
+.nav-item:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+}
+.nav-item.active {
+  background: var(--teal-dim);
+  color: var(--teal);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--teal);
+}
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+.nav-badge {
+  margin-left: auto;
+  background: var(--teal);
+  color: var(--bg);
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+  padding: 16px 16px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.strategist-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: var(--bg-card);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.strategist-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--coral), var(--orange));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  flex-shrink: 0;
+}
+.strategist-info {
+  min-width: 0;
+}
+.strategist-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.strategist-role {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+.tier-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--gold), #ffaa00);
+  color: var(--bg);
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 28px 36px 60px;
+  min-height: 100vh;
+}
+
+/* ========== MOBILE SIDEBAR TOGGLE ========== */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== PAGE HEADER ========== */
+.page-header {
+  margin-bottom: 28px;
+}
+.page-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+.page-header p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* ========== STATUS BAR ========== */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.status-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.status-badge.teal { background: var(--teal-dim); color: var(--teal); }
+.status-badge.purple { background: rgba(167,139,250,0.12); color: var(--purple); }
+.status-badge.grey { background: rgba(148,163,184,0.1); color: var(--text-dim); }
+.status-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+}
+.status-sync {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.health-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: inline-block;
+  animation: pulse-health 2s infinite;
+}
+@keyframes pulse-health {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,160,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(0,229,160,0); }
+}
+
+/* ========== SECTION TITLES ========== */
+.section-heading {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ========== AGENT CARDS GRID ========== */
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+.agent-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.25s, box-shadow 0.25s;
+  cursor: default;
+}
+.agent-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.agent-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+.agent-card.active-agent::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: agent-pulse 2s infinite;
+}
+@keyframes agent-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.agent-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.agent-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--bg);
+  font-family: 'Space Grotesk', sans-serif;
+  flex-shrink: 0;
+}
+.agent-meta {
+  flex: 1;
+  min-width: 0;
+}
+.agent-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.agent-role {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+}
+.agent-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+.agent-status.active { background: rgba(0,229,160,0.12); color: var(--teal); }
+.agent-status.idle { background: rgba(148,163,184,0.1); color: var(--text-muted); }
+.agent-status .status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.agent-status.active .status-dot { background: var(--teal); }
+.agent-status.idle .status-dot { background: var(--text-muted); }
+
+/* Activity list */
+.agent-activity {
+  margin: 14px 0;
+  padding: 12px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+}
+.agent-activity h5 {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.agent-activity ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.agent-activity li {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.45;
+}
+.agent-activity li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+/* Score ring */
+.agent-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+.score-ring {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+.score-ring svg {
+  transform: rotate(-90deg);
+}
+.score-ring-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.06);
+  stroke-width: 4;
+}
+.score-ring-fill {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease;
+}
+.score-ring-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Agent actions */
+.agent-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.agent-btn {
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.agent-btn:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+.agent-btn.primary {
+  background: var(--teal-dim);
+  border-color: rgba(0,229,160,0.2);
+  color: var(--teal);
+}
+.agent-btn.primary:hover {
+  background: rgba(0,229,160,0.2);
+}
+
+/* ========== SPECIALISTS SECTION ========== */
+.specialists-section {
+  margin-bottom: 40px;
+}
+.specialists-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  margin-bottom: 2px;
+}
+.specialists-toggle:hover { border-color: var(--border-hover); }
+.specialists-toggle h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.specialists-toggle .toggle-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.specialists-toggle .toggle-count {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.toggle-chevron {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: transform 0.3s;
+}
+.toggle-chevron.open { transform: rotate(180deg); }
+
+.specialists-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.specialists-body.open {
+  max-height: 2000px;
+}
+.specialists-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 4px;
+}
+.specialists-table th {
+  text-align: left;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.specialists-table td {
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  vertical-align: middle;
+}
+.specialists-table tr { cursor: pointer; transition: background 0.15s; }
+.specialists-table tbody tr:hover td {
+  background: var(--bg-card-hover);
+}
+.spec-category-name {
+  font-weight: 600;
+  color: var(--text);
+}
+.spec-active-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: var(--teal-dim);
+  color: var(--teal);
+}
+.spec-active-badge.none {
+  background: rgba(148,163,184,0.08);
+  color: var(--text-muted);
+}
+.spec-purpose {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  max-width: 300px;
+}
+
+/* Expandable agent sub-rows */
+.spec-agents-row td {
+  padding: 0 16px;
+  background: rgba(0,0,0,0.15);
+}
+.spec-agents-list {
+  display: none;
+  padding: 10px 0;
+}
+.spec-agents-list.open {
+  display: block;
+}
+.spec-agent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+.spec-agent-item:hover {
+  background: rgba(255,255,255,0.03);
+}
+.spec-agent-item .mini-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.spec-agent-item .mini-dot.active { background: var(--teal); }
+.spec-agent-item .mini-dot.standby { background: var(--text-muted); }
+.spec-agent-item .spec-agent-status {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+/* ========== TASK ASSIGNMENT ========== */
+.task-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.task-input-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.task-textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  resize: vertical;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.task-textarea:focus { border-color: var(--teal); }
+.task-textarea::placeholder { color: var(--text-muted); }
+
+.task-select, .task-priority {
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 30px;
+  min-width: 180px;
+}
+.task-select:focus, .task-priority:focus { border-color: var(--teal); }
+.task-select option, .task-priority option {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.task-submit {
+  padding: 11px 28px;
+  background: var(--teal);
+  border: none;
+  border-radius: 10px;
+  color: var(--bg);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.task-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0,229,160,0.3);
+}
+.task-submit:active { transform: translateY(0); }
+.task-submit.submitted {
+  background: rgba(0,229,160,0.15);
+  color: var(--teal);
+  pointer-events: none;
+}
+
+/* Recent tasks */
+.recent-tasks h4 {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: background 0.15s;
+}
+.task-item:hover { background: rgba(255,255,255,0.04); }
+.task-status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.task-status-indicator.completed { background: var(--teal); }
+.task-status-indicator.in-progress { background: var(--orange); animation: agent-pulse 2s infinite; }
+.task-status-indicator.pending { background: var(--text-muted); }
+.task-details { flex: 1; min-width: 0; }
+.task-desc {
+  font-size: 0.82rem;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.task-meta {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.task-status-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+.task-status-label.completed { background: var(--teal-dim); color: var(--teal); }
+.task-status-label.in-progress { background: rgba(251,146,60,0.12); color: var(--orange); }
+.task-status-label.pending { background: rgba(148,163,184,0.08); color: var(--text-muted); }
+
+/* ========== COMMUNICATION LOG ========== */
+.comm-log {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+.comm-timeline {
+  position: relative;
+  padding-left: 28px;
+}
+.comm-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+}
+.comm-item {
+  position: relative;
+  padding: 10px 0 16px 20px;
+}
+.comm-item:last-child { padding-bottom: 0; }
+.comm-dot {
+  position: absolute;
+  left: -24px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
+  background: var(--bg-card);
+  z-index: 2;
+}
+.comm-time {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.comm-text {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.comm-text .agent-ref {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ========== FOOTER ========== */
+.dashboard-footer {
+  text-align: center;
+  padding: 24px 0;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1100px) {
+  .agents-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-toggle { display: flex; }
+  .main-content {
+    margin-left: 0;
+    padding: 20px 16px 40px;
+    padding-top: 60px;
+  }
+  .status-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .status-divider { display: none; }
+  .status-sync { margin-left: 0; }
+  .task-input-row { flex-direction: column; }
+  .task-select, .task-priority { min-width: 100%; }
+  .agents-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.14); }
+
+/* ========== TOAST NOTIFICATIONS ========== */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  padding: 12px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.3s, transform 0.3s;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+.toast.hide {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.toast-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.toast-dot.queued { background: var(--text-muted); }
+.toast-dot.in-progress { background: var(--orange); }
+.toast-dot.completed { background: var(--teal); }
+.toast-dot.info { background: var(--cyan); }
+
+/* ========== AGENT STATUS TOGGLE ========== */
+.agent-status {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s;
+}
+.agent-status:hover { transform: scale(1.05); }
+.agent-status.running {
+  background: rgba(251,146,60,0.15);
+  color: var(--orange);
+}
+.agent-status.running .status-dot {
+  background: var(--orange);
+  animation: agent-pulse 1s infinite;
+}
+
+/* ========== AGENT CARD EXPANSION ========== */
+.agent-card {
+  cursor: pointer;
+}
+.agent-detail-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, margin-top 0.3s;
+  margin-top: 0;
+}
+.agent-card.expanded .agent-detail-panel {
+  max-height: 500px;
+  margin-top: 14px;
+}
+.agent-detail-inner {
+  padding: 14px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.agent-detail-inner h5 {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.agent-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+.agent-detail-row .detail-label {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.agent-detail-row .detail-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  color: var(--text);
+}
+.completed-tasks-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+.completed-tasks-list li {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.45;
+}
+.completed-tasks-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+/* ========== LIVE ACTIVITY FEED ========== */
+.activity-feed {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+.activity-feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.activity-feed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.activity-feed-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.activity-feed-time {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 48px;
+}
+.activity-feed-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* ========== TASK RESULT ========== */
+.task-result {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: rgba(0,229,160,0.06);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: var(--teal);
+  border-left: 3px solid var(--teal);
+  line-height: 1.5;
+}
+
+/* ========== RUNNING TASK FLASH ========== */
+@keyframes running-flash {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 20px rgba(251,146,60,0.15); }
+}
+.agent-card.running-flash {
+  animation: running-flash 1.5s ease;
+}
+</style>
+</head>
+<body>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Mobile sidebar toggle -->
+<button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+
+<div class="app-layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h2>Purposeful<span>Profits</span></h2>
+      <p>Growth Dashboard</p>
+    </div>
+
+    <div class="brand-selector">
+      <div class="brand-avatar">AC</div>
+      <div class="brand-info">
+        <div class="brand-name">Acme Botanicals</div>
+        <div class="brand-plan">Scale Tier</div>
+      </div>
+      <span class="brand-chevron">&#9662;</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="client-dashboard-main.html" class="nav-item">
+        <span class="nav-icon">&#9635;</span> Dashboard
+      </a>
+      <a href="client-dashboard-agents.html" class="nav-item active">
+        <span class="nav-icon">&#9881;</span> Agent Team
+      </a>
+      <a href="client-dashboard-reports.html" class="nav-item">
+        <span class="nav-icon">&#9783;</span> Reports
+      </a>
+      <div class="nav-section-label">Workspace</div>
+      <a href="client-dashboard-kanban.html" class="nav-item">
+        <span class="nav-icon">&#9744;</span> Task Board
+      </a>
+      <a href="client-dashboard-calendar.html" class="nav-item">
+        <span class="nav-icon">&#128197;</span> Calendar
+      </a>
+      <a href="client-dashboard-chat.html" class="nav-item">
+        <span class="nav-icon">&#128172;</span> Chat
+      </a>
+      <a href="client-dashboard-learn.html" class="nav-item">
+        <span class="nav-icon">&#127891;</span> Learn
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="strategist-card">
+        <div class="strategist-avatar">CV</div>
+        <div class="strategist-info">
+          <div class="strategist-name">Caner Veli</div>
+          <div class="strategist-role">Lead Strategist</div>
+        </div>
+      </div>
+      <div class="tier-badge" style="margin-top:10px;">Scale Tier</div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <h1>Agent Team Management</h1>
+      <p>Monitor, orchestrate, and assign tasks to your 108 AI growth agents.</p>
+    </div>
+
+    <!-- ===== STATUS BAR ===== -->
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="status-number">108</span>
+        <span class="status-label">Agents</span>
+      </div>
+      <div class="status-divider"></div>
+      <span class="status-badge teal">8 Core Active</span>
+      <span class="status-badge purple">12 Specialists Active</span>
+      <span class="status-badge grey">88 On Standby</span>
+      <div class="status-sync">
+        <span>Last sync: 2 minutes ago</span>
+        <span style="display:inline-flex;align-items:center;gap:5px;">
+          <span class="health-dot"></span>
+          All systems operational
+        </span>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 1: CORE GROWTH TEAM ===== -->
+    <div class="section-heading">Core Growth Team</div>
+
+    <div class="agents-grid" id="agentsGrid">
+
+      <!-- Agent 1: Growth Orchestrator -->
+      <div class="agent-card active-agent" data-agent-id="go" data-agent-name="Growth Orchestrator" data-agent-color="var(--teal)" data-agent-score="94" style="--agent-color: var(--teal);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--teal);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--teal);">GO</div>
+          <div class="agent-meta">
+            <div class="agent-name">Growth Orchestrator</div>
+            <div class="agent-role">Master Strategist</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Coordinated 47 tasks across all agents</li>
+            <li>Generated weekly brief for client review</li>
+            <li>Flagged 3 escalations requiring human input</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--teal);stroke-dasharray:125.66;stroke-dashoffset:7.54;"/>
+            </svg>
+            <span class="score-ring-label">94</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+      <!-- Agent 2: CRO Analyst -->
+      <div class="agent-card active-agent" data-agent-id="cro" data-agent-name="CRO Analyst" data-agent-color="var(--cyan)" data-agent-score="88" style="--agent-color: var(--cyan);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cyan);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--cyan);">CA</div>
+          <div class="agent-meta">
+            <div class="agent-name">CRO Analyst</div>
+            <div class="agent-role">Conversion Specialist</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Completed site audit scoring 72/90</li>
+            <li>Identified 7 quick wins for conversion uplift</li>
+            <li>Running 2 A/B tests on checkout flow</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--cyan);stroke-dasharray:125.66;stroke-dashoffset:15.08;"/>
+            </svg>
+            <span class="score-ring-label">88</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+      <!-- Agent 3: Ad Creative Engine -->
+      <div class="agent-card active-agent" data-agent-id="ace" data-agent-name="Ad Creative Engine" data-agent-color="var(--orange)" data-agent-score="91" style="--agent-color: var(--orange);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--orange);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--orange);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--orange);">AC</div>
+          <div class="agent-meta">
+            <div class="agent-name">Ad Creative Engine</div>
+            <div class="agent-role">Performance Marketing</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Generated 12 ad variants across 3 audiences</li>
+            <li>3 winning creatives running at 4.2x ROAS</li>
+            <li>Refreshed TOF creative for prospecting campaign</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--orange);stroke-dasharray:125.66;stroke-dashoffset:11.31;"/>
+            </svg>
+            <span class="score-ring-label">91</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+      <!-- Agent 4: Email Strategist -->
+      <div class="agent-card active-agent" data-agent-id="es" data-agent-name="Email Strategist" data-agent-color="var(--blue)" data-agent-score="86" style="--agent-color: var(--blue);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--blue);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--blue);">ES</div>
+          <div class="agent-meta">
+            <div class="agent-name">Email Strategist</div>
+            <div class="agent-role">Email and SMS</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Deployed welcome flow update (12% uplift)</li>
+            <li>Sent 2 campaigns achieving 42% open rate</li>
+            <li>Email channel generated +&#163;8,400 revenue</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--blue);stroke-dasharray:125.66;stroke-dashoffset:17.59;"/>
+            </svg>
+            <span class="score-ring-label">86</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+      <!-- Agent 5: SEO Commander -->
+      <div class="agent-card active-agent" data-agent-id="seo" data-agent-name="SEO Commander" data-agent-color="var(--yellow)" data-agent-score="82" style="--agent-color: var(--yellow);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--yellow);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--yellow);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--yellow);">SC</div>
+          <div class="agent-meta">
+            <div class="agent-name">SEO Commander</div>
+            <div class="agent-role">Organic Growth</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Published 2 SEO-optimised articles</li>
+            <li>1 article reached page 1 within 48 hours</li>
+            <li>12 new keywords tracked in top 20 positions</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--yellow);stroke-dasharray:125.66;stroke-dashoffset:22.62;"/>
+            </svg>
+            <span class="score-ring-label">82</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+      <!-- Agent 6: Analytics Brain -->
+      <div class="agent-card active-agent" data-agent-id="ab" data-agent-name="Analytics Brain" data-agent-color="var(--magenta)" data-agent-score="95" style="--agent-color: var(--magenta);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--magenta);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--magenta);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--magenta);">AB</div>
+          <div class="agent-meta">
+            <div class="agent-name">Analytics Brain</div>
+            <div class="agent-role">Data Intelligence</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Generated comprehensive weekly performance report</li>
+            <li>Detected mobile cart abandonment anomaly (+18%)</li>
+            <li>Updated revenue forecasts for Q2 planning</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--magenta);stroke-dasharray:125.66;stroke-dashoffset:6.28;"/>
+            </svg>
+            <span class="score-ring-label">95</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+      <!-- Agent 7: Social Content Factory -->
+      <div class="agent-card active-agent" data-agent-id="scf" data-agent-name="Social Content Factory" data-agent-color="var(--pink)" data-agent-score="79" style="--agent-color: var(--pink);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pink);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--pink);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--pink);">SF</div>
+          <div class="agent-meta">
+            <div class="agent-name">Social Content Factory</div>
+            <div class="agent-role">Content Engine</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Scheduled 15 posts across Instagram and TikTok</li>
+            <li>Achieved 3.2% average engagement rate</li>
+            <li>Curated 4 UGC pieces for repurposing</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--pink);stroke-dasharray:125.66;stroke-dashoffset:26.39;"/>
+            </svg>
+            <span class="score-ring-label">79</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+      <!-- Agent 8: Competitive Intel Scout -->
+      <div class="agent-card active-agent" data-agent-id="cis" data-agent-name="Competitive Intel Scout" data-agent-color="var(--red)" data-agent-score="85" style="--agent-color: var(--red);">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);border-radius:14px 0 0 14px;"></div>
+        <div style="position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--red);animation:agent-pulse 2s infinite;"></div>
+        <div class="agent-header">
+          <div class="agent-icon" style="background:var(--red);">CI</div>
+          <div class="agent-meta">
+            <div class="agent-name">Competitive Intel Scout</div>
+            <div class="agent-role">Market Intelligence</div>
+            <div class="agent-status active"><span class="status-dot"></span>Active</div>
+          </div>
+        </div>
+        <div class="agent-activity">
+          <h5>This Week's Activity</h5>
+          <ul>
+            <li>Flagged 2 competitor product launches</li>
+            <li>Updated competitor pricing tracker</li>
+            <li>Found SEO gap worth 3,200 monthly searches</li>
+          </ul>
+        </div>
+        <div class="agent-bottom">
+          <div class="agent-actions">
+            <button class="agent-btn primary">View Report</button>
+            <button class="agent-btn">Assign Task</button>
+            <button class="agent-btn">View History</button>
+          </div>
+          <div class="score-ring">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle class="score-ring-bg" cx="24" cy="24" r="20"/>
+              <circle class="score-ring-fill" cx="24" cy="24" r="20" style="stroke:var(--red);stroke-dasharray:125.66;stroke-dashoffset:18.85;"/>
+            </svg>
+            <span class="score-ring-label">85</span>
+          </div>
+        </div>
+        <div class="agent-detail-panel"></div>
+      </div>
+
+    </div><!-- /agents-grid -->
+
+    <!-- ===== SECTION 2: ON-DEMAND SPECIALISTS ===== -->
+    <div class="section-heading">On-Demand Specialists</div>
+    <div class="specialists-section">
+      <div class="specialists-toggle" onclick="toggleSpecialists()">
+        <h3>Specialist Agent Categories</h3>
+        <div class="toggle-meta">
+          <span class="toggle-count">100 agents across 8 categories</span>
+          <span class="toggle-chevron" id="specChevron">&#9660;</span>
+        </div>
+      </div>
+      <div class="specialists-body" id="specialistsBody">
+        <table class="specialists-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Agents</th>
+              <th>Status</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Security & Compliance -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">Security and Compliance</span></td>
+              <td>12</td>
+              <td><span class="spec-active-badge">2 Active</span></td>
+              <td><span class="spec-purpose">Security audits, vulnerability scanning, GDPR compliance</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>GDPR Compliance Monitor</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Security Audit Scanner</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Cookie Consent Auditor</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Data Breach Detector</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>SSL Certificate Monitor</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Privacy Policy Auditor</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Access Control Reviewer</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Payment Security Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>API Security Tester</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Vulnerability Patcher</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Incident Response Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Compliance Reporter</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Performance Optimisation -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">Performance Optimisation</span></td>
+              <td>8</td>
+              <td><span class="spec-active-badge">1 Active</span></td>
+              <td><span class="spec-purpose">Page speed, Core Web Vitals, server optimisation</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Core Web Vitals Monitor</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Image Optimiser</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>CDN Configuration Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Script Audit Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Cache Strategy Planner</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Render Blocker Detector</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Mobile Speed Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Server Response Optimiser</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Analytics Deep-Dive -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">Analytics Deep-Dive</span></td>
+              <td>15</td>
+              <td><span class="spec-active-badge">3 Active</span></td>
+              <td><span class="spec-purpose">Cohort analysis, attribution modelling, forecasting</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Cohort Analyst</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Attribution Modeller</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Revenue Forecaster</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Funnel Analyst</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>LTV Calculator</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Churn Predictor</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Segment Builder</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Anomaly Detector</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Heatmap Interpreter</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Session Replay Analyst</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Product Analytics Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Channel Mix Modeller</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Geo Performance Analyst</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Device Analytics Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Custom Report Builder</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Swarm Coordination -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">Swarm Coordination</span></td>
+              <td>10</td>
+              <td><span class="spec-active-badge">2 Active</span></td>
+              <td><span class="spec-purpose">Multi-agent task orchestration, consensus protocols</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Task Router</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Priority Scheduler</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Consensus Engine</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Load Balancer</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Conflict Resolver</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Dependency Mapper</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Workflow Compiler</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Agent Health Monitor</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Escalation Handler</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Feedback Loop Agent</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Quality Assurance -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">Quality Assurance</span></td>
+              <td>12</td>
+              <td><span class="spec-active-badge">1 Active</span></td>
+              <td><span class="spec-purpose">Output verification, A/B test validation, accuracy checks</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>A/B Test Validator</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Output Accuracy Checker</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Brand Consistency Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Copy Proofreader</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Link Checker</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Image Quality Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Cross-Browser Tester</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Regression Detector</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Data Integrity Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Compliance Checker</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Performance Benchmarker</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>User Flow Auditor</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- DevOps & Deployment -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">DevOps and Deployment</span></td>
+              <td>8</td>
+              <td><span class="spec-active-badge">1 Active</span></td>
+              <td><span class="spec-purpose">Tool deployment, dashboard updates, integration management</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Integration Manager</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Deployment Orchestrator</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Version Controller</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Environment Manager</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Rollback Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>CI Pipeline Monitor</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Database Migrator</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Uptime Monitor</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Content Specialists -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">Content Specialists</span></td>
+              <td>15</td>
+              <td><span class="spec-active-badge">2 Active</span></td>
+              <td><span class="spec-purpose">Long-form, video scripts, UGC, PR, copywriting</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Long-Form Writer</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot active"></span>Video Script Writer</span><span class="spec-agent-status">Active</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>UGC Curator</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>PR Pitch Writer</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Product Description Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Social Caption Writer</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Newsletter Composer</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Landing Page Copywriter</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Ad Copy Specialist</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Case Study Writer</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>FAQ Generator</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Tone of Voice Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Content Repurposer</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Headline Tester</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Transcript Summariser</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Advanced Research -->
+            <tr onclick="toggleCategory(this)">
+              <td><span class="spec-category-name">Advanced Research</span></td>
+              <td>20</td>
+              <td><span class="spec-active-badge none">0 Active</span></td>
+              <td><span class="spec-purpose">Market research, trend analysis, competitor deep-dives</span></td>
+            </tr>
+            <tr class="spec-agents-row">
+              <td colspan="4">
+                <div class="spec-agents-list">
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Market Size Estimator</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Trend Spotter</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Competitor Deep-Dive Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Consumer Insight Miner</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Category Analyst</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Pricing Intelligence Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Review Sentiment Analyser</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Social Listening Agent</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Patent and IP Scanner</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Regulatory Monitor</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Supply Chain Analyst</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Influencer Researcher</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Partnership Scout</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Technology Scout</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Benchmark Analyst</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Customer Journey Mapper</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Demographic Profiler</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Seasonal Trend Planner</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>Acquisition Channel Finder</span><span class="spec-agent-status">Standby</span></div>
+                  <div class="spec-agent-item"><span><span class="mini-dot standby"></span>White-Space Identifier</span><span class="spec-agent-status">Standby</span></div>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 3: TASK ASSIGNMENT ===== -->
+    <div class="section-heading">Task Assignment</div>
+    <div class="task-panel">
+      <div class="task-form" id="taskForm">
+        <textarea class="task-textarea" id="taskInput" placeholder="What would you like the team to do?" rows="2"></textarea>
+        <div class="task-input-row">
+          <select class="task-select" id="taskAgent">
+            <option value="auto">Auto-route (recommended)</option>
+            <option value="go">Growth Orchestrator</option>
+            <option value="cro">CRO Analyst</option>
+            <option value="ace">Ad Creative Engine</option>
+            <option value="es">Email Strategist</option>
+            <option value="seo">SEO Commander</option>
+            <option value="ab">Analytics Brain</option>
+            <option value="scf">Social Content Factory</option>
+            <option value="cis">Competitive Intel Scout</option>
+          </select>
+          <select class="task-priority" id="taskPriority">
+            <option value="medium">Medium Priority</option>
+            <option value="low">Low Priority</option>
+            <option value="high">High Priority</option>
+            <option value="urgent">Urgent</option>
+          </select>
+          <button class="task-submit" id="taskSubmitBtn" onclick="submitTask()">Assign Task</button>
+        </div>
+      </div>
+
+      <div class="recent-tasks">
+        <h4>Recent Assigned Tasks</h4>
+
+        <div class="task-item">
+          <div class="task-status-indicator in-progress"></div>
+          <div class="task-details">
+            <div class="task-desc">Review competitor's new product launch and create counter-strategy</div>
+            <div class="task-meta">
+              <span>Assigned to <strong>Competitive Intel Scout</strong></span>
+              <span>2 hours ago</span>
+            </div>
+            <span class="task-status-label in-progress">In Progress</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-status-indicator completed"></div>
+          <div class="task-details">
+            <div class="task-desc">Generate Mother's Day campaign email and ad creative</div>
+            <div class="task-meta">
+              <span>Auto-routed to <strong>Email Strategist</strong> + <strong>Ad Creative Engine</strong></span>
+              <span>Yesterday</span>
+            </div>
+            <span class="task-status-label completed">Completed</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-status-indicator pending"></div>
+          <div class="task-details">
+            <div class="task-desc">Run emergency CRO check on new landing page</div>
+            <div class="task-meta">
+              <span>Assigned to <strong>CRO Analyst</strong></span>
+              <span>30 minutes ago</span>
+            </div>
+            <span class="task-status-label pending">Pending</span>
+          </div>
+        </div>
+
+        <!-- Dynamic task slot -->
+        <div id="newTaskSlot"></div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 3B: LIVE ACTIVITY FEED ===== -->
+    <div class="section-heading">Live Activity Feed</div>
+    <div class="activity-feed">
+      <div class="activity-feed-list" id="activityFeed">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== SECTION 4: COMMUNICATION LOG ===== -->
+    <div class="section-heading">Agent Communication Log</div>
+    <div class="comm-log">
+      <div class="comm-timeline">
+
+        <div class="comm-item">
+          <div class="comm-dot" style="border-color: var(--teal); background: var(--bg-card);"></div>
+          <div class="comm-time">10:15</div>
+          <div class="comm-text">
+            <span class="agent-ref" style="color:var(--teal);">Growth Orchestrator</span> assigned CRO audit task to <span class="agent-ref" style="color:var(--cyan);">CRO Analyst</span>
+          </div>
+        </div>
+
+        <div class="comm-item">
+          <div class="comm-dot" style="border-color: var(--cyan); background: var(--bg-card);"></div>
+          <div class="comm-time">11:30</div>
+          <div class="comm-text">
+            <span class="agent-ref" style="color:var(--cyan);">CRO Analyst</span> shared audit findings with <span class="agent-ref" style="color:var(--orange);">Ad Creative Engine</span> and <span class="agent-ref" style="color:var(--blue);">Email Strategist</span>
+          </div>
+        </div>
+
+        <div class="comm-item">
+          <div class="comm-dot" style="border-color: var(--magenta); background: var(--bg-card);"></div>
+          <div class="comm-time">12:00</div>
+          <div class="comm-text">
+            <span class="agent-ref" style="color:var(--magenta);">Analytics Brain</span> flagged cart abandonment anomaly to <span class="agent-ref" style="color:var(--teal);">Growth Orchestrator</span>
+          </div>
+        </div>
+
+        <div class="comm-item">
+          <div class="comm-dot" style="border-color: var(--teal); background: var(--bg-card);"></div>
+          <div class="comm-time">12:05</div>
+          <div class="comm-text">
+            <span class="agent-ref" style="color:var(--teal);">Growth Orchestrator</span> escalated anomaly to human strategist (<strong>Caner</strong>)
+          </div>
+        </div>
+
+        <div class="comm-item">
+          <div class="comm-dot" style="border-color: var(--orange); background: var(--bg-card);"></div>
+          <div class="comm-time">13:20</div>
+          <div class="comm-text">
+            <span class="agent-ref" style="color:var(--orange);">Ad Creative Engine</span> requested competitor data from <span class="agent-ref" style="color:var(--red);">Competitive Intel Scout</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dashboard-footer">
+      Purposeful Profits Growth Dashboard &middot; Agent Team v2.1 &middot; Last updated 23 March 2026
+    </div>
+
+  </main>
+
+</div><!-- /app-layout -->
+
+<script>
+// ========== CONSTANTS & HELPERS ==========
+const AGENT_NAMES = {
+  'auto': 'Auto-routed',
+  'go': 'Growth Orchestrator',
+  'cro': 'CRO Analyst',
+  'ace': 'Ad Creative Engine',
+  'es': 'Email Strategist',
+  'seo': 'SEO Commander',
+  'ab': 'Analytics Brain',
+  'scf': 'Social Content Factory',
+  'cis': 'Competitive Intel Scout'
+};
+
+const PRIORITY_LABELS = {
+  'low': 'Low',
+  'medium': 'Medium',
+  'high': 'High',
+  'urgent': 'Urgent'
+};
+
+const STATUS_CYCLE = ['active', 'idle', 'running'];
+
+// Simulated task descriptions for pulse effect
+const SIMULATED_TASKS = {
+  'go': [
+    'Coordinating weekly task distribution across team',
+    'Reviewing agent performance metrics for Q2',
+    'Generating escalation report for strategist'
+  ],
+  'cro': [
+    'Scoring homepage conversion elements: 72/100',
+    'Analysing checkout funnel drop-off points',
+    'Running heuristic evaluation on product pages'
+  ],
+  'ace': [
+    'Generating 8 new ad variants for spring campaign',
+    'A/B testing ad headlines for prospecting audience',
+    'Refreshing retargeting creative assets'
+  ],
+  'es': [
+    'Drafting abandoned cart flow (5 emails)',
+    'Optimising subject lines for welcome series',
+    'Building post-purchase upsell sequence'
+  ],
+  'seo': [
+    'Identifying 23 keyword opportunities in skincare niche',
+    'Auditing internal linking structure',
+    'Drafting SEO brief for seasonal content cluster'
+  ],
+  'ab': [
+    'Compiling weekly performance dashboard',
+    'Detecting anomalies in mobile conversion rate',
+    'Updating revenue forecast model for Q2'
+  ],
+  'scf': [
+    'Scheduling 12 posts across Instagram and TikTok',
+    'Curating UGC content for repurposing',
+    'Generating carousel templates for product launch'
+  ],
+  'cis': [
+    'Monitoring competitor pricing changes',
+    'Analysing competitor ad spend trends',
+    'Mapping competitive SEO gap opportunities'
+  ]
+};
+
+// Completed task history for detail panels
+const COMPLETED_HISTORY = {
+  'go': ['Distributed 47 tasks this week', 'Generated Monday morning brief', 'Escalated 3 items to Caner', 'Rebalanced agent workloads', 'Updated quarterly OKR tracker'],
+  'cro': ['Site audit scored 72/90', 'Identified 7 quick wins', 'Ran checkout A/B test', 'Reviewed mobile UX flows', 'Updated CRO playbook'],
+  'ace': ['Created 12 ad variants', 'Achieved 4.2x ROAS on winners', 'Refreshed TOF prospecting creative', 'Tested 6 hook styles', 'Optimised CTAs for retargeting'],
+  'es': ['Deployed welcome flow update (+12%)', 'Sent 2 campaigns at 42% open rate', 'Generated +£8,400 email revenue', 'A/B tested subject lines', 'Built VIP segment flow'],
+  'seo': ['Published 2 optimised articles', 'Page 1 ranking within 48 hours', 'Tracked 12 keywords in top 20', 'Updated technical SEO audit', 'Built internal linking map'],
+  'ab': ['Weekly performance report', 'Detected cart abandonment anomaly', 'Updated Q2 revenue forecasts', 'Built cohort retention chart', 'Mapped attribution model'],
+  'scf': ['Scheduled 15 social posts', '3.2% average engagement rate', 'Curated 4 UGC pieces', 'Created story templates', 'Planned content calendar'],
+  'cis': ['Flagged 2 competitor launches', 'Updated pricing tracker', 'Found SEO gap (3,200 searches)', 'Analysed competitor ad spend', 'Mapped market positioning']
+};
+
+// Activity feed seed entries
+const ACTIVITY_SEED = [
+  { agent: 'cro', text: 'CRO Analyst scored homepage: 72/100', color: 'var(--cyan)' },
+  { agent: 'es', text: 'Email Strategist drafted abandoned cart flow (5 emails)', color: 'var(--blue)' },
+  { agent: 'seo', text: 'SEO Commander identified 23 keyword opportunities', color: 'var(--yellow)' },
+  { agent: 'ace', text: 'Ad Creative Engine generated 8 new ad variants', color: 'var(--orange)' },
+  { agent: 'ab', text: 'Analytics Brain detected mobile conversion anomaly (+18%)', color: 'var(--magenta)' },
+  { agent: 'go', text: 'Growth Orchestrator distributed 12 tasks to the team', color: 'var(--teal)' },
+  { agent: 'scf', text: 'Social Content Factory scheduled 15 posts for the week', color: 'var(--pink)' },
+  { agent: 'cis', text: 'Competitive Intel Scout flagged new competitor product launch', color: 'var(--red)' }
+];
+
+// Auto-generated activity entries
+const ACTIVITY_POOL = [
+  { agent: 'cro', text: 'CRO Analyst completed heuristic evaluation on product page', color: 'var(--cyan)' },
+  { agent: 'cro', text: 'CRO Analyst identified 4 above-the-fold improvements', color: 'var(--cyan)' },
+  { agent: 'es', text: 'Email Strategist optimised subject lines for welcome series', color: 'var(--blue)' },
+  { agent: 'es', text: 'Email Strategist launched post-purchase upsell sequence', color: 'var(--blue)' },
+  { agent: 'seo', text: 'SEO Commander published new content brief for "organic skincare"', color: 'var(--yellow)' },
+  { agent: 'seo', text: 'SEO Commander updated internal linking structure', color: 'var(--yellow)' },
+  { agent: 'ace', text: 'Ad Creative Engine tested 6 new hook styles for TOF ads', color: 'var(--orange)' },
+  { agent: 'ace', text: 'Ad Creative Engine refreshed retargeting creative assets', color: 'var(--orange)' },
+  { agent: 'ab', text: 'Analytics Brain updated weekly cohort retention chart', color: 'var(--magenta)' },
+  { agent: 'ab', text: 'Analytics Brain recalculated LTV by acquisition channel', color: 'var(--magenta)' },
+  { agent: 'go', text: 'Growth Orchestrator rebalanced agent workloads for the week', color: 'var(--teal)' },
+  { agent: 'go', text: 'Growth Orchestrator flagged an escalation for Caner', color: 'var(--teal)' },
+  { agent: 'scf', text: 'Social Content Factory curated 3 UGC pieces for repurposing', color: 'var(--pink)' },
+  { agent: 'scf', text: 'Social Content Factory generated carousel templates', color: 'var(--pink)' },
+  { agent: 'cis', text: 'Competitive Intel Scout analysed competitor ad spend trends', color: 'var(--red)' },
+  { agent: 'cis', text: 'Competitive Intel Scout updated competitor pricing tracker', color: 'var(--red)' }
+];
+
+// Simulated task result summaries
+const TASK_RESULTS = [
+  'Completed successfully. Generated a detailed report with 12 actionable recommendations.',
+  'Task finished. Identified 8 opportunities with estimated +15% uplift potential.',
+  'Analysis complete. Found 5 high-priority items and 3 quick wins to implement this week.',
+  'Done. Delivered 6 assets ready for review in the workspace.',
+  'Completed. Report shared with the Growth Orchestrator for distribution.',
+  'Finished processing. Updated all relevant dashboards with latest data.',
+  'Task complete. Drafted 4 variants for A/B testing, ready for approval.',
+  'Analysis done. Flagged 3 items requiring human review.'
+];
+
+function formatTime(date) {
+  return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+
+function generateId() {
+  return 'task_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+}
+
+function randBetween(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// ========== TOAST NOTIFICATIONS ==========
+function showToast(message, type) {
+  type = type || 'info';
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = '<span class="toast-dot ' + type + '"></span>' + message;
+  container.appendChild(toast);
+  requestAnimationFrame(function() {
+    toast.classList.add('show');
+  });
+  setTimeout(function() {
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 4000);
+}
+
+// ========== LOCAL STORAGE HELPERS ==========
+function loadJSON(key, fallback) {
+  try {
+    var data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function saveJSON(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (e) {
+    // Storage full or unavailable
+  }
+}
+
+// ========== AGENT STATES ==========
+var agentStates = loadJSON('pp_agent_states', {});
+
+function getAgentState(agentId) {
+  return agentStates[agentId] || 'active';
+}
+
+function setAgentState(agentId, state) {
+  agentStates[agentId] = state;
+  saveJSON('pp_agent_states', agentStates);
+}
+
+function updateAgentStatusUI(card, state, taskDesc) {
+  var statusEl = card.querySelector('.agent-status');
+  if (!statusEl) return;
+  statusEl.className = 'agent-status ' + state;
+  var label = state === 'active' ? 'Active' : state === 'idle' ? 'Idle' : 'Running Task';
+  if (taskDesc && state === 'running') {
+    statusEl.innerHTML = '<span class="status-dot"></span>' + label + ': ' + taskDesc;
+  } else {
+    statusEl.innerHTML = '<span class="status-dot"></span>' + label;
+  }
+}
+
+// Initialise agent status from localStorage
+function initAgentStates() {
+  var cards = document.querySelectorAll('.agent-card[data-agent-id]');
+  cards.forEach(function(card) {
+    var agentId = card.getAttribute('data-agent-id');
+    var state = getAgentState(agentId);
+    updateAgentStatusUI(card, state);
+  });
+}
+
+// Status toggle on click
+function setupStatusToggle() {
+  var allStatuses = document.querySelectorAll('.agent-card[data-agent-id] .agent-status');
+  allStatuses.forEach(function(statusEl) {
+    statusEl.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var card = statusEl.closest('.agent-card');
+      var agentId = card.getAttribute('data-agent-id');
+      var current = getAgentState(agentId);
+      var idx = STATUS_CYCLE.indexOf(current);
+      var next = STATUS_CYCLE[(idx + 1) % STATUS_CYCLE.length];
+      setAgentState(agentId, next);
+      updateAgentStatusUI(card, next);
+      var agentName = card.getAttribute('data-agent-name');
+      var label = next === 'active' ? 'Active' : next === 'idle' ? 'Idle' : 'Running Task';
+      showToast(agentName + ' status changed to: ' + label, next === 'active' ? 'completed' : next === 'idle' ? 'queued' : 'in-progress');
+    });
+  });
+}
+
+// ========== PULSE EFFECT ==========
+function startPulseEffect() {
+  function doPulse() {
+    var cards = document.querySelectorAll('.agent-card[data-agent-id]');
+    var activeCards = [];
+    cards.forEach(function(card) {
+      var agentId = card.getAttribute('data-agent-id');
+      if (getAgentState(agentId) === 'active') {
+        activeCards.push(card);
+      }
+    });
+    if (activeCards.length === 0) {
+      scheduleNext();
+      return;
+    }
+    var card = activeCards[Math.floor(Math.random() * activeCards.length)];
+    var agentId = card.getAttribute('data-agent-id');
+    var agentName = card.getAttribute('data-agent-name');
+    var tasks = SIMULATED_TASKS[agentId] || ['Processing data'];
+    var taskDesc = tasks[Math.floor(Math.random() * tasks.length)];
+
+    // Flash to running
+    updateAgentStatusUI(card, 'running', taskDesc);
+    card.classList.add('running-flash');
+
+    // Add to activity feed
+    addActivityEntry({
+      agent: agentId,
+      text: agentName + ': ' + taskDesc,
+      color: card.getAttribute('data-agent-color'),
+      time: formatTime(new Date())
+    });
+
+    setTimeout(function() {
+      // Restore to active (only if user hasn't manually changed it)
+      if (getAgentState(agentId) === 'active') {
+        updateAgentStatusUI(card, 'active');
+      }
+      card.classList.remove('running-flash');
+    }, 3000);
+
+    scheduleNext();
+  }
+
+  function scheduleNext() {
+    var delay = randBetween(10000, 15000);
+    setTimeout(doPulse, delay);
+  }
+
+  // Initial delay before first pulse
+  setTimeout(doPulse, randBetween(5000, 8000));
+}
+
+// ========== TASK SUBMISSION ==========
+var tasks = loadJSON('pp_tasks', []);
+
+function renderSavedTasks() {
+  var slot = document.getElementById('newTaskSlot');
+  if (!slot) return;
+  slot.innerHTML = '';
+  // Show most recent 10 tasks
+  var recentTasks = tasks.slice(-10).reverse();
+  recentTasks.forEach(function(task) {
+    var taskEl = createTaskElement(task);
+    taskEl.style.opacity = '1';
+    taskEl.style.transform = 'translateY(0)';
+    slot.appendChild(taskEl);
+  });
+}
+
+function createTaskElement(task) {
+  var statusClass = task.status === 'completed' ? 'completed' : task.status === 'in-progress' ? 'in-progress' : 'pending';
+  var statusLabel = task.status === 'completed' ? 'Completed' : task.status === 'in-progress' ? 'In Progress' : task.status === 'queued' ? 'Queued' : 'Pending';
+  var agentDisplay = AGENT_NAMES[task.agent] || 'Auto-routed';
+  var priorityDisplay = PRIORITY_LABELS[task.priority] || 'Medium';
+
+  var div = document.createElement('div');
+  div.className = 'task-item';
+  div.setAttribute('data-task-id', task.id);
+  div.style.opacity = '0';
+  div.style.transform = 'translateY(10px)';
+
+  var resultHtml = '';
+  if (task.result) {
+    resultHtml = '<div class="task-result">' + task.result + '</div>';
+  }
+
+  var timeAgo = getTimeAgo(task.timestamp);
+
+  div.innerHTML =
+    '<div class="task-status-indicator ' + statusClass + '"></div>' +
+    '<div class="task-details">' +
+      '<div class="task-desc">' + escapeHtml(task.text) + '</div>' +
+      '<div class="task-meta">' +
+        '<span>' + (task.agent === 'auto' ? 'Auto-routed' : 'Assigned to <strong>' + agentDisplay + '</strong>') + '</span>' +
+        '<span>' + priorityDisplay + ' priority</span>' +
+        '<span>' + timeAgo + '</span>' +
+      '</div>' +
+      '<span class="task-status-label ' + statusClass + '">' + statusLabel + '</span>' +
+      resultHtml +
+    '</div>';
+
+  return div;
+}
+
+function escapeHtml(text) {
+  var div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function getTimeAgo(timestamp) {
+  var diff = Date.now() - timestamp;
+  var seconds = Math.floor(diff / 1000);
+  if (seconds < 60) return 'Just now';
+  var minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return minutes + ' minute' + (minutes > 1 ? 's' : '') + ' ago';
+  var hours = Math.floor(minutes / 60);
+  if (hours < 24) return hours + ' hour' + (hours > 1 ? 's' : '') + ' ago';
+  var days = Math.floor(hours / 24);
+  return days + ' day' + (days > 1 ? 's' : '') + ' ago';
+}
+
+function updateTaskInList(taskId, newStatus, result) {
+  var el = document.querySelector('[data-task-id="' + taskId + '"]');
+  if (!el) return;
+  var indicator = el.querySelector('.task-status-indicator');
+  var label = el.querySelector('.task-status-label');
+  var details = el.querySelector('.task-details');
+
+  if (indicator) {
+    indicator.className = 'task-status-indicator ' + (newStatus === 'completed' ? 'completed' : newStatus === 'in-progress' ? 'in-progress' : 'pending');
+  }
+  if (label) {
+    var labelText = newStatus === 'completed' ? 'Completed' : newStatus === 'in-progress' ? 'In Progress' : 'Queued';
+    var labelClass = newStatus === 'completed' ? 'completed' : newStatus === 'in-progress' ? 'in-progress' : 'pending';
+    label.className = 'task-status-label ' + labelClass;
+    label.textContent = labelText;
+  }
+  if (result && details) {
+    var existing = details.querySelector('.task-result');
+    if (!existing) {
+      var resultDiv = document.createElement('div');
+      resultDiv.className = 'task-result';
+      resultDiv.textContent = result;
+      details.appendChild(resultDiv);
+    }
+  }
+}
+
+function submitTask() {
+  var input = document.getElementById('taskInput');
+  var agent = document.getElementById('taskAgent');
+  var priority = document.getElementById('taskPriority');
+  var btn = document.getElementById('taskSubmitBtn');
+  var slot = document.getElementById('newTaskSlot');
+
+  var taskText = input.value.trim();
+  if (!taskText) {
+    input.style.borderColor = 'var(--coral)';
+    setTimeout(function() { input.style.borderColor = ''; }, 1500);
+    return;
+  }
+
+  var task = {
+    id: generateId(),
+    text: taskText,
+    agent: agent.value,
+    priority: priority.value,
+    timestamp: Date.now(),
+    status: 'queued',
+    result: null
+  };
+
+  tasks.push(task);
+  saveJSON('pp_tasks', tasks);
+
+  var agentDisplay = AGENT_NAMES[agent.value] || 'Auto-routed';
+
+  // Button feedback
+  btn.textContent = 'Task Assigned';
+  btn.classList.add('submitted');
+
+  // Create task element
+  var taskEl = createTaskElement(task);
+  slot.prepend(taskEl);
+
+  // Animate in
+  requestAnimationFrame(function() {
+    taskEl.style.transition = 'opacity 0.4s, transform 0.4s';
+    taskEl.style.opacity = '1';
+    taskEl.style.transform = 'translateY(0)';
+  });
+
+  showToast('Task queued for ' + agentDisplay, 'queued');
+
+  // Reset form
+  input.value = '';
+  agent.value = 'auto';
+  priority.value = 'medium';
+
+  setTimeout(function() {
+    btn.textContent = 'Assign Task';
+    btn.classList.remove('submitted');
+  }, 2500);
+
+  // Simulate task progression
+  var progressDelay = randBetween(2000, 3000);
+  setTimeout(function() {
+    task.status = 'in-progress';
+    saveJSON('pp_tasks', tasks);
+    updateTaskInList(task.id, 'in-progress');
+    showToast(agentDisplay + ' started working on your task', 'in-progress');
+  }, progressDelay);
+
+  var completeDelay = progressDelay + randBetween(8000, 10000);
+  setTimeout(function() {
+    var resultText = TASK_RESULTS[Math.floor(Math.random() * TASK_RESULTS.length)];
+    task.status = 'completed';
+    task.result = resultText;
+    saveJSON('pp_tasks', tasks);
+    updateTaskInList(task.id, 'completed', resultText);
+    showToast(agentDisplay + ' completed your task', 'completed');
+  }, completeDelay);
+}
+
+// ========== ACTIVITY FEED ==========
+var activityLog = loadJSON('pp_agent_activity', []);
+
+function renderActivityFeed() {
+  var feed = document.getElementById('activityFeed');
+  if (!feed) return;
+  feed.innerHTML = '';
+
+  // If empty, seed with initial entries
+  if (activityLog.length === 0) {
+    ACTIVITY_SEED.forEach(function(entry) {
+      activityLog.push({
+        agent: entry.agent,
+        text: entry.text,
+        color: entry.color,
+        time: formatTime(new Date(Date.now() - Math.floor(Math.random() * 3600000)))
+      });
+    });
+    saveJSON('pp_agent_activity', activityLog);
+  }
+
+  // Show last 15 entries, newest first
+  var recent = activityLog.slice(-15).reverse();
+  recent.forEach(function(entry, index) {
+    var item = document.createElement('div');
+    item.className = 'activity-feed-item show';
+    item.innerHTML =
+      '<span class="activity-feed-dot" style="background:' + entry.color + ';"></span>' +
+      '<span class="activity-feed-time">' + entry.time + '</span>' +
+      '<span>' + entry.text + '</span>';
+    feed.appendChild(item);
+  });
+}
+
+function addActivityEntry(entry) {
+  activityLog.push(entry);
+  // Keep max 50 entries
+  if (activityLog.length > 50) {
+    activityLog = activityLog.slice(-50);
+  }
+  saveJSON('pp_agent_activity', activityLog);
+
+  var feed = document.getElementById('activityFeed');
+  if (!feed) return;
+
+  var item = document.createElement('div');
+  item.className = 'activity-feed-item';
+  item.innerHTML =
+    '<span class="activity-feed-dot" style="background:' + entry.color + ';"></span>' +
+    '<span class="activity-feed-time">' + entry.time + '</span>' +
+    '<span>' + entry.text + '</span>';
+
+  feed.prepend(item);
+  requestAnimationFrame(function() {
+    item.classList.add('show');
+  });
+
+  // Remove oldest if too many visible
+  var items = feed.querySelectorAll('.activity-feed-item');
+  if (items.length > 15) {
+    items[items.length - 1].remove();
+  }
+}
+
+function startAutoActivity() {
+  function addRandom() {
+    var entry = ACTIVITY_POOL[Math.floor(Math.random() * ACTIVITY_POOL.length)];
+    addActivityEntry({
+      agent: entry.agent,
+      text: entry.text,
+      color: entry.color,
+      time: formatTime(new Date())
+    });
+    var delay = randBetween(20000, 30000);
+    setTimeout(addRandom, delay);
+  }
+  setTimeout(addRandom, randBetween(15000, 25000));
+}
+
+// ========== AGENT DETAIL EXPANSION ==========
+function setupAgentExpansion() {
+  var cards = document.querySelectorAll('.agent-card[data-agent-id]');
+  cards.forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // Don't toggle if clicking a button or status
+      if (e.target.closest('.agent-btn') || e.target.closest('.agent-status')) return;
+
+      var agentId = card.getAttribute('data-agent-id');
+      var agentName = card.getAttribute('data-agent-name');
+      var agentScore = card.getAttribute('data-agent-score');
+      var panel = card.querySelector('.agent-detail-panel');
+
+      if (card.classList.contains('expanded')) {
+        card.classList.remove('expanded');
+        panel.innerHTML = '';
+        return;
+      }
+
+      // Close all others
+      document.querySelectorAll('.agent-card.expanded').forEach(function(other) {
+        other.classList.remove('expanded');
+        other.querySelector('.agent-detail-panel').innerHTML = '';
+      });
+
+      // Find current task (if running)
+      var currentState = getAgentState(agentId);
+      var currentTaskHtml = '';
+      if (currentState === 'running') {
+        var simTasks = SIMULATED_TASKS[agentId] || ['Processing'];
+        currentTaskHtml = '<div class="agent-detail-row"><span class="detail-label">Current Task</span><span class="detail-value" style="color:var(--orange);font-size:0.75rem;">' + simTasks[0] + '</span></div>';
+      } else {
+        currentTaskHtml = '<div class="agent-detail-row"><span class="detail-label">Current Task</span><span class="detail-value" style="color:var(--text-muted);font-size:0.75rem;">None</span></div>';
+      }
+
+      // Completed tasks
+      var history = COMPLETED_HISTORY[agentId] || [];
+      var historyHtml = '';
+      if (history.length > 0) {
+        historyHtml = '<h5 style="margin-top:12px;">Last 5 Completed Tasks</h5><ul class="completed-tasks-list">';
+        history.slice(0, 5).forEach(function(t) {
+          historyHtml += '<li>' + t + '</li>';
+        });
+        historyHtml += '</ul>';
+      }
+
+      // Uptime (simulated)
+      var uptimeHours = randBetween(140, 168);
+      var uptimePct = ((uptimeHours / 168) * 100).toFixed(1);
+
+      panel.innerHTML =
+        '<div class="agent-detail-inner">' +
+          '<h5>Agent Details</h5>' +
+          currentTaskHtml +
+          '<div class="agent-detail-row"><span class="detail-label">Performance Score</span><span class="detail-value">' + agentScore + '/100</span></div>' +
+          '<div class="agent-detail-row"><span class="detail-label">Uptime (7 days)</span><span class="detail-value">' + uptimePct + '% (' + uptimeHours + 'h)</span></div>' +
+          '<div class="agent-detail-row"><span class="detail-label">Status</span><span class="detail-value" style="text-transform:capitalize;">' + currentState + '</span></div>' +
+          historyHtml +
+        '</div>';
+
+      card.classList.add('expanded');
+    });
+  });
+}
+
+// ========== SPECIALIST SECTION TOGGLE ==========
+function toggleSpecialists() {
+  var body = document.getElementById('specialistsBody');
+  var chevron = document.getElementById('specChevron');
+  body.classList.toggle('open');
+  chevron.classList.toggle('open');
+}
+
+function toggleCategory(row) {
+  var agentRow = row.nextElementSibling;
+  if (agentRow && agentRow.classList.contains('spec-agents-row')) {
+    var list = agentRow.querySelector('.spec-agents-list');
+    if (list) {
+      list.classList.toggle('open');
+    }
+  }
+}
+
+// ========== ENTER KEY SUBMIT ==========
+document.getElementById('taskInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    submitTask();
+  }
+});
+
+// ========== INITIALISE ==========
+(function init() {
+  initAgentStates();
+  setupStatusToggle();
+  setupAgentExpansion();
+  renderSavedTasks();
+  renderActivityFeed();
+  startPulseEffect();
+  startAutoActivity();
+})();
+</script>
+
+</body>
+</html>

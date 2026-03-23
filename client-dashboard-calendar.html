@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purposeful Profits | Growth Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0a0f1c;
+  --navy-light: #111827;
+  --navy-mid: #1a2235;
+  --navy-surface: #1e293b;
+  --navy-border: #2a3548;
+  --teal: #00e5a0;
+  --teal-dim: rgba(0,229,160,0.15);
+  --coral: #ff6b6b;
+  --coral-dim: rgba(255,107,107,0.15);
+  --gold: #ffd700;
+  --gold-dim: rgba(255,215,0,0.12);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.15);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96,165,250,0.15);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.15);
+  --pink: #f472b6;
+  --pink-dim: rgba(244,114,182,0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --sidebar-width: 260px;
+  --topbar-height: 72px;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+html { font-size: 15px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--navy);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Dot grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--navy-light);
+  border-right: 1px solid var(--navy-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--navy-border);
+}
+.sidebar-logo h2 {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+.sidebar-logo h2 span { color: var(--teal); }
+
+.brand-selector {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--navy-border);
+}
+.brand-dropdown {
+  width: 100%;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.87rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394a3b8' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.2s;
+}
+.brand-dropdown:hover, .brand-dropdown:focus {
+  border-color: var(--teal);
+  outline: none;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 20px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  user-select: none;
+}
+.nav-item:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+}
+.nav-item.active {
+  color: var(--teal);
+  background: var(--teal-dim);
+  border-left-color: var(--teal);
+  font-weight: 500;
+}
+.nav-section-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 16px 20px 6px;
+}
+.nav-icon {
+  width: 20px;
+  text-align: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--navy-border);
+  font-size: 0.82rem;
+}
+.strategist-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.strategist-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.8rem; color: var(--navy);
+  flex-shrink: 0;
+}
+.strategist-info { line-height: 1.4; }
+.strategist-name { color: var(--text-primary); font-weight: 500; }
+.strategist-detail { color: var(--text-muted); font-size: 0.78rem; }
+.next-call {
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.next-call .call-icon { color: var(--blue); }
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-dim);
+  color: var(--gold);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ========== HAMBURGER ========== */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 18px; left: 16px;
+  z-index: 200;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  width: 42px; height: 42px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.hamburger span {
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: 0.3s;
+}
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 90;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== TOP BAR ========== */
+.topbar {
+  height: var(--topbar-height);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--navy-border);
+  background: rgba(10,15,28,0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topbar-left h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.topbar-left h1 span { color: var(--teal); }
+.topbar-date {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--navy-border);
+  background: var(--navy-surface);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.action-btn:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+.action-btn.primary {
+  background: var(--teal);
+  color: var(--navy);
+  border-color: var(--teal);
+  font-weight: 600;
+}
+.action-btn.primary:hover {
+  background: #00cc8e;
+  border-color: #00cc8e;
+}
+
+/* ========== CONTENT AREA ========== */
+.content {
+  padding: 28px 32px 48px;
+}
+
+/* ========== SECTION LABELS ========== */
+.section-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+/* ========== CARD COMMON ========== */
+.card {
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ========== CALENDAR TOOLBAR ========== */
+.calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.calendar-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.calendar-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.view-toggle {
+  display: flex;
+  background: var(--navy-mid);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.view-toggle-btn {
+  padding: 8px 18px;
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.view-toggle-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+}
+.view-toggle-btn.active {
+  background: var(--teal);
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.nav-btn {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-btn:hover {
+  border-color: var(--teal);
+  color: var(--text-primary);
+}
+.nav-btn.today-btn {
+  font-weight: 600;
+  color: var(--teal);
+  border-color: rgba(0,229,160,0.3);
+}
+
+.month-heading {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ========== EVENT LEGEND ========== */
+.event-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: var(--navy-mid);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ========== CALENDAR LAYOUT ========== */
+.calendar-layout {
+  display: flex;
+  gap: 20px;
+}
+.calendar-main {
+  flex: 1;
+  min-width: 0;
+}
+.calendar-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+/* ========== WEEK VIEW ========== */
+.week-grid {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--navy-surface);
+}
+
+.week-header {
+  display: contents;
+}
+.week-header-cell {
+  padding: 12px 8px;
+  text-align: center;
+  background: var(--navy-mid);
+  border-bottom: 1px solid var(--navy-border);
+  font-size: 0.78rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+}
+.week-header-cell:first-child {
+  border-right: 1px solid var(--navy-border);
+}
+.week-header-cell .day-name {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  margin-bottom: 2px;
+}
+.week-header-cell .day-num {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.week-header-cell.today .day-num {
+  background: var(--teal);
+  color: var(--navy);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.week-header-cell.weekend {
+  opacity: 0.5;
+}
+
+.week-body {
+  display: contents;
+}
+.time-column {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--navy-border);
+}
+.time-slot-label {
+  height: 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  border-bottom: 1px solid rgba(42,53,72,0.3);
+}
+
+.day-column {
+  position: relative;
+  border-right: 1px solid rgba(42,53,72,0.3);
+  min-height: 0;
+}
+.day-column:last-child {
+  border-right: none;
+}
+.day-column.weekend {
+  background: rgba(0,0,0,0.15);
+}
+
+.time-row-line {
+  height: 60px;
+  border-bottom: 1px solid rgba(42,53,72,0.3);
+}
+
+/* ========== CALENDAR EVENTS ========== */
+.cal-event {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 2;
+  transition: all 0.2s;
+  border-left: 3px solid;
+}
+.cal-event:hover {
+  z-index: 10;
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.cal-event .event-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  font-size: 0.72rem;
+}
+.cal-event .event-agent {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+.cal-event .event-time-label {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+/* Event type colours */
+.cal-event.agent-task {
+  background: var(--teal-dim);
+  border-left-color: var(--teal);
+}
+.cal-event.strategy-call {
+  background: var(--purple-dim);
+  border-left-color: var(--purple);
+}
+.cal-event.content-publish {
+  background: var(--blue-dim);
+  border-left-color: var(--blue);
+}
+.cal-event.campaign-launch {
+  background: var(--orange-dim);
+  border-left-color: var(--orange);
+}
+.cal-event.sprint-milestone {
+  background: var(--gold-dim);
+  border-left-color: var(--gold);
+}
+.cal-event.deadline {
+  background: var(--coral-dim);
+  border-left-color: var(--coral);
+}
+
+/* All-day events */
+.all-day-row {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  border-bottom: 1px solid var(--navy-border);
+}
+.all-day-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-right: 1px solid var(--navy-border);
+  padding: 6px 4px;
+  background: var(--navy-mid);
+}
+.all-day-cell {
+  padding: 4px 3px;
+  min-height: 32px;
+  border-right: 1px solid rgba(42,53,72,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.all-day-cell:last-child { border-right: none; }
+.all-day-event {
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.all-day-event:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.all-day-event.deadline {
+  background: var(--coral-dim);
+  color: var(--coral);
+  border-left: 3px solid var(--coral);
+}
+.all-day-event.agent-task {
+  background: var(--teal-dim);
+  color: var(--teal);
+  border-left: 3px solid var(--teal);
+  opacity: 0.6;
+  font-weight: 400;
+  font-size: 0.63rem;
+}
+
+/* ========== EVENT TOOLTIP ========== */
+.event-tooltip {
+  display: none;
+  position: fixed;
+  z-index: 500;
+  background: var(--navy-light);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  width: 280px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+.event-tooltip.show { display: block; animation: fadeSlideDown 0.15s ease; }
+.event-tooltip .tt-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.event-tooltip .tt-meta {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.event-tooltip .tt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.event-tooltip .tt-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.5;
+  border-top: 1px solid var(--navy-border);
+  padding-top: 8px;
+}
+
+/* ========== UPCOMING EVENTS SIDEBAR ========== */
+.upcoming-card {
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  margin-bottom: 16px;
+}
+.upcoming-card .card-title {
+  margin-bottom: 16px;
+}
+.upcoming-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.upcoming-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(42,53,72,0.4);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.upcoming-item:last-child { border-bottom: none; }
+.upcoming-item:hover {
+  background: rgba(255,255,255,0.02);
+  margin: 0 -8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: var(--radius-sm);
+}
+.upcoming-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.upcoming-info { flex: 1; min-width: 0; }
+.upcoming-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.upcoming-detail {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.upcoming-time {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+}
+
+/* ========== SPRINT TIMELINE ========== */
+.sprint-timeline-card {
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  margin-top: 24px;
+}
+.sprint-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.sprint-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.sprint-next {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.sprint-next span {
+  color: var(--teal);
+  font-weight: 500;
+}
+
+.sprint-weeks {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.sprint-week-bar {
+  flex: 1;
+  height: 32px;
+  background: var(--navy-mid);
+  border: 1px solid var(--navy-border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  position: relative;
+  transition: all 0.2s;
+}
+.sprint-week-bar.completed {
+  background: var(--teal-dim);
+  border-color: rgba(0,229,160,0.3);
+  color: var(--teal);
+}
+.sprint-week-bar.current {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--navy);
+  font-weight: 700;
+}
+.sprint-week-bar.upcoming {
+  background: var(--navy-mid);
+  border-style: dashed;
+}
+
+.sprint-milestones {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.sprint-milestone {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+.sprint-milestone .ms-marker {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.sprint-milestone .ms-marker.done {
+  background: var(--teal);
+}
+
+/* ========== MONTH VIEW ========== */
+.month-grid {
+  display: none;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.month-grid.active { display: block; }
+.month-header-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--navy-mid);
+  border-bottom: 1px solid var(--navy-border);
+}
+.month-header-cell {
+  padding: 10px;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+}
+.month-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.month-day {
+  min-height: 90px;
+  padding: 6px 8px;
+  border-right: 1px solid rgba(42,53,72,0.3);
+  border-bottom: 1px solid rgba(42,53,72,0.3);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.month-day:nth-child(7n) { border-right: none; }
+.month-day:hover { background: rgba(255,255,255,0.02); }
+.month-day.other-month { opacity: 0.3; }
+.month-day.today { background: rgba(0,229,160,0.06); }
+.month-day .md-num {
+  font-size: 0.82rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.month-day.today .md-num {
+  color: var(--teal);
+  font-weight: 700;
+}
+.month-day .md-events {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.month-day .md-event-dot {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.63rem;
+  color: var(--text-muted);
+  padding: 1px 4px;
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.month-day .md-event-dot .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.month-day .md-more {
+  font-size: 0.62rem;
+  color: var(--teal);
+  font-weight: 500;
+  padding: 1px 4px;
+}
+
+/* ========== DAY VIEW ========== */
+.day-view {
+  display: none;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.day-view.active { display: block; }
+.day-view-header {
+  padding: 16px 20px;
+  background: var(--navy-mid);
+  border-bottom: 1px solid var(--navy-border);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.day-view-grid {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+}
+.day-time-col {
+  border-right: 1px solid var(--navy-border);
+}
+.day-events-col {
+  position: relative;
+}
+.day-time-row {
+  height: 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  border-bottom: 1px solid rgba(42,53,72,0.3);
+}
+.day-event-row {
+  height: 60px;
+  border-bottom: 1px solid rgba(42,53,72,0.3);
+  position: relative;
+}
+
+/* ========== EVENT MODAL ========== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 400;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+.modal {
+  background: var(--navy-light);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  width: 480px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+}
+.modal-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--navy-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h3 {
+  font-size: 1.05rem;
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--text-primary); }
+
+.modal-body {
+  padding: 20px 24px;
+}
+.modal-body .form-group {
+  margin-bottom: 16px;
+}
+.modal-body label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+  width: 100%;
+  background: var(--navy-surface);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.87rem;
+  transition: border-color 0.2s;
+}
+.modal-body input:focus,
+.modal-body select:focus,
+.modal-body textarea:focus {
+  border-color: var(--teal);
+  outline: none;
+}
+.modal-body textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+.modal-body .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--navy-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Event detail modal extras */
+.event-detail-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.event-detail-row {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(42,53,72,0.4);
+  font-size: 0.85rem;
+}
+.event-detail-row:last-child { border-bottom: none; }
+.event-detail-label {
+  color: var(--text-muted);
+  width: 80px;
+  flex-shrink: 0;
+  font-size: 0.78rem;
+}
+.event-detail-value {
+  color: var(--text-primary);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: slideInUp 0.5s ease forwards;
+  opacity: 0;
+}
+.animate-in:nth-child(1) { animation-delay: 0.05s; }
+.animate-in:nth-child(2) { animation-delay: 0.1s; }
+.animate-in:nth-child(3) { animation-delay: 0.15s; }
+.animate-in:nth-child(4) { animation-delay: 0.2s; }
+.animate-in:nth-child(5) { animation-delay: 0.25s; }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1200px) {
+  .calendar-layout { flex-direction: column; }
+  .calendar-sidebar { width: 100%; }
+}
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.show { display: block; }
+  .hamburger { display: flex; }
+  .main { margin-left: 0; }
+  .topbar { padding: 0 16px 0 64px; }
+  .content { padding: 20px 16px 40px; }
+  .calendar-toolbar { flex-direction: column; align-items: flex-start; }
+  .week-grid { font-size: 0.7rem; }
+  .week-header-cell { padding: 8px 4px; }
+  .cal-event { font-size: 0.63rem; padding: 2px 4px; }
+  .topbar-actions .hide-mobile { display: none; }
+  .event-legend { gap: 10px; }
+  .sprint-weeks { flex-wrap: wrap; }
+  .sprint-week-bar { min-width: 80px; }
+}
+@media (max-width: 480px) {
+  .month-day { min-height: 60px; padding: 4px; }
+  .month-day .md-event-dot { display: none; }
+  .month-day .md-num { font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hamburger (mobile) -->
+<button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">
+  <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <h2>Purposeful<span>Profits</span></h2>
+  </div>
+
+  <div class="brand-selector">
+    <select class="brand-dropdown" id="brandSelect">
+      <option>Acme Skincare</option>
+      <option>Bloom Botanics</option>
+      <option>Terra Nutrition</option>
+    </select>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Overview</div>
+    <a href="client-dashboard-main.html" class="nav-item">
+      <span class="nav-icon">&#9635;</span> Dashboard
+    </a>
+    <a href="client-dashboard-agents.html" class="nav-item">
+      <span class="nav-icon">&#9881;</span> Agent Team
+    </a>
+    <a href="client-dashboard-reports.html" class="nav-item">
+      <span class="nav-icon">&#9783;</span> Reports
+    </a>
+    <div class="nav-section-label">Workspace</div>
+    <a href="client-dashboard-kanban.html" class="nav-item">
+      <span class="nav-icon">&#9744;</span> Task Board
+    </a>
+    <a href="client-dashboard-calendar.html" class="nav-item active">
+      <span class="nav-icon">&#128197;</span> Calendar
+    </a>
+    <a href="client-dashboard-chat.html" class="nav-item">
+      <span class="nav-icon">&#128172;</span> Chat
+    </a>
+    <a href="client-dashboard-learn.html" class="nav-item">
+      <span class="nav-icon">&#127891;</span> Learn
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="strategist-row">
+      <div class="strategist-avatar">CV</div>
+      <div class="strategist-info">
+        <div class="strategist-name">Caner Veli</div>
+        <div class="strategist-detail">Your Strategist</div>
+      </div>
+    </div>
+    <div class="next-call">
+      <span class="call-icon">&#128222;</span> Next Call: Mon 23 Mar, 2pm
+    </div>
+    <div class="tier-badge">&#11088; Growth Pro</div>
+  </div>
+</aside>
+
+<!-- ========== MAIN ========== -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1>Growth <span>Calendar</span></h1>
+      <div class="topbar-date">23 March 2026</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="action-btn hide-mobile" onclick="showToast('Syncing calendar with all agents...')">Sync Agents</button>
+      <button class="action-btn primary" onclick="openScheduleModal()">+ Schedule Event</button>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- Calendar Toolbar -->
+    <div class="calendar-toolbar animate-in">
+      <div class="calendar-toolbar-left">
+        <div class="view-toggle">
+          <button class="view-toggle-btn" onclick="switchView('month')" id="viewMonth">Month</button>
+          <button class="view-toggle-btn active" onclick="switchView('week')" id="viewWeek">Week</button>
+          <button class="view-toggle-btn" onclick="switchView('day')" id="viewDay">Day</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button class="nav-btn" onclick="navigateCalendar(-1)" id="navPrev">&lt; Previous</button>
+          <button class="nav-btn today-btn" onclick="navigateToday()">Today</button>
+          <button class="nav-btn" onclick="navigateCalendar(1)" id="navNext">Next &gt;</button>
+        </div>
+        <span class="month-heading" id="calendarHeading">March 2026</span>
+      </div>
+    </div>
+
+    <!-- Event Legend -->
+    <div class="event-legend animate-in">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--teal)"></div> Agent Tasks
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--purple)"></div> Strategy Calls
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--blue)"></div> Content Publishing
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--orange)"></div> Campaign Launches
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--gold)"></div> Sprint Milestones
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--coral)"></div> Deadlines
+      </div>
+    </div>
+
+    <!-- Calendar Layout -->
+    <div class="calendar-layout">
+
+      <!-- Calendar Main -->
+      <div class="calendar-main">
+
+        <!-- ===== WEEK VIEW ===== -->
+        <div id="weekView" class="animate-in">
+          <div class="week-grid" id="weekGrid">
+            <!-- Built by JS -->
+          </div>
+        </div>
+
+        <!-- ===== MONTH VIEW ===== -->
+        <div class="month-grid" id="monthView">
+          <!-- Built by JS -->
+        </div>
+
+        <!-- ===== DAY VIEW ===== -->
+        <div class="day-view" id="dayView">
+          <!-- Built by JS -->
+        </div>
+
+      </div>
+
+      <!-- Calendar Sidebar: Upcoming Events -->
+      <div class="calendar-sidebar">
+        <div class="upcoming-card animate-in">
+          <h4 class="card-title">Upcoming Events</h4>
+          <div class="upcoming-list" id="upcomingList">
+            <!-- Built by JS -->
+          </div>
+        </div>
+
+        <!-- Agent Activity -->
+        <div class="upcoming-card animate-in">
+          <h4 class="card-title">Agent Activity</h4>
+          <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,53,72,0.4)">
+              <span>Tasks this week</span>
+              <span style="color:var(--teal);font-weight:600;font-family:'Space Grotesk',sans-serif">24</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,53,72,0.4)">
+              <span>Completed</span>
+              <span style="color:var(--teal);font-weight:600;font-family:'Space Grotesk',sans-serif">18</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,53,72,0.4)">
+              <span>In progress</span>
+              <span style="color:var(--orange);font-weight:600;font-family:'Space Grotesk',sans-serif">4</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0">
+              <span>Upcoming</span>
+              <span style="color:var(--text-muted);font-weight:600;font-family:'Space Grotesk',sans-serif">2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sprint Timeline -->
+    <div class="sprint-timeline-card animate-in">
+      <div class="sprint-header">
+        <div>
+          <h4 class="sprint-title">CRO Sprint, Week 3 of 4</h4>
+        </div>
+        <div class="sprint-next">Next Sprint: <span>Email (starts 7 April)</span></div>
+      </div>
+
+      <div class="sprint-weeks">
+        <div class="sprint-week-bar completed">
+          <span>Week 1</span>
+        </div>
+        <div class="sprint-week-bar completed">
+          <span>Week 2</span>
+        </div>
+        <div class="sprint-week-bar current">
+          <span>Week 3</span>
+        </div>
+        <div class="sprint-week-bar upcoming">
+          <span>Week 4</span>
+        </div>
+      </div>
+
+      <div class="sprint-milestones">
+        <div class="sprint-milestone">
+          <div class="ms-marker done"></div> Audit complete
+        </div>
+        <div class="sprint-milestone">
+          <div class="ms-marker done"></div> A/B tests launched
+        </div>
+        <div class="sprint-milestone">
+          <div class="ms-marker"></div> Checkout fixes deployed
+        </div>
+        <div class="sprint-milestone">
+          <div class="ms-marker"></div> Final report
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ========== TOAST ========== -->
+<div id="toast" style="
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--navy-surface);border:1px solid var(--teal);color:var(--text-primary);
+  padding:12px 24px;border-radius:var(--radius);font-size:0.85rem;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:999;transition:transform 0.3s ease;
+  pointer-events:none;
+"></div>
+
+<!-- ========== EVENT TOOLTIP ========== -->
+<div class="event-tooltip" id="eventTooltip"></div>
+
+<!-- ========== EVENT DETAIL MODAL ========== -->
+<div class="modal-overlay" id="eventDetailModal" onclick="closeEventDetail(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="detailTitle">Event Details</h3>
+      <button class="modal-close" onclick="closeModal('eventDetailModal')">&times;</button>
+    </div>
+    <div class="modal-body" id="detailBody">
+      <!-- Populated by JS -->
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" style="color:var(--coral);border-color:rgba(255,107,107,0.3)" onclick="deleteCurrentEvent()">Delete</button>
+      <button class="action-btn" onclick="editCurrentEvent()">Edit</button>
+      <button class="action-btn primary" onclick="closeModal('eventDetailModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SCHEDULE EVENT MODAL ========== -->
+<div class="modal-overlay" id="scheduleModal" onclick="closeScheduleModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Schedule Event</h3>
+      <button class="modal-close" onclick="closeModal('scheduleModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Event Title</label>
+        <input type="text" id="schedTitle" placeholder="e.g. Ad performance review">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="schedDate" value="2026-03-23">
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" id="schedTime" value="09:00">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Duration</label>
+          <select id="schedDuration">
+            <option value="30">30 minutes</option>
+            <option value="60" selected>1 hour</option>
+            <option value="90">1.5 hours</option>
+            <option value="120">2 hours</option>
+            <option value="180">3 hours</option>
+            <option value="1440">All day</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Event Type</label>
+          <select id="schedType">
+            <option value="agent-task">Agent Task</option>
+            <option value="strategy-call">Strategy Call</option>
+            <option value="content-publish">Content Publishing</option>
+            <option value="campaign-launch">Campaign Launch</option>
+            <option value="sprint-milestone">Sprint Milestone</option>
+            <option value="deadline">Deadline</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Assign Agent</label>
+        <select id="schedAgent">
+          <option value="">None (manual)</option>
+          <option value="Growth Orchestrator">Growth Orchestrator</option>
+          <option value="Analytics Brain">Analytics Brain</option>
+          <option value="CRO Analyst">CRO Analyst</option>
+          <option value="Ad Creative Engine">Ad Creative Engine</option>
+          <option value="Email Strategist">Email Strategist</option>
+          <option value="SEO Commander">SEO Commander</option>
+          <option value="Social Content">Social Content</option>
+          <option value="Competitive Intel">Competitive Intel</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="schedDesc" placeholder="Describe the event, goals, or deliverables..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" onclick="closeModal('scheduleModal')">Cancel</button>
+      <button class="action-btn primary" onclick="scheduleEvent()">Schedule</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== EVENT DATA ==========
+const EVENTS = [
+  // Monday 23 Mar
+  { id:1, title:'Weekly analytics report generated', agent:'Analytics Brain', type:'agent-task', day:'2026-03-23', hour:9, min:0, duration:30, desc:'Automated weekly analytics compilation covering revenue, traffic, conversion rates, and channel performance. Report includes 7-day and 30-day comparisons.' },
+  { id:2, title:'CRO weekly audit begins', agent:'CRO Analyst', type:'agent-task', day:'2026-03-23', hour:10, min:0, duration:120, desc:'Full-site CRO audit: heatmap analysis, funnel drop-off identification, mobile vs desktop conversion comparison. Priority focus on checkout flow.' },
+  { id:3, title:'Strategy call with Caner', agent:'', type:'strategy-call', day:'2026-03-23', hour:14, min:0, duration:45, desc:'Weekly strategy session to review performance, discuss priorities, and align on next steps for the sprint.' },
+  { id:4, title:'Social posts scheduled for week', agent:'Social Content', type:'agent-task', day:'2026-03-23', hour:15, min:0, duration:60, desc:'Batch scheduling of 14 social posts across Instagram, TikTok, and Facebook. Mix of product highlights, UGC, and educational content.' },
+
+  // Tuesday 24 Mar
+  { id:5, title:'Meta TOF campaign launch', agent:'Ad Creative Engine', type:'campaign-launch', day:'2026-03-24', hour:9, min:0, duration:60, desc:'Launching top-of-funnel prospecting campaign on Meta. 5 ad sets targeting interest-based audiences with video creative.' },
+  { id:6, title:'Welcome flow A/B test goes live', agent:'Email Strategist', type:'campaign-launch', day:'2026-03-24', hour:10, min:30, duration:30, desc:'Split test on welcome email sequence: testing subject line variations and send timing. 50/50 split across new subscribers.' },
+  { id:7, title:'SEO article published: Skincare Routines', agent:'SEO Commander', type:'content-publish', day:'2026-03-24', hour:13, min:0, duration:30, desc:'Long-form SEO article targeting "best skincare routine for dry skin". 2,400 words, optimised for featured snippets.' },
+  { id:8, title:'Competitive pricing scan', agent:'Competitive Intel', type:'agent-task', day:'2026-03-24', hour:15, min:0, duration:60, desc:'Automated scan of 12 competitor pricing pages. Tracking price changes, new products, and promotional offers.' },
+
+  // Wednesday 25 Mar
+  { id:9, title:'Ad performance review', agent:'Ad Creative Engine', type:'agent-task', day:'2026-03-25', hour:9, min:0, duration:60, desc:'Review of all active ad campaigns: ROAS analysis, creative fatigue scoring, audience overlap check, and budget reallocation recommendations.' },
+  { id:10, title:'Content calendar planning', agent:'Social Content', type:'agent-task', day:'2026-03-25', hour:11, min:0, duration:60, desc:'Planning next two weeks of content. Identifying trending topics, planning shoot schedule, and coordinating with UGC creators.' },
+  { id:11, title:'Email campaign: Spring Collection', agent:'Email Strategist', type:'campaign-launch', day:'2026-03-25', hour:14, min:0, duration:30, desc:'Sending Spring Collection announcement to segmented list. Two variants: VIP early access vs general announcement.' },
+  { id:12, title:'CRO Sprint Week 3 checkpoint', agent:'Growth Orchestrator', type:'sprint-milestone', day:'2026-03-25', hour:16, min:0, duration:30, desc:'Mid-sprint checkpoint. Reviewing test results from Week 2, confirming Week 3 priorities, and flagging any blockers.' },
+
+  // Thursday 26 Mar
+  { id:13, title:'Competitive intel briefing compiled', agent:'Competitive Intel', type:'agent-task', day:'2026-03-26', hour:9, min:0, duration:60, desc:'Weekly competitive intelligence report covering new product launches, marketing campaigns, social media activity, and pricing changes across 12 competitors.' },
+  { id:14, title:'SEO article published: Ingredient Guide', agent:'SEO Commander', type:'content-publish', day:'2026-03-26', hour:10, min:30, duration:30, desc:'In-depth ingredient guide targeting "niacinamide benefits for skin". Internal linking strategy included. 1,800 words.' },
+  { id:15, title:'UGC curation and outreach', agent:'Social Content', type:'agent-task', day:'2026-03-26', hour:13, min:0, duration:60, desc:'Identifying and reaching out to 20 potential UGC creators. Reviewing submitted content, selecting top pieces for paid amplification.' },
+  { id:16, title:'Ad creative refresh: 10 new variants', agent:'Ad Creative Engine', type:'agent-task', day:'2026-03-26', hour:15, min:0, duration:120, desc:'Generating 10 new ad creative variants using top-performing angles. Includes static images, carousel ads, and short-form video concepts.' },
+
+  // Friday 27 Mar
+  { id:17, title:'Weekly strategy brief compiled', agent:'Growth Orchestrator', type:'agent-task', day:'2026-03-27', hour:9, min:0, duration:60, desc:'Compiling end-of-week strategy brief: wins, losses, key metrics movement, and recommended actions for next week.' },
+  { id:18, title:'Email flow performance review', agent:'Email Strategist', type:'agent-task', day:'2026-03-27', hour:10, min:30, duration:30, desc:'Reviewing all automated email flow performance: open rates, click rates, revenue attribution, and unsubscribe rates.' },
+  { id:19, title:'Weekly report delivered to client', agent:'Analytics Brain', type:'agent-task', day:'2026-03-27', hour:13, min:0, duration:30, desc:'Formatted weekly performance report delivered to client portal. Includes executive summary, channel breakdown, and action items.' },
+  { id:20, title:'Sprint planning: next week', agent:'Growth Orchestrator', type:'sprint-milestone', day:'2026-03-27', hour:14, min:0, duration:60, desc:'Planning the final week of CRO Sprint. Defining deliverables, assigning agent tasks, and setting success metrics.' },
+  { id:21, title:'DEADLINE: Mobile checkout fixes', agent:'', type:'deadline', day:'2026-03-27', hour:0, min:0, duration:1440, desc:'Hard deadline for deploying mobile checkout optimisations. Includes one-page checkout, Apple Pay integration, and trust badge placement.' },
+
+  // Saturday 28 Mar
+  { id:22, title:'Agents monitoring: 24/7', agent:'', type:'agent-task', day:'2026-03-28', hour:0, min:0, duration:1440, desc:'Automated monitoring continues over the weekend. Agents track site performance, ad spend, email deliverability, and competitor activity.' },
+
+  // Sunday 29 Mar
+  { id:23, title:'Agents monitoring: 24/7', agent:'', type:'agent-task', day:'2026-03-29', hour:0, min:0, duration:1440, desc:'Automated monitoring continues over the weekend. Agents track site performance, ad spend, email deliverability, and competitor activity.' }
+];
+
+// ========== STATE ==========
+let currentView = 'week';
+let currentWeekStart = new Date(2026, 2, 23); // Mon 23 Mar 2026
+let currentMonthDate = new Date(2026, 2, 1);
+let currentDayDate = new Date(2026, 2, 23);
+let dragState = null;
+
+const TYPE_COLORS = {
+  'agent-task': { color: 'var(--teal)', bg: 'var(--teal-dim)', label: 'Agent Task' },
+  'strategy-call': { color: 'var(--purple)', bg: 'var(--purple-dim)', label: 'Strategy Call' },
+  'content-publish': { color: 'var(--blue)', bg: 'var(--blue-dim)', label: 'Content Publishing' },
+  'campaign-launch': { color: 'var(--orange)', bg: 'var(--orange-dim)', label: 'Campaign Launch' },
+  'sprint-milestone': { color: 'var(--gold)', bg: 'var(--gold-dim)', label: 'Sprint Milestone' },
+  'deadline': { color: 'var(--coral)', bg: 'var(--coral-dim)', label: 'Deadline' }
+};
+
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+// ========== SIDEBAR TOGGLE ==========
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.querySelector('.sidebar-overlay').classList.toggle('show');
+}
+
+function setActiveNav(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  if (window.innerWidth <= 768) toggleSidebar();
+}
+
+// ========== TOAST ==========
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(100px)'; }, 2500);
+}
+
+// ========== MODALS ==========
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+function openScheduleModal() {
+  document.getElementById('scheduleModal').classList.add('show');
+}
+function closeScheduleModal(e) {
+  if (e.target === e.currentTarget) closeModal('scheduleModal');
+}
+function closeEventDetail(e) {
+  if (e.target === e.currentTarget) closeModal('eventDetailModal');
+}
+
+function scheduleEvent() {
+  const title = document.getElementById('schedTitle').value;
+  if (!title.trim()) {
+    showToast('Please enter an event title.');
+    return;
+  }
+  const newEvent = {
+    id: EVENTS.length + 1,
+    title: title,
+    agent: document.getElementById('schedAgent').value,
+    type: document.getElementById('schedType').value,
+    day: document.getElementById('schedDate').value,
+    hour: parseInt(document.getElementById('schedTime').value.split(':')[0]),
+    min: parseInt(document.getElementById('schedTime').value.split(':')[1]),
+    duration: parseInt(document.getElementById('schedDuration').value),
+    desc: document.getElementById('schedDesc').value || 'No description provided.'
+  };
+  EVENTS.push(newEvent);
+  closeModal('scheduleModal');
+  showToast('Event scheduled: ' + title);
+  renderCurrentView();
+  renderUpcoming();
+  // Reset form
+  document.getElementById('schedTitle').value = '';
+  document.getElementById('schedDesc').value = '';
+}
+
+let currentDetailEvent = null;
+
+function deleteCurrentEvent() {
+  if (!currentDetailEvent) return;
+  if (!confirm('Delete "' + currentDetailEvent.title + '"?')) return;
+  const idx = EVENTS.findIndex(e => e.id === currentDetailEvent.id);
+  if (idx > -1) EVENTS.splice(idx, 1);
+  closeModal('eventDetailModal');
+  saveEvents();
+  renderCurrentView();
+  renderUpcoming();
+  showToast('Event deleted');
+  currentDetailEvent = null;
+}
+
+function editCurrentEvent() {
+  if (!currentDetailEvent) return;
+  closeModal('eventDetailModal');
+  const e = currentDetailEvent;
+  document.getElementById('schedTitle').value = e.title;
+  document.getElementById('schedAgent').value = e.agent || '';
+  document.getElementById('schedType').value = e.type || 'agent-task';
+  document.getElementById('schedDate').value = e.day;
+  document.getElementById('schedTime').value = String(e.hour).padStart(2,'0') + ':' + String(e.min).padStart(2,'0');
+  document.getElementById('schedDuration').value = e.duration;
+  document.getElementById('schedDesc').value = e.desc || '';
+  // Remove old event so scheduling creates the updated version
+  const idx = EVENTS.findIndex(ev => ev.id === e.id);
+  if (idx > -1) EVENTS.splice(idx, 1);
+  openScheduleModal();
+}
+
+function showEventDetail(evt) {
+  currentDetailEvent = evt;
+  const tc = TYPE_COLORS[evt.type];
+  document.getElementById('detailTitle').textContent = evt.title;
+
+  let timeStr = evt.duration === 1440 ? 'All day' : formatTime(evt.hour, evt.min) + ' - ' + formatTime(evt.hour + Math.floor((evt.min + evt.duration) / 60), (evt.min + evt.duration) % 60);
+
+  document.getElementById('detailBody').innerHTML = `
+    <div class="event-detail-type" style="background:${tc.bg};color:${tc.color}">
+      <span style="width:8px;height:8px;border-radius:2px;background:${tc.color}"></span>
+      ${tc.label}
+    </div>
+    <div class="event-detail-row">
+      <div class="event-detail-label">Date</div>
+      <div class="event-detail-value">${formatDateFull(evt.day)}</div>
+    </div>
+    <div class="event-detail-row">
+      <div class="event-detail-label">Time</div>
+      <div class="event-detail-value">${timeStr}</div>
+    </div>
+    ${evt.agent ? `<div class="event-detail-row">
+      <div class="event-detail-label">Agent</div>
+      <div class="event-detail-value">${evt.agent}</div>
+    </div>` : ''}
+    <div class="event-detail-row">
+      <div class="event-detail-label">Details</div>
+      <div class="event-detail-value" style="line-height:1.6;color:var(--text-secondary)">${evt.desc}</div>
+    </div>
+  `;
+  document.getElementById('eventDetailModal').classList.add('show');
+}
+
+// ========== DATE HELPERS ==========
+function formatTime(h, m) {
+  const hh = h % 24;
+  const period = hh >= 12 ? 'pm' : 'am';
+  const hr = hh === 0 ? 12 : hh > 12 ? hh - 12 : hh;
+  return hr + ':' + String(m).padStart(2, '0') + period;
+}
+
+function formatDateFull(dayStr) {
+  const d = new Date(dayStr + 'T00:00:00');
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  return dayNames[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function dateStr(d) {
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function addDays(d, n) {
+  const r = new Date(d);
+  r.setDate(r.getDate() + n);
+  return r;
+}
+
+function getWeekDays(startDate) {
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    days.push(addDays(startDate, i));
+  }
+  return days;
+}
+
+// ========== VIEW SWITCHING ==========
+function switchView(view) {
+  currentView = view;
+  document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view' + view.charAt(0).toUpperCase() + view.slice(1)).classList.add('active');
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  document.getElementById('weekView').style.display = currentView === 'week' ? 'block' : 'none';
+  document.getElementById('monthView').className = currentView === 'month' ? 'month-grid active' : 'month-grid';
+  document.getElementById('dayView').className = currentView === 'day' ? 'day-view active' : 'day-view';
+
+  if (currentView === 'week') renderWeek();
+  else if (currentView === 'month') renderMonth();
+  else if (currentView === 'day') renderDay();
+
+  updateHeading();
+}
+
+function updateHeading() {
+  const el = document.getElementById('calendarHeading');
+  if (currentView === 'week') {
+    const days = getWeekDays(currentWeekStart);
+    const s = days[0], e = days[6];
+    if (s.getMonth() === e.getMonth()) {
+      el.textContent = MONTHS[s.getMonth()] + ' ' + s.getFullYear();
+    } else {
+      el.textContent = MONTHS[s.getMonth()] + ' / ' + MONTHS[e.getMonth()] + ' ' + e.getFullYear();
+    }
+  } else if (currentView === 'month') {
+    el.textContent = MONTHS[currentMonthDate.getMonth()] + ' ' + currentMonthDate.getFullYear();
+  } else {
+    el.textContent = formatDateFull(dateStr(currentDayDate));
+  }
+}
+
+function navigateCalendar(dir) {
+  if (currentView === 'week') {
+    currentWeekStart = addDays(currentWeekStart, dir * 7);
+  } else if (currentView === 'month') {
+    currentMonthDate = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth() + dir, 1);
+  } else {
+    currentDayDate = addDays(currentDayDate, dir);
+  }
+  renderCurrentView();
+}
+
+function navigateToday() {
+  const today = new Date(2026, 2, 23);
+  currentWeekStart = new Date(2026, 2, 23);
+  currentMonthDate = new Date(2026, 2, 1);
+  currentDayDate = new Date(2026, 2, 23);
+  renderCurrentView();
+}
+
+// ========== WEEK VIEW RENDER ==========
+function renderWeek() {
+  const grid = document.getElementById('weekGrid');
+  const days = getWeekDays(currentWeekStart);
+  const todayStr = '2026-03-23';
+  const startHour = 8;
+  const endHour = 18;
+  const hourCount = endHour - startHour;
+
+  let html = '';
+
+  // Header row
+  html += '<div class="week-header">';
+  html += '<div class="week-header-cell" style="border-right:1px solid var(--navy-border)"></div>';
+  days.forEach((d, i) => {
+    const isToday = dateStr(d) === todayStr;
+    const isWeekend = i >= 5;
+    html += `<div class="week-header-cell${isToday ? ' today' : ''}${isWeekend ? ' weekend' : ''}">
+      <div class="day-name">${DAYS[i]}</div>
+      <div class="day-num">${d.getDate()}</div>
+    </div>`;
+  });
+  html += '</div>';
+
+  // All-day row
+  html += '<div class="all-day-row">';
+  html += '<div class="all-day-label">All day</div>';
+  days.forEach((d, i) => {
+    const ds = dateStr(d);
+    const allDayEvts = EVENTS.filter(e => e.day === ds && e.duration === 1440);
+    html += '<div class="all-day-cell">';
+    allDayEvts.forEach(evt => {
+      html += `<div class="all-day-event ${evt.type}" onclick="showEventDetail(EVENTS.find(e=>e.id===${evt.id}))" title="${evt.title}">${evt.title}</div>`;
+    });
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Time grid
+  html += '<div style="display:grid;grid-template-columns:60px repeat(7,1fr);position:relative">';
+
+  // Time labels column
+  html += '<div class="time-column">';
+  for (let h = startHour; h < endHour; h++) {
+    html += `<div class="time-slot-label">${formatTime(h, 0)}</div>`;
+  }
+  html += '</div>';
+
+  // Day columns
+  days.forEach((d, i) => {
+    const ds = dateStr(d);
+    const isWeekend = i >= 5;
+    const dayEvents = EVENTS.filter(e => e.day === ds && e.duration !== 1440);
+
+    html += `<div class="day-column${isWeekend ? ' weekend' : ''}" data-day="${ds}" ondragover="handleDragOver(event)" ondrop="handleDrop(event, '${ds}')">`;
+
+    // Hour grid lines
+    for (let h = startHour; h < endHour; h++) {
+      html += '<div class="time-row-line"></div>';
+    }
+
+    // Events positioned absolutely
+    dayEvents.forEach(evt => {
+      const topOffset = ((evt.hour - startHour) * 60 + evt.min);
+      const topPx = topOffset;
+      const heightPx = Math.max(evt.duration, 20);
+
+      html += `<div class="cal-event ${evt.type}"
+        draggable="true"
+        ondragstart="handleDragStart(event, ${evt.id})"
+        data-event-id="${evt.id}"
+        style="top:${topPx}px;height:${heightPx}px;"
+        onclick="showEventDetail(EVENTS.find(e=>e.id===${evt.id}))"
+        onmouseenter="showTooltip(event, ${evt.id})"
+        onmouseleave="hideTooltip()">
+        <div class="event-title">${evt.title}</div>
+        ${heightPx > 30 ? `<div class="event-agent">${evt.agent || 'Manual'}</div>` : ''}
+        ${heightPx > 45 ? `<div class="event-time-label">${formatTime(evt.hour, evt.min)}</div>` : ''}
+      </div>`;
+    });
+
+    html += '</div>';
+  });
+
+  html += '</div>';
+
+  grid.innerHTML = html;
+}
+
+// ========== MONTH VIEW RENDER ==========
+function renderMonth() {
+  const container = document.getElementById('monthView');
+  const year = currentMonthDate.getFullYear();
+  const month = currentMonthDate.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const todayStr = '2026-03-23';
+
+  // Start from Monday
+  let startDate = new Date(firstDay);
+  const dayOfWeek = startDate.getDay();
+  const offset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  startDate.setDate(startDate.getDate() - offset);
+
+  let html = '';
+  html += '<div class="month-header-row">';
+  DAYS.forEach(d => {
+    html += `<div class="month-header-cell">${d}</div>`;
+  });
+  html += '</div>';
+
+  html += '<div class="month-body">';
+  let current = new Date(startDate);
+  for (let i = 0; i < 42; i++) {
+    const ds = dateStr(current);
+    const isOther = current.getMonth() !== month;
+    const isToday = ds === todayStr;
+    const dayEvts = EVENTS.filter(e => e.day === ds);
+
+    html += `<div class="month-day${isOther ? ' other-month' : ''}${isToday ? ' today' : ''}" onclick="currentDayDate=new Date('${ds}T00:00:00');switchView('day')">`;
+    html += `<div class="md-num">${current.getDate()}</div>`;
+    html += '<div class="md-events">';
+
+    const maxShow = 3;
+    dayEvts.slice(0, maxShow).forEach(evt => {
+      const tc = TYPE_COLORS[evt.type];
+      html += `<div class="md-event-dot"><span class="dot" style="background:${tc.color}"></span>${evt.duration === 1440 ? evt.title.substring(0, 18) : formatTime(evt.hour, evt.min) + ' ' + evt.title.substring(0, 12)}</div>`;
+    });
+    if (dayEvts.length > maxShow) {
+      html += `<div class="md-more">+${dayEvts.length - maxShow} more</div>`;
+    }
+    html += '</div></div>';
+
+    current = addDays(current, 1);
+    if (i >= 34 && current.getMonth() !== month) break;
+  }
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+// ========== DAY VIEW RENDER ==========
+function renderDay() {
+  const container = document.getElementById('dayView');
+  const ds = dateStr(currentDayDate);
+  const dayEvents = EVENTS.filter(e => e.day === ds && e.duration !== 1440);
+  const allDayEvts = EVENTS.filter(e => e.day === ds && e.duration === 1440);
+  const startHour = 8;
+  const endHour = 18;
+
+  let html = '';
+  html += `<div class="day-view-header">${formatDateFull(ds)}`;
+  if (allDayEvts.length) {
+    allDayEvts.forEach(evt => {
+      const tc = TYPE_COLORS[evt.type];
+      html += `<div style="display:inline-block;margin-left:16px;padding:3px 10px;border-radius:4px;font-size:0.78rem;background:${tc.bg};color:${tc.color};cursor:pointer" onclick="showEventDetail(EVENTS.find(e=>e.id===${evt.id}))">${evt.title}</div>`;
+    });
+  }
+  html += '</div>';
+
+  html += '<div class="day-view-grid">';
+  html += '<div class="day-time-col">';
+  for (let h = startHour; h < endHour; h++) {
+    html += `<div class="day-time-row">${formatTime(h, 0)}</div>`;
+  }
+  html += '</div>';
+
+  html += '<div class="day-events-col">';
+  for (let h = startHour; h < endHour; h++) {
+    html += '<div class="day-event-row"></div>';
+  }
+
+  dayEvents.forEach(evt => {
+    const topPx = (evt.hour - startHour) * 60 + evt.min;
+    const heightPx = Math.max(evt.duration, 25);
+    const tc = TYPE_COLORS[evt.type];
+
+    html += `<div class="cal-event ${evt.type}" style="top:${topPx}px;height:${heightPx}px;left:8px;right:8px;" onclick="showEventDetail(EVENTS.find(e=>e.id===${evt.id}))" onmouseenter="showTooltip(event, ${evt.id})" onmouseleave="hideTooltip()">
+      <div class="event-title">${evt.title}</div>
+      <div class="event-agent">${evt.agent || 'Manual'}</div>
+      <div class="event-time-label">${formatTime(evt.hour, evt.min)} - ${formatTime(evt.hour + Math.floor((evt.min + evt.duration) / 60), (evt.min + evt.duration) % 60)}</div>
+    </div>`;
+  });
+
+  html += '</div></div>';
+  container.innerHTML = html;
+}
+
+// ========== UPCOMING EVENTS ==========
+function renderUpcoming() {
+  const list = document.getElementById('upcomingList');
+  const todayStr = '2026-03-23';
+
+  // Sort events by date then time
+  const sorted = [...EVENTS]
+    .filter(e => e.day >= todayStr)
+    .sort((a, b) => {
+      if (a.day !== b.day) return a.day < b.day ? -1 : 1;
+      return (a.hour * 60 + a.min) - (b.hour * 60 + b.min);
+    })
+    .slice(0, 12);
+
+  let html = '';
+  sorted.forEach(evt => {
+    const tc = TYPE_COLORS[evt.type];
+    const d = new Date(evt.day + 'T00:00:00');
+    const dayLabel = DAYS[(d.getDay() + 6) % 7] + ' ' + d.getDate();
+    const timeLabel = evt.duration === 1440 ? 'All day' : formatTime(evt.hour, evt.min);
+
+    html += `<div class="upcoming-item" onclick="showEventDetail(EVENTS.find(e=>e.id===${evt.id}))">
+      <div class="upcoming-dot" style="background:${tc.color}"></div>
+      <div class="upcoming-info">
+        <div class="upcoming-name">${evt.title}</div>
+        <div class="upcoming-detail">${evt.agent ? evt.agent + ' · ' : ''}${tc.label}</div>
+      </div>
+      <div class="upcoming-time">${dayLabel}<br>${timeLabel}</div>
+    </div>`;
+  });
+
+  list.innerHTML = html;
+}
+
+// ========== TOOLTIP ==========
+function showTooltip(e, eventId) {
+  const evt = EVENTS.find(ev => ev.id === eventId);
+  if (!evt) return;
+  const tc = TYPE_COLORS[evt.type];
+  const tooltip = document.getElementById('eventTooltip');
+  const timeStr = evt.duration === 1440 ? 'All day' : formatTime(evt.hour, evt.min) + ' - ' + formatTime(evt.hour + Math.floor((evt.min + evt.duration) / 60), (evt.min + evt.duration) % 60);
+
+  tooltip.innerHTML = `
+    <div class="tt-title">${evt.title}</div>
+    <div class="tt-meta"><span class="tt-dot" style="background:${tc.color}"></span>${tc.label}</div>
+    <div class="tt-meta">${timeStr}</div>
+    ${evt.agent ? `<div class="tt-meta">Agent: ${evt.agent}</div>` : ''}
+    <div class="tt-desc">${evt.desc.substring(0, 120)}${evt.desc.length > 120 ? '...' : ''}</div>
+  `;
+
+  const rect = e.target.getBoundingClientRect();
+  let left = rect.right + 12;
+  let top = rect.top;
+
+  // Keep within viewport
+  if (left + 280 > window.innerWidth) {
+    left = rect.left - 292;
+  }
+  if (top + 200 > window.innerHeight) {
+    top = window.innerHeight - 210;
+  }
+
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+  tooltip.classList.add('show');
+}
+
+function hideTooltip() {
+  document.getElementById('eventTooltip').classList.remove('show');
+}
+
+// ========== DRAG AND DROP ==========
+function handleDragStart(e, eventId) {
+  dragState = eventId;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', eventId);
+  e.target.style.opacity = '0.5';
+  setTimeout(() => { if (e.target) e.target.style.opacity = '0.5'; }, 0);
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  e.currentTarget.style.background = 'rgba(0,229,160,0.05)';
+}
+
+function handleDrop(e, dayStr) {
+  e.preventDefault();
+  e.currentTarget.style.background = '';
+
+  if (!dragState) return;
+  const evt = EVENTS.find(ev => ev.id === dragState);
+  if (!evt) return;
+
+  // Calculate hour from drop position
+  const rect = e.currentTarget.getBoundingClientRect();
+  const relY = e.clientY - rect.top;
+  const hourOffset = Math.floor(relY / 60);
+  const newHour = 8 + hourOffset;
+  const newMin = Math.round((relY % 60) / 15) * 15;
+
+  evt.day = dayStr;
+  evt.hour = Math.min(Math.max(newHour, 8), 17);
+  evt.min = newMin >= 60 ? 0 : newMin;
+
+  dragState = null;
+  showToast('Event moved to ' + DAYS[(new Date(dayStr + 'T00:00:00').getDay() + 6) % 7] + ' ' + formatTime(evt.hour, evt.min));
+  renderCurrentView();
+  renderUpcoming();
+}
+
+// Reset drag styling
+document.addEventListener('dragend', (e) => {
+  e.target.style.opacity = '1';
+  document.querySelectorAll('.day-column').forEach(col => col.style.background = '');
+  dragState = null;
+});
+
+// ========== KEYBOARD NAV ==========
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+  if (e.key === 'ArrowLeft') navigateCalendar(-1);
+  if (e.key === 'ArrowRight') navigateCalendar(1);
+  if (e.key === 't' || e.key === 'T') navigateToday();
+  if (e.key === 'w' || e.key === 'W') switchView('week');
+  if (e.key === 'm' || e.key === 'M') switchView('month');
+  if (e.key === 'd' || e.key === 'D') switchView('day');
+  if (e.key === 'Escape') {
+    closeModal('eventDetailModal');
+    closeModal('scheduleModal');
+  }
+});
+
+// ========== INTERSECTION OBSERVER FOR ANIMATIONS ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-in').forEach(el => {
+  observer.observe(el);
+});
+
+// ========== LOCALSTORAGE PERSISTENCE ==========
+const STORAGE_KEY = 'pp_calendar_events';
+
+function saveEvents() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(EVENTS));
+}
+
+function loadEvents() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    EVENTS.length = 0;
+    parsed.forEach(e => EVENTS.push(e));
+  }
+}
+
+// Patch mutating functions to auto-save
+const _origSchedule = scheduleEvent;
+scheduleEvent = function() {
+  _origSchedule();
+  saveEvents();
+};
+
+const _origDrop = handleDrop;
+handleDrop = function(e, dayStr) {
+  _origDrop(e, dayStr);
+  saveEvents();
+};
+
+// ========== INIT ==========
+loadEvents();
+renderWeek();
+renderUpcoming();
+updateHeading();
+</script>
+</body>
+</html>
