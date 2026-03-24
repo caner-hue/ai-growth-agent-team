@@ -1,10 +1,13 @@
 {
   "rewrites": [
+    { "source": "/index", "destination": "/old-index.html" },
     { "source": "/landing", "destination": "/ai-growth-team-landing-page.html" },
     { "source": "/ai-growth-team", "destination": "/ai-growth-team-landing-page.html" },
     { "source": "/dashboard", "destination": "/client-dashboard-main.html" },
     { "source": "/roi", "destination": "/roi-calculator.html" },
     { "source": "/checklist", "destination": "/dtc-growth-checklist.html" },
+    { "source": "/visualisation", "destination": "/agent-team-visualisation.html" },
+    { "source": "/agents", "destination": "/agent-team-visualisation.html" },
     { "source": "/(.*)", "destination": "/$1" }
   ],
   "headers": [

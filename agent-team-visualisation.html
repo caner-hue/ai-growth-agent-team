@@ -887,6 +887,82 @@ footer {
   </div>
 </section>
 
+<!-- Section 1b: 100 On-Demand Specialists -->
+<section id="specialists" style="background:linear-gradient(180deg,#0a0f1c 0%,#0d1526 100%);padding:80px 0;">
+  <div class="container">
+    <div class="fade-in" style="text-align:center;margin-bottom:3rem;">
+      <p class="section-label">On-Demand Power</p>
+      <h2 class="section-title">100 Specialists. One Activation Signal.</h2>
+      <p class="section-subtitle">Behind your 8 core agents sits a swarm of 100 on-demand specialists. They activate the moment a task requires depth: a security audit, a full content push, a deployment, a QA sweep. Dormant until needed. Instant when triggered.</p>
+      <div style="display:inline-flex;align-items:baseline;gap:0.5rem;margin-top:1.5rem;">
+        <span id="specCount" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:3rem;color:#00e5a0;line-height:1;">0</span>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:1rem;color:#94a3b8;">on-demand specialists ready</span>
+      </div>
+    </div>
+
+    <div id="specialistSwarm" class="fade-in" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;">
+    </div>
+
+    <p class="fade-in" style="text-align:center;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#475569;">Activate on demand. Billed by output, not by seat.</p>
+  </div>
+</section>
+
+<style>
+.spec-pod {
+  background:#141b2d;border:1px solid #1e293b;border-radius:8px;padding:1.25rem;
+  transition:transform 0.25s,box-shadow 0.25s;cursor:default;
+}
+.spec-pod:hover { transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.4); }
+.spec-pod-header { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem; }
+.spec-pod-name { font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.85rem;color:#f0f0f0; }
+.spec-pod-badge { font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.68rem;padding:2px 8px;border-radius:20px; }
+.spec-dot-grid { display:flex;flex-wrap:wrap;gap:3px;margin-bottom:0.6rem; }
+.spec-dot { width:6px;height:6px;border-radius:50%;animation:specPulse 2.5s ease-in-out infinite; }
+@keyframes specPulse { 0%,100%{opacity:0.2;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+.spec-desc { font-size:0.7rem;color:#64748b;line-height:1.5; }
+@media(max-width:900px){#specialistSwarm{grid-template-columns:repeat(2,1fr)!important;}}
+@media(max-width:520px){#specialistSwarm{grid-template-columns:1fr!important;}}
+</style>
+
+<script>
+(function(){
+  var specialistData = [
+    { name:'CRO and Conversion', count:15, color:'#00e5a0', desc:'Page auditors, checkout optimisers, A/B runners, UX reviewers' },
+    { name:'Email and Retention', count:12, color:'#60a5fa', desc:'Flow architects, campaign writers, deliverability monitors' },
+    { name:'Paid Ads', count:12, color:'#fb923c', desc:'Creative writers, hook testers, ROAS trackers, audience builders' },
+    { name:'SEO and Content', count:14, color:'#a78bfa', desc:'Keyword researchers, content writers, technical SEO auditors' },
+    { name:'Analytics and Intelligence', count:15, color:'#e879f9', desc:'GA4 monitors, LTV calculators, competitive intel, trend spotters' },
+    { name:'Security and Compliance', count:12, color:'#f87171', desc:'GDPR auditors, vulnerability scanners, uptime monitors' },
+    { name:'Performance and Deployment', count:12, color:'#fbbf24', desc:'Core Web Vitals monitors, CDN managers, deployment orchestrators' },
+    { name:'Quality Assurance', count:8, color:'#34d399', desc:'Output reviewers, brand voice checkers, accessibility auditors' }
+  ];
+  var grid = document.getElementById('specialistSwarm');
+  specialistData.forEach(function(s,i){
+    var pod = document.createElement('div');
+    pod.className='spec-pod';
+    pod.style.borderTop='2px solid '+s.color;
+    var dots='';
+    for(var d=0;d<s.count;d++){
+      dots+='<span class="spec-dot" style="background:'+s.color+';animation-delay:'+(d*0.12)+'s"></span>';
+    }
+    pod.innerHTML='<div class="spec-pod-header"><span class="spec-pod-name">'+s.name+'</span><span class="spec-pod-badge" style="color:'+s.color+';background:'+s.color+'1a">'+s.count+'</span></div><div class="spec-dot-grid">'+dots+'</div><p class="spec-desc">'+s.desc+'</p>';
+    grid.appendChild(pod);
+  });
+  // Counter
+  var el=document.getElementById('specCount');
+  var done=false;
+  var obs=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting&&!done){
+      done=true;
+      var start=0,end=100,dur=1600,t0=null;
+      function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);el.textContent=Math.round(p*end);if(p<1)requestAnimationFrame(step);}
+      requestAnimationFrame(step);
+    }
+  },{threshold:0.3});
+  obs.observe(el);
+})();
+</script>
+
 <!-- Section 2: Weekly Workflow Timeline -->
 <section id="workflow">
   <div class="container">
